@@ -1,7 +1,8 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useCallback, useState } from 'react';
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { Plus, Minus } from 'lucide-react';
 import { RadioStation } from '@/data/radioStations';
 
 export interface GlobeProps {
@@ -10,6 +11,10 @@ export interface GlobeProps {
   isPlaying: boolean;
   onStationFocus: (station: RadioStation | null) => void;
   onGlobeClick: () => void;
+}
+
+interface GlobeSceneProps extends GlobeProps {
+  controlsRef: React.RefObject<any>;
 }
 
 const GLOBE_RADIUS = 2;
@@ -91,7 +96,7 @@ const FocusedMarker = ({ station }: { station: RadioStation }) => {
 };
 
 /* ── Scene with Earth, points, raycasting ── */
-const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlobeClick }: GlobeProps) => {
+const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlobeClick, controlsRef }: GlobeSceneProps) => {
   const globeMeshRef = useRef<THREE.Mesh>(null);
   const focusedIdRef = useRef<string | null>(null);
   const { camera } = useThree();
@@ -176,6 +181,7 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
 
       {/* Controls */}
       <OrbitControls
+        ref={controlsRef}
         enablePan={false}
         enableZoom
         minDistance={2.5}
@@ -189,14 +195,50 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
   );
 };
 
-export const Globe = (props: GlobeProps) => (
-  <div className="w-full h-full">
-    <Canvas
-      camera={{ position: [0, 0, 5], fov: 45 }}
-      gl={{ antialias: true, alpha: true }}
-      style={{ background: 'transparent' }}
-    >
-      <GlobeScene {...props} />
-    </Canvas>
-  </div>
-);
+export const Globe = (props: GlobeProps) => {
+  const controlsRef = useRef<any>(null);
+
+  const handleZoom = useCallback((direction: 'in' | 'out') => {
+    const controls = controlsRef.current;
+    if (!controls) return;
+    const camera = controls.object;
+    const target = controls.target;
+    const offset = camera.position.clone().sub(target);
+    const distance = offset.length();
+    const factor = direction === 'in' ? 0.8 : 1.25;
+    const newDistance = Math.max(2.5, Math.min(8, distance * factor));
+    offset.normalize().multiplyScalar(newDistance);
+    camera.position.copy(target).add(offset);
+    controls.update();
+  }, []);
+
+  return (
+    <div className="w-full h-full relative">
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 45 }}
+        gl={{ antialias: true, alpha: true }}
+        style={{ background: 'transparent' }}
+      >
+        <GlobeScene {...props} controlsRef={controlsRef} />
+      </Canvas>
+
+      {/* Zoom controls */}
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
+        <button
+          onClick={() => handleZoom('in')}
+          className="glass w-10 h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-primary hover:glow-primary transition-all"
+          aria-label="Zoom in"
+        >
+          <Plus className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => handleZoom('out')}
+          className="glass w-10 h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-primary hover:glow-primary transition-all"
+          aria-label="Zoom out"
+        >
+          <Minus className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  );
+};
