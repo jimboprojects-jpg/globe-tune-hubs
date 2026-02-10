@@ -27,20 +27,20 @@ export const StationList = ({
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
 
-  const countries = useMemo(() => getCountries(), []);
+  const countries = useMemo(() => getCountries(stations), [stations]);
 
   const filteredStations = useMemo(() => {
+    // Require a search or country filter before showing results (too many stations otherwise)
+    if (!searchQuery && !selectedCountry) return [];
+
     let result = stations;
-    
     if (searchQuery) {
-      result = searchStations(searchQuery);
+      result = searchStations(stations, searchQuery);
     }
-    
     if (selectedCountry) {
       result = result.filter(s => s.country === selectedCountry);
     }
-    
-    return result;
+    return result.slice(0, 200);
   }, [stations, searchQuery, selectedCountry]);
 
   const groupedStations = useMemo(() => {
@@ -66,7 +66,7 @@ export const StationList = ({
             onClick={onClose}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
           />
-          
+
           {/* Panel */}
           <motion.div
             initial={{ x: -400, opacity: 0 }}
@@ -81,24 +81,29 @@ export const StationList = ({
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
                     <Globe2 className="w-5 h-5 text-primary" />
-                    <h2 className="text-lg font-semibold">Stations</h2>
+                    <h2 className="text-lg font-semibold">
+                      Stations{' '}
+                      <span className="text-sm text-muted-foreground font-normal">
+                        ({stations.length.toLocaleString()})
+                      </span>
+                    </h2>
                   </div>
                   <Button variant="ghost" size="icon" onClick={onClose}>
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                
+
                 {/* Search */}
                 <div className="relative mb-3">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search stations, cities, genres..."
+                    placeholder="Search stations, cities, genres…"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={e => setSearchQuery(e.target.value)}
                     className="pl-10 bg-muted/50 border-border/50"
                   />
                 </div>
-                
+
                 {/* Country Filter */}
                 <div className="relative">
                   <Button
@@ -110,9 +115,11 @@ export const StationList = ({
                       <MapPin className="w-4 h-4" />
                       {selectedCountry || 'All Countries'}
                     </span>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`}
+                    />
                   </Button>
-                  
+
                   <AnimatePresence>
                     {showCountryDropdown && (
                       <motion.div
@@ -147,10 +154,21 @@ export const StationList = ({
                   </AnimatePresence>
                 </div>
               </div>
-              
+
               {/* Stations List */}
               <ScrollArea className="flex-1">
                 <div className="p-4 space-y-6">
+                  {/* Prompt when no filter active */}
+                  {!searchQuery && !selectedCountry && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Search className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                      <p>Search for stations, cities, or countries</p>
+                      <p className="text-xs mt-1">
+                        {stations.length.toLocaleString()} stations available
+                      </p>
+                    </div>
+                  )}
+
                   {Object.entries(groupedStations).map(([country, countryStations]) => (
                     <div key={country}>
                       <h3 className="text-xs uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-2">
@@ -158,9 +176,8 @@ export const StationList = ({
                         {country} ({countryStations.length})
                       </h3>
                       <div className="space-y-1">
-                        {countryStations.map((station) => {
+                        {countryStations.map(station => {
                           const isActive = currentStation?.id === station.id;
-                          
                           return (
                             <motion.button
                               key={station.id}
@@ -176,27 +193,32 @@ export const StationList = ({
                               }`}
                             >
                               <div className="flex items-start gap-3">
-                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                  isActive && isPlaying
-                                    ? 'bg-accent/30'
-                                    : isActive
-                                      ? 'bg-primary/30'
-                                      : 'bg-muted'
-                                }`}>
-                                  <Radio className={`w-4 h-4 ${
+                                <div
+                                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                     isActive && isPlaying
-                                      ? 'text-accent'
+                                      ? 'bg-accent/30'
                                       : isActive
-                                        ? 'text-primary'
-                                        : 'text-muted-foreground'
-                                  }`} />
+                                        ? 'bg-primary/30'
+                                        : 'bg-muted'
+                                  }`}
+                                >
+                                  <Radio
+                                    className={`w-4 h-4 ${
+                                      isActive && isPlaying
+                                        ? 'text-accent'
+                                        : isActive
+                                          ? 'text-primary'
+                                          : 'text-muted-foreground'
+                                    }`}
+                                  />
                                 </div>
-                                
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2">
-                                    <span className={`font-medium truncate ${
-                                      isActive ? 'text-foreground' : 'text-foreground/80'
-                                    }`}>
+                                    <span
+                                      className={`font-medium truncate ${
+                                        isActive ? 'text-foreground' : 'text-foreground/80'
+                                      }`}
+                                    >
                                       {station.name}
                                     </span>
                                     {isActive && isPlaying && (
@@ -220,8 +242,8 @@ export const StationList = ({
                       </div>
                     </div>
                   ))}
-                  
-                  {filteredStations.length === 0 && (
+
+                  {(searchQuery || selectedCountry) && filteredStations.length === 0 && (
                     <div className="text-center py-8 text-muted-foreground">
                       <Radio className="w-8 h-8 mx-auto mb-2 opacity-50" />
                       <p>No stations found</p>
@@ -229,11 +251,11 @@ export const StationList = ({
                   )}
                 </div>
               </ScrollArea>
-              
+
               {/* Stats Footer */}
               <div className="p-4 border-t border-border/50">
                 <div className="text-xs text-muted-foreground text-center">
-                  {filteredStations.length} stations across {Object.keys(groupedStations).length} countries
+                  Showing {filteredStations.length} of {stations.length.toLocaleString()} stations
                 </div>
               </div>
             </div>
