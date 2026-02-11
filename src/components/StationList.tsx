@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Radio, MapPin, Music, ChevronDown, Globe2, X } from 'lucide-react';
+import { Search, Radio, MapPin, Music, ChevronDown, Globe2, X, Languages, Headphones } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { RadioStation, getCountries, searchStations } from '@/data/radioStations';
+import { RadioStation, getCountries, getGenres, getLanguages, searchStations } from '@/data/radioStations';
 
 interface StationListProps {
   stations: RadioStation[];
@@ -14,6 +14,8 @@ interface StationListProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+type FilterType = 'country' | 'genre' | 'language';
 
 export const StationList = ({
   stations,
@@ -25,40 +27,87 @@ export const StationList = ({
 }: StationListProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<FilterType | null>(null);
 
   const countries = useMemo(() => getCountries(stations), [stations]);
+  const genres = useMemo(() => getGenres(stations), [stations]);
+  const languages = useMemo(() => getLanguages(stations), [stations]);
 
   const filteredStations = useMemo(() => {
-    // Require a search or country filter before showing results (too many stations otherwise)
-    if (!searchQuery && !selectedCountry) return [];
-
+    if (!searchQuery && !selectedCountry && !selectedGenre && !selectedLanguage) return [];
     let result = stations;
-    if (searchQuery) {
-      result = searchStations(stations, searchQuery);
-    }
-    if (selectedCountry) {
-      result = result.filter(s => s.country === selectedCountry);
-    }
+    if (searchQuery) result = searchStations(stations, searchQuery);
+    if (selectedCountry) result = result.filter(s => s.country === selectedCountry);
+    if (selectedGenre) result = result.filter(s => s.genre === selectedGenre || s.tags.includes(selectedGenre!));
+    if (selectedLanguage) result = result.filter(s => s.language === selectedLanguage);
     return result.slice(0, 200);
-  }, [stations, searchQuery, selectedCountry]);
+  }, [stations, searchQuery, selectedCountry, selectedGenre, selectedLanguage]);
 
   const groupedStations = useMemo(() => {
     const groups: Record<string, RadioStation[]> = {};
     filteredStations.forEach(station => {
-      if (!groups[station.country]) {
-        groups[station.country] = [];
-      }
+      if (!groups[station.country]) groups[station.country] = [];
       groups[station.country].push(station);
     });
     return groups;
   }, [filteredStations]);
 
+  const renderDropdown = (
+    type: FilterType,
+    items: string[],
+    selected: string | null,
+    onSelect: (v: string | null) => void,
+    icon: React.ReactNode,
+    label: string
+  ) => (
+    <div className="relative">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => setActiveDropdown(activeDropdown === type ? null : type)}
+        className={`justify-between bg-muted/50 border-border/50 text-xs h-8 ${selected ? 'text-primary border-primary/30' : ''}`}
+      >
+        <span className="flex items-center gap-1.5 truncate">
+          {icon}
+          {selected || label}
+        </span>
+        <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${activeDropdown === type ? 'rotate-180' : ''}`} />
+      </Button>
+      <AnimatePresence>
+        {activeDropdown === type && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute top-full left-0 right-0 mt-1 glass-strong rounded-lg border border-border/50 max-h-48 overflow-auto z-10 min-w-[180px]"
+          >
+            <button
+              onClick={() => { onSelect(null); setActiveDropdown(null); }}
+              className="w-full px-3 py-1.5 text-left text-xs hover:bg-primary/10 transition-colors"
+            >
+              All {label}
+            </button>
+            {items.map(item => (
+              <button
+                key={item}
+                onClick={() => { onSelect(item); setActiveDropdown(null); }}
+                className="w-full px-3 py-1.5 text-left text-xs hover:bg-primary/10 transition-colors truncate"
+              >
+                {item}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -66,8 +115,6 @@ export const StationList = ({
             onClick={onClose}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
           />
-
-          {/* Panel */}
           <motion.div
             initial={{ x: -400, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -78,7 +125,7 @@ export const StationList = ({
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="p-4 border-b border-border/50">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Globe2 className="w-5 h-5 text-primary" />
                     <h2 className="text-lg font-semibold">
@@ -97,75 +144,29 @@ export const StationList = ({
                 <div className="relative mb-3">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search stations, cities, genres…"
+                    placeholder="Search stations, cities, genres, languages…"
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    className="pl-10 bg-muted/50 border-border/50"
+                    className="pl-10 bg-muted/50 border-border/50 text-sm h-9"
                   />
                 </div>
 
-                {/* Country Filter */}
-                <div className="relative">
-                  <Button
-                    variant="outline"
-                    onClick={() => setShowCountryDropdown(!showCountryDropdown)}
-                    className="w-full justify-between bg-muted/50 border-border/50"
-                  >
-                    <span className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      {selectedCountry || 'All Countries'}
-                    </span>
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`}
-                    />
-                  </Button>
-
-                  <AnimatePresence>
-                    {showCountryDropdown && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute top-full left-0 right-0 mt-1 glass-strong rounded-lg border border-border/50 max-h-48 overflow-auto z-10"
-                      >
-                        <button
-                          onClick={() => {
-                            setSelectedCountry(null);
-                            setShowCountryDropdown(false);
-                          }}
-                          className="w-full px-4 py-2 text-left text-sm hover:bg-primary/10 transition-colors"
-                        >
-                          All Countries
-                        </button>
-                        {countries.map(country => (
-                          <button
-                            key={country}
-                            onClick={() => {
-                              setSelectedCountry(country);
-                              setShowCountryDropdown(false);
-                            }}
-                            className="w-full px-4 py-2 text-left text-sm hover:bg-primary/10 transition-colors"
-                          >
-                            {country}
-                          </button>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                {/* Filter row */}
+                <div className="flex gap-2 flex-wrap">
+                  {renderDropdown('country', countries, selectedCountry, setSelectedCountry, <MapPin className="w-3 h-3" />, 'Country')}
+                  {renderDropdown('genre', genres, selectedGenre, setSelectedGenre, <Music className="w-3 h-3" />, 'Genre')}
+                  {renderDropdown('language', languages, selectedLanguage, setSelectedLanguage, <Languages className="w-3 h-3" />, 'Language')}
                 </div>
               </div>
 
-              {/* Stations List */}
+              {/* Station List */}
               <ScrollArea className="flex-1">
-                <div className="p-4 space-y-6">
-                  {/* Prompt when no filter active */}
-                  {!searchQuery && !selectedCountry && (
+                <div className="p-4 space-y-4">
+                  {!searchQuery && !selectedCountry && !selectedGenre && !selectedLanguage && (
                     <div className="text-center py-8 text-muted-foreground">
                       <Search className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                      <p>Search for stations, cities, or countries</p>
-                      <p className="text-xs mt-1">
-                        {stations.length.toLocaleString()} stations available
-                      </p>
+                      <p className="text-sm">Search or filter stations</p>
+                      <p className="text-xs mt-1">{stations.length.toLocaleString()} stations available</p>
                     </div>
                   )}
 
@@ -193,46 +194,37 @@ export const StationList = ({
                               }`}
                             >
                               <div className="flex items-start gap-3">
-                                <div
-                                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                    isActive && isPlaying
-                                      ? 'bg-accent/30'
-                                      : isActive
-                                        ? 'bg-primary/30'
-                                        : 'bg-muted'
-                                  }`}
-                                >
-                                  <Radio
-                                    className={`w-4 h-4 ${
-                                      isActive && isPlaying
-                                        ? 'text-accent'
-                                        : isActive
-                                          ? 'text-primary'
-                                          : 'text-muted-foreground'
-                                    }`}
-                                  />
+                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                  isActive && isPlaying ? 'bg-accent/30' : isActive ? 'bg-primary/30' : 'bg-muted'
+                                }`}>
+                                  {station.favicon ? (
+                                    <img src={station.favicon} alt="" className="w-6 h-6 rounded object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                                  ) : (
+                                    <Radio className={`w-4 h-4 ${isActive && isPlaying ? 'text-accent' : isActive ? 'text-primary' : 'text-muted-foreground'}`} />
+                                  )}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2">
-                                    <span
-                                      className={`font-medium truncate ${
-                                        isActive ? 'text-foreground' : 'text-foreground/80'
-                                      }`}
-                                    >
+                                    <span className={`font-medium truncate text-sm ${isActive ? 'text-foreground' : 'text-foreground/80'}`}>
                                       {station.name}
                                     </span>
-                                    {isActive && isPlaying && (
-                                      <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                                    )}
+                                    {isActive && isPlaying && <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />}
                                   </div>
-                                  <div className="text-xs text-muted-foreground truncate">
-                                    {station.city}
-                                  </div>
-                                  <div className="flex items-center gap-1 mt-1">
-                                    <Music className="w-3 h-3 text-muted-foreground/70" />
-                                    <span className="text-xs text-muted-foreground/70">
-                                      {station.genre}
+                                  <div className="text-xs text-muted-foreground truncate">{station.city}</div>
+                                  <div className="flex items-center gap-2 mt-1 flex-wrap">
+                                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground/70">
+                                      <Music className="w-2.5 h-2.5" />{station.genre}
                                     </span>
+                                    {station.language && (
+                                      <span className="flex items-center gap-1 text-[10px] text-muted-foreground/70">
+                                        <Languages className="w-2.5 h-2.5" />{station.language}
+                                      </span>
+                                    )}
+                                    {station.bitrate ? (
+                                      <span className="flex items-center gap-1 text-[10px] text-muted-foreground/70">
+                                        <Headphones className="w-2.5 h-2.5" />{station.bitrate}kbps
+                                      </span>
+                                    ) : null}
                                   </div>
                                 </div>
                               </div>
@@ -243,7 +235,7 @@ export const StationList = ({
                     </div>
                   ))}
 
-                  {(searchQuery || selectedCountry) && filteredStations.length === 0 && (
+                  {(searchQuery || selectedCountry || selectedGenre || selectedLanguage) && filteredStations.length === 0 && (
                     <div className="text-center py-8 text-muted-foreground">
                       <Radio className="w-8 h-8 mx-auto mb-2 opacity-50" />
                       <p>No stations found</p>
@@ -252,7 +244,6 @@ export const StationList = ({
                 </div>
               </ScrollArea>
 
-              {/* Stats Footer */}
               <div className="p-4 border-t border-border/50">
                 <div className="text-xs text-muted-foreground text-center">
                   Showing {filteredStations.length} of {stations.length.toLocaleString()} stations

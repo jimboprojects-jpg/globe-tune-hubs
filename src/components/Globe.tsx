@@ -151,8 +151,8 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
 
   return (
     <>
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 3, 5]} intensity={0.8} />
+      <ambientLight intensity={0.9} />
+      <directionalLight position={[5, 3, 5]} intensity={1.0} />
       <pointLight position={[-5, -3, -5]} intensity={0.3} color="#14b8a6" />
 
       {/* Earth */}
@@ -164,13 +164,13 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
         }}
       >
         <sphereGeometry args={[GLOBE_RADIUS, 64, 64]} />
-        <meshStandardMaterial map={earthTexture} roughness={0.9} metalness={0.1} />
+        <meshStandardMaterial map={earthTexture} roughness={0.7} metalness={0.05} emissive="#1a3a4a" emissiveIntensity={0.15} />
       </mesh>
 
       {/* Atmosphere glow */}
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS + 0.05, 64, 64]} />
-        <meshBasicMaterial color="#14b8a6" transparent opacity={0.04} side={THREE.BackSide} />
+        <meshBasicMaterial color="#14b8a6" transparent opacity={0.06} side={THREE.BackSide} />
       </mesh>
 
       {/* Station markers */}
@@ -223,7 +223,7 @@ export const Globe = (props: GlobeProps) => {
       </Canvas>
 
       {/* Zoom controls */}
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
+      <div className="absolute right-4 bottom-8 flex flex-col gap-2 z-10">
         <button
           onClick={() => handleZoom('in')}
           className="glass w-10 h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-primary hover:glow-primary transition-all"
