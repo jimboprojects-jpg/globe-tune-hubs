@@ -1,6 +1,10 @@
 import { RadioStation } from '@/data/radioStations';
 
-const API_BASE = 'https://de1.api.radio-browser.info';
+const API_SERVERS = [
+  'https://de1.api.radio-browser.info',
+  'https://nl1.api.radio-browser.info',
+  'https://at1.api.radio-browser.info',
+];
 
 interface RadioBrowserStation {
   stationuuid: string;
@@ -16,6 +20,11 @@ interface RadioBrowserStation {
   geo_long: number;
   favicon: string;
   clickcount: number;
+  votes: number;
+  codec: string;
+  bitrate: number;
+  homepage: string;
+  lastcheckok: number;
 }
 
 const mapStation = (s: RadioBrowserStation): RadioStation => ({
@@ -25,29 +34,46 @@ const mapStation = (s: RadioBrowserStation): RadioStation => ({
   countryCode: s.countrycode,
   city: s.state || s.country,
   genre: s.tags ? s.tags.split(',')[0].trim() : 'Radio',
+  tags: s.tags ? s.tags.split(',').map(t => t.trim()).filter(Boolean).slice(0, 5) : [],
   streamUrl: s.url_resolved || s.url,
   latitude: s.geo_lat,
   longitude: s.geo_long,
-  language: s.language,
-  favicon: s.favicon,
+  language: s.language || undefined,
+  favicon: s.favicon || undefined,
   clickcount: s.clickcount,
+  votes: s.votes,
+  codec: s.codec || undefined,
+  bitrate: s.bitrate || undefined,
+  homepage: s.homepage || undefined,
 });
 
-export const fetchRadioStations = async (): Promise<RadioStation[]> => {
+const fetchFromServer = async (baseUrl: string): Promise<RadioBrowserStation[]> => {
   const response = await fetch(
-    `${API_BASE}/json/stations?limit=40000&has_geo_info=true&hidebroken=true&order=clickcount&reverse=true`,
+    `${baseUrl}/json/stations?limit=50000&has_geo_info=true&hidebroken=true&lastcheckok=1&order=clickcount&reverse=true`,
     {
-      headers: {
-        'User-Agent': 'RadioVerseApp/1.0',
-      },
+      headers: { 'User-Agent': 'RadioVerseApp/1.0' },
     }
   );
+  if (!response.ok) throw new Error(`Failed: ${response.status}`);
+  return response.json();
+};
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch stations: ${response.status}`);
+export const fetchRadioStations = async (): Promise<RadioStation[]> => {
+  let data: RadioBrowserStation[] = [];
+
+  // Try servers in order (failover)
+  for (const server of API_SERVERS) {
+    try {
+      data = await fetchFromServer(server);
+      break;
+    } catch {
+      continue;
+    }
   }
 
-  const data: RadioBrowserStation[] = await response.json();
+  if (data.length === 0) {
+    throw new Error('All RadioBrowser servers failed');
+  }
 
   return data
     .filter(s => s.geo_lat !== 0 && s.geo_long !== 0 && s.name.trim())
