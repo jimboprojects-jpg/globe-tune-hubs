@@ -151,8 +151,8 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
 
   return (
     <>
-      <ambientLight intensity={0.9} />
-      <directionalLight position={[5, 3, 5]} intensity={1.0} />
+      <ambientLight intensity={1.5} />
+      <directionalLight position={[5, 3, 5]} intensity={1.2} />
       <pointLight position={[-5, -3, -5]} intensity={0.3} color="#14b8a6" />
 
       {/* Earth */}
@@ -164,7 +164,7 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
         }}
       >
         <sphereGeometry args={[GLOBE_RADIUS, 64, 64]} />
-        <meshStandardMaterial map={earthTexture} roughness={0.7} metalness={0.05} emissive="#1a3a4a" emissiveIntensity={0.15} />
+        <meshStandardMaterial map={earthTexture} roughness={0.5} metalness={0.0} emissive="#000000" emissiveIntensity={0} />
       </mesh>
 
       {/* Atmosphere glow */}
