@@ -8,6 +8,7 @@ import { InfoModal } from '@/components/InfoModal';
 import { FocusCircle } from '@/components/FocusCircle';
 import { SatelliteLoader } from '@/components/SatelliteLoader';
 import { useRadioPlayer } from '@/hooks/useRadioPlayer';
+import { useEqualizer } from '@/hooks/useEqualizer';
 import { RadioStation } from '@/data/radioStations';
 import { fetchRadioStations } from '@/services/radioBrowserApi';
 
@@ -28,7 +29,17 @@ const Index = () => {
     pause,
     setVolume,
     stop,
+    audioElement,
   } = useRadioPlayer();
+
+  const { bands, activePreset, updateBands, applyPreset, initEQ } = useEqualizer();
+
+  // Initialize EQ when audio element is ready
+  useEffect(() => {
+    if (audioElement) {
+      initEQ(audioElement);
+    }
+  }, [audioElement, initEQ]);
 
   // Fetch stations on mount
   useEffect(() => {
@@ -123,6 +134,10 @@ const Index = () => {
         onPause={pause}
         onVolumeChange={setVolume}
         onStop={stop}
+        eqBands={bands}
+        eqActivePreset={activePreset}
+        onEqBandsChange={updateBands}
+        onEqPresetChange={applyPreset}
       />
 
       <InfoModal isOpen={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} />
