@@ -1,23 +1,15 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
 import { Globe } from '@/components/Globe';
 import { Header } from '@/components/Header';
 import { PlayerControls } from '@/components/PlayerControls';
 import { StationList } from '@/components/StationList';
 import { InfoModal } from '@/components/InfoModal';
 import { FocusCircle } from '@/components/FocusCircle';
+import { SatelliteLoader } from '@/components/SatelliteLoader';
 import { useRadioPlayer } from '@/hooks/useRadioPlayer';
 import { RadioStation } from '@/data/radioStations';
 import { fetchRadioStations } from '@/services/radioBrowserApi';
-
-const LoadingFallback = () => (
-  <div className="w-full h-full flex items-center justify-center">
-    <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}>
-      <Loader2 className="w-12 h-12 text-primary" />
-    </motion.div>
-  </div>
-);
 
 const Index = () => {
   const [stations, setStations] = useState<RadioStation[]>([]);
@@ -78,14 +70,9 @@ const Index = () => {
 
       <main className="h-screen pt-14 pb-24">
         {isLoadingStations ? (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-4">
-            <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}>
-              <Loader2 className="w-12 h-12 text-primary" />
-            </motion.div>
-            <p className="text-muted-foreground text-sm">Loading radio stations worldwide…</p>
-          </div>
+          <SatelliteLoader />
         ) : (
-          <Suspense fallback={<LoadingFallback />}>
+          <Suspense fallback={<SatelliteLoader message="Initializing globe…" />}>
             <Globe
               stations={stations}
               focusedStation={focusedStation}
