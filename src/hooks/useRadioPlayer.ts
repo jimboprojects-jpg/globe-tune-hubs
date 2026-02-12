@@ -12,6 +12,7 @@ interface UseRadioPlayerReturn {
   toggle: () => void;
   setVolume: (volume: number) => void;
   stop: () => void;
+  audioElement: HTMLAudioElement | null;
 }
 
 export const useRadioPlayer = (): UseRadioPlayerReturn => {
@@ -138,5 +139,6 @@ export const useRadioPlayer = (): UseRadioPlayerReturn => {
     toggle,
     setVolume,
     stop,
+    audioElement: audioRef.current,
   };
 };
