@@ -95,7 +95,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="fixed bottom-28 left-0 right-0 flex justify-center pointer-events-none z-10"
+            className="fixed bottom-6 left-0 right-0 flex justify-center pointer-events-none z-10"
           >
             <div className="text-center">
               <p className="text-muted-foreground text-sm md:text-base">

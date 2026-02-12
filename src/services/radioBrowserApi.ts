@@ -49,10 +49,7 @@ const mapStation = (s: RadioBrowserStation): RadioStation => ({
 
 const fetchFromServer = async (baseUrl: string): Promise<RadioBrowserStation[]> => {
   const response = await fetch(
-    `${baseUrl}/json/stations?limit=50000&has_geo_info=true&hidebroken=true&lastcheckok=1&order=clickcount&reverse=true`,
-    {
-      headers: { 'User-Agent': 'RadioVerseApp/1.0' },
-    }
+    `${baseUrl}/json/stations?limit=50000&has_geo_info=true&hidebroken=true&lastcheckok=1&order=clickcount&reverse=true`
   );
   if (!response.ok) throw new Error(`Failed: ${response.status}`);
   return response.json();
