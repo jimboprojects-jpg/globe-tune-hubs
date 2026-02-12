@@ -207,38 +207,4 @@
   .animate-twinkle {
     animation: twinkle 3s ease-in-out infinite;
   }
-
-  /* EQ vertical slider styling */
-  .eq-slider {
-    cursor: pointer;
-  }
-  .eq-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: hsl(var(--primary));
-    box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
-    cursor: pointer;
-  }
-  .eq-slider::-webkit-slider-runnable-track {
-    width: 4px;
-    background: hsl(var(--muted));
-    border-radius: 2px;
-  }
-  .eq-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: hsl(var(--primary));
-    box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
-    border: none;
-    cursor: pointer;
-  }
-  .eq-slider::-moz-range-track {
-    width: 4px;
-    background: hsl(var(--muted));
-    border-radius: 2px;
-  }
 }

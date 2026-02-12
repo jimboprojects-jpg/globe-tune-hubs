@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Radio, MapPin, Music, Loader2, X, SlidersHorizontal, Globe2, Headphones, ExternalLink } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Radio, MapPin, Music, Loader2, X } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { RadioStation } from '@/data/radioStations';
@@ -15,7 +15,6 @@ interface PlayerControlsProps {
   onPause: () => void;
   onVolumeChange: (value: number) => void;
   onStop: () => void;
-  onEqToggle: () => void;
 }
 
 export const PlayerControls = ({
@@ -28,7 +27,6 @@ export const PlayerControls = ({
   onPause,
   onVolumeChange,
   onStop,
-  onEqToggle,
 }: PlayerControlsProps) => {
   const isMuted = volume === 0;
 
@@ -42,77 +40,41 @@ export const PlayerControls = ({
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           className="fixed bottom-0 left-0 right-0 z-50"
         >
-          <div className="glass-strong border-t border-border/50 px-4 py-3 md:px-8">
-            <div className="max-w-7xl mx-auto flex items-center gap-3 md:gap-6">
+          <div className="glass-strong border-t border-border/50 px-4 py-4 md:px-8">
+            <div className="max-w-7xl mx-auto flex items-center gap-4 md:gap-8">
               {/* Station Info */}
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div className="relative flex-shrink-0">
-                  {station.favicon ? (
-                    <img
-                      src={station.favicon}
-                      alt=""
-                      className="w-12 h-12 md:w-14 md:h-14 rounded-xl object-cover bg-muted"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                    />
-                  ) : (
-                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center ${
-                      isPlaying ? 'bg-accent/20' : 'bg-primary/20'
-                    } transition-all duration-500`}>
-                      <Radio className={`w-6 h-6 ${isPlaying ? 'text-accent' : 'text-primary'}`} />
-                    </div>
-                  )}
+                <div className="relative">
+                  <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center ${
+                    isPlaying ? 'bg-accent/20 glow-accent' : 'bg-primary/20 glow-primary'
+                  } transition-all duration-500`}>
+                    <Radio className={`w-6 h-6 ${isPlaying ? 'text-accent' : 'text-primary'}`} />
+                  </div>
                   {isPlaying && (
                     <motion.div
                       className="absolute -top-1 -right-1"
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ repeat: Infinity, duration: 2 }}
                     >
-                      <div className="w-3 h-3 bg-accent rounded-full shadow-[0_0_8px_hsl(var(--accent))]" />
+                      <div className="w-3 h-3 bg-accent rounded-full glow-accent" />
                     </motion.div>
                   )}
                 </div>
-
+                
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-foreground truncate text-sm md:text-base">
                       {station.name}
                     </h3>
-                    {isPlaying && <AudioVisualizer isPlaying={isPlaying} size="md" />}
+                    {isPlaying && <AudioVisualizer isPlaying={isPlaying} />}
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1 truncate">
-                      <MapPin className="w-3 h-3 flex-shrink-0" />
-                      {station.city}, {station.country}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Music className="w-3 h-3 flex-shrink-0" />
-                      {station.genre}
-                    </span>
+                  <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+                    <MapPin className="w-3 h-3 flex-shrink-0" />
+                    <span className="truncate">{station.city}, {station.country}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-[10px] text-muted-foreground/60 mt-0.5">
-                    {station.language && (
-                      <span className="flex items-center gap-1">
-                        <Globe2 className="w-2.5 h-2.5" />
-                        {station.language}
-                      </span>
-                    )}
-                    {station.codec && station.bitrate ? (
-                      <span className="flex items-center gap-1">
-                        <Headphones className="w-2.5 h-2.5" />
-                        {station.codec} {station.bitrate}kbps
-                      </span>
-                    ) : null}
-                    {station.homepage && (
-                      <a
-                        href={station.homepage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 hover:text-primary transition-colors pointer-events-auto"
-                      >
-                        <ExternalLink className="w-2.5 h-2.5" />
-                        Website
-                      </a>
-                    )}
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
+                    <Music className="w-3 h-3 flex-shrink-0" />
+                    <span className="truncate">{station.genre}</span>
                   </div>
                 </div>
               </div>
@@ -125,27 +87,17 @@ export const PlayerControls = ({
               )}
 
               {/* Playback Controls */}
-              <div className="flex items-center gap-2 md:gap-3">
-                {/* EQ Button */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={onEqToggle}
-                  className="hidden md:flex text-muted-foreground hover:text-primary"
-                >
-                  <SlidersHorizontal className="w-5 h-5" />
-                </Button>
-
-                {/* Play/Pause */}
+              <div className="flex items-center gap-2 md:gap-4">
+                {/* Play/Pause Button */}
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={isPlaying ? onPause : onPlay}
                   disabled={isLoading}
                   className={`w-12 h-12 md:w-14 md:h-14 rounded-full ${
-                    isPlaying
-                      ? 'bg-accent text-accent-foreground hover:bg-accent/90'
-                      : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    isPlaying 
+                      ? 'bg-accent text-accent-foreground hover:bg-accent/90 glow-accent' 
+                      : 'bg-primary text-primary-foreground hover:bg-primary/90 glow-primary'
                   } transition-all duration-300`}
                 >
                   {isLoading ? (
@@ -157,7 +109,7 @@ export const PlayerControls = ({
                   )}
                 </Button>
 
-                {/* Volume */}
+                {/* Volume Control */}
                 <div className="hidden md:flex items-center gap-2">
                   <Button
                     variant="ghost"
@@ -165,7 +117,11 @@ export const PlayerControls = ({
                     onClick={() => onVolumeChange(isMuted ? 0.7 : 0)}
                     className="text-muted-foreground hover:text-foreground"
                   >
-                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                    {isMuted ? (
+                      <VolumeX className="w-5 h-5" />
+                    ) : (
+                      <Volume2 className="w-5 h-5" />
+                    )}
                   </Button>
                   <Slider
                     value={[volume * 100]}
@@ -176,7 +132,7 @@ export const PlayerControls = ({
                   />
                 </div>
 
-                {/* Close */}
+                {/* Close Button */}
                 <Button
                   variant="ghost"
                   size="icon"

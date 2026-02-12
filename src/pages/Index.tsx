@@ -1,16 +1,23 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
 import { Globe } from '@/components/Globe';
 import { Header } from '@/components/Header';
 import { PlayerControls } from '@/components/PlayerControls';
 import { StationList } from '@/components/StationList';
 import { InfoModal } from '@/components/InfoModal';
 import { FocusCircle } from '@/components/FocusCircle';
-import { Equalizer } from '@/components/Equalizer';
-import { SatelliteLoader } from '@/components/SatelliteLoader';
 import { useRadioPlayer } from '@/hooks/useRadioPlayer';
 import { RadioStation } from '@/data/radioStations';
 import { fetchRadioStations } from '@/services/radioBrowserApi';
+
+const LoadingFallback = () => (
+  <div className="w-full h-full flex items-center justify-center">
+    <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}>
+      <Loader2 className="w-12 h-12 text-primary" />
+    </motion.div>
+  </div>
+);
 
 const Index = () => {
   const [stations, setStations] = useState<RadioStation[]>([]);
@@ -18,7 +25,6 @@ const Index = () => {
   const [focusedStation, setFocusedStation] = useState<RadioStation | null>(null);
   const [isStationListOpen, setIsStationListOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-  const [isEqOpen, setIsEqOpen] = useState(false);
 
   const {
     currentStation,
@@ -26,16 +32,13 @@ const Index = () => {
     isLoading,
     volume,
     error,
-    eqGains,
-    activePreset,
     play,
     pause,
     setVolume,
     stop,
-    setEqGain,
-    setEqPreset,
   } = useRadioPlayer();
 
+  // Fetch stations on mount
   useEffect(() => {
     fetchRadioStations()
       .then(setStations)
@@ -43,7 +46,7 @@ const Index = () => {
       .finally(() => setIsLoadingStations(false));
   }, []);
 
-  // Auto-switch when playing and user moves to new station
+  // Auto-switch when already playing and user moves to new station
   useEffect(() => {
     if (isPlaying && focusedStation && focusedStation.id !== currentStation?.id) {
       play(focusedStation);
@@ -52,7 +55,9 @@ const Index = () => {
   }, [focusedStation]);
 
   const handleGlobeClick = useCallback(() => {
-    if (focusedStation) play(focusedStation);
+    if (focusedStation) {
+      play(focusedStation);
+    }
   }, [focusedStation, play]);
 
   const handleStationSelect = useCallback(
@@ -73,9 +78,14 @@ const Index = () => {
 
       <main className="h-screen pt-14 pb-24">
         {isLoadingStations ? (
-          <SatelliteLoader />
+          <div className="w-full h-full flex flex-col items-center justify-center gap-4">
+            <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}>
+              <Loader2 className="w-12 h-12 text-primary" />
+            </motion.div>
+            <p className="text-muted-foreground text-sm">Loading radio stations worldwide…</p>
+          </div>
         ) : (
-          <Suspense fallback={<SatelliteLoader />}>
+          <Suspense fallback={<LoadingFallback />}>
             <Globe
               stations={stations}
               focusedStation={focusedStation}
@@ -95,16 +105,14 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="fixed bottom-6 left-0 right-0 flex justify-center pointer-events-none z-10"
+            className="absolute bottom-32 left-1/2 -translate-x-1/2 text-center pointer-events-none"
           >
-            <div className="text-center">
-              <p className="text-muted-foreground text-sm md:text-base">
-                Rotate the globe to target a <span className="text-primary font-medium">station</span>
-              </p>
-              <p className="text-muted-foreground/60 text-xs mt-1">
-                Drag to rotate · Scroll to zoom · Click to play
-              </p>
-            </div>
+            <p className="text-muted-foreground text-sm md:text-base">
+              Rotate the globe to target a <span className="text-primary font-medium">station</span>
+            </p>
+            <p className="text-muted-foreground/60 text-xs mt-1">
+              Drag to rotate · Scroll to zoom · Click to play
+            </p>
           </motion.div>
         )}
       </main>
@@ -128,16 +136,6 @@ const Index = () => {
         onPause={pause}
         onVolumeChange={setVolume}
         onStop={stop}
-        onEqToggle={() => setIsEqOpen(!isEqOpen)}
-      />
-
-      <Equalizer
-        isOpen={isEqOpen}
-        onClose={() => setIsEqOpen(false)}
-        gains={eqGains}
-        onGainChange={setEqGain}
-        onPresetSelect={setEqPreset}
-        activePreset={activePreset}
       />
 
       <InfoModal isOpen={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} />
