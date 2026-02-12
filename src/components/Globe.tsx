@@ -102,7 +102,9 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
   const { camera } = useThree();
   const raycaster = useMemo(() => new THREE.Raycaster(), []);
 
-  const earthTexture = useLoader(THREE.TextureLoader, '/textures/earth-night.jpg');
+  const earthTexture = useLoader(THREE.TextureLoader, '/textures/earth-hires.jpg');
+  earthTexture.colorSpace = THREE.SRGBColorSpace;
+  earthTexture.anisotropy = 16;
 
   // Pre-compute 3-component flat array for fast lookup
   const stationCoords = useMemo(() => {
@@ -151,9 +153,9 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
 
   return (
     <>
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 3, 5]} intensity={0.8} />
-      <pointLight position={[-5, -3, -5]} intensity={0.3} color="#14b8a6" />
+      <ambientLight intensity={1.2} />
+      <directionalLight position={[5, 3, 5]} intensity={1.5} />
+      <pointLight position={[-5, -3, -5]} intensity={0.5} color="#14b8a6" />
 
       {/* Earth */}
       <mesh
@@ -164,7 +166,7 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
         }}
       >
         <sphereGeometry args={[GLOBE_RADIUS, 64, 64]} />
-        <meshStandardMaterial map={earthTexture} roughness={0.9} metalness={0.1} />
+        <meshStandardMaterial map={earthTexture} roughness={0.6} metalness={0.05} />
       </mesh>
 
       {/* Atmosphere glow */}
