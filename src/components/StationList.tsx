@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Radio, MapPin, Music, ChevronDown, Globe2, X } from 'lucide-react';
+import { Search, Radio, MapPin, Music, ChevronDown, Globe2, X, Heart } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -13,6 +13,9 @@ interface StationListProps {
   onStationSelect: (station: RadioStation) => void;
   isOpen: boolean;
   onClose: () => void;
+  isFavorite: (stationId: string) => boolean;
+  onToggleFavorite: (stationId: string) => void;
+  favoriteIds: Set<string>;
 }
 
 export const StationList = ({
@@ -22,14 +25,25 @@ export const StationList = ({
   onStationSelect,
   isOpen,
   onClose,
+  isFavorite,
+  onToggleFavorite,
+  favoriteIds,
 }: StationListProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   const countries = useMemo(() => getCountries(stations), [stations]);
 
   const filteredStations = useMemo(() => {
+    if (showFavoritesOnly) {
+      let result = stations.filter(s => favoriteIds.has(s.id));
+      if (searchQuery) result = searchStations(result, searchQuery);
+      if (selectedCountry) result = result.filter(s => s.country === selectedCountry);
+      return result.slice(0, 200);
+    }
+
     // Require a search or country filter before showing results (too many stations otherwise)
     if (!searchQuery && !selectedCountry) return [];
 
@@ -41,7 +55,7 @@ export const StationList = ({
       result = result.filter(s => s.country === selectedCountry);
     }
     return result.slice(0, 200);
-  }, [stations, searchQuery, selectedCountry]);
+  }, [stations, searchQuery, selectedCountry, showFavoritesOnly, favoriteIds]);
 
   const groupedStations = useMemo(() => {
     const groups: Record<string, RadioStation[]> = {};
@@ -90,6 +104,19 @@ export const StationList = ({
                   </div>
                   <Button variant="ghost" size="icon" onClick={onClose}>
                     <X className="w-5 h-5" />
+                  </Button>
+                </div>
+
+                {/* Favorites toggle */}
+                <div className="mb-3">
+                  <Button
+                    variant={showFavoritesOnly ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                    className="gap-2"
+                  >
+                    <Heart className={`w-4 h-4 ${showFavoritesOnly ? 'fill-current' : ''}`} />
+                    Favorites ({favoriteIds.size})
                   </Button>
                 </div>
 
@@ -159,13 +186,20 @@ export const StationList = ({
               <ScrollArea className="flex-1">
                 <div className="p-4 space-y-6">
                   {/* Prompt when no filter active */}
-                  {!searchQuery && !selectedCountry && (
+                  {!showFavoritesOnly && !searchQuery && !selectedCountry && (
                     <div className="text-center py-8 text-muted-foreground">
                       <Search className="w-8 h-8 mx-auto mb-2 opacity-50" />
                       <p>Search for stations, cities, or countries</p>
                       <p className="text-xs mt-1">
                         {stations.length.toLocaleString()} stations available
                       </p>
+                    </div>
+                  )}
+                  {showFavoritesOnly && favoriteIds.size === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Heart className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                      <p>No favorites yet</p>
+                      <p className="text-xs mt-1">Tap the heart icon on any station to save it</p>
                     </div>
                   )}
 
@@ -235,6 +269,17 @@ export const StationList = ({
                                     </span>
                                   </div>
                                 </div>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onToggleFavorite(station.id);
+                                  }}
+                                  className={`flex-shrink-0 p-1 rounded-full transition-colors ${
+                                    isFavorite(station.id) ? 'text-red-500' : 'text-muted-foreground/40 hover:text-muted-foreground'
+                                  }`}
+                                >
+                                  <Heart className={`w-4 h-4 ${isFavorite(station.id) ? 'fill-current' : ''}`} />
+                                </button>
                               </div>
                             </motion.button>
                           );

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Radio, MapPin, Music, Loader2, X, Globe, Signal } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Radio, MapPin, Music, Loader2, X, Globe, Signal, Heart } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { RadioStation } from '@/data/radioStations';
@@ -20,6 +20,8 @@ interface PlayerControlsProps {
   eqActivePreset: string;
   onEqBandsChange: (bands: number[]) => void;
   onEqPresetChange: (preset: EQPreset) => void;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
 }
 
 export const PlayerControls = ({
@@ -36,6 +38,8 @@ export const PlayerControls = ({
   eqActivePreset,
   onEqBandsChange,
   onEqPresetChange,
+  isFavorite,
+  onToggleFavorite,
 }: PlayerControlsProps) => {
   const isMuted = volume === 0;
 
@@ -179,6 +183,16 @@ export const PlayerControls = ({
                     className="w-24"
                   />
                 </div>
+
+                {/* Favorite Button */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onToggleFavorite}
+                  className={isFavorite ? 'text-red-500 hover:text-red-400' : 'text-muted-foreground hover:text-foreground'}
+                >
+                  <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+                </Button>
 
                 {/* Close Button */}
                 <Button

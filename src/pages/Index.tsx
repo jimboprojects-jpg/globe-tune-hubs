@@ -9,6 +9,7 @@ import { FocusCircle } from '@/components/FocusCircle';
 import { SatelliteLoader } from '@/components/SatelliteLoader';
 import { useRadioPlayer } from '@/hooks/useRadioPlayer';
 import { useEqualizer } from '@/hooks/useEqualizer';
+import { useFavorites } from '@/hooks/useFavorites';
 import { RadioStation } from '@/data/radioStations';
 import { fetchRadioStations } from '@/services/radioBrowserApi';
 
@@ -33,6 +34,7 @@ const Index = () => {
   } = useRadioPlayer();
 
   const { bands, activePreset, updateBands, applyPreset, initEQ } = useEqualizer();
+  const { toggleFavorite, isFavorite, favoriteIds } = useFavorites();
 
   // Initialize EQ when audio element is ready
   useEffect(() => {
@@ -130,6 +132,9 @@ const Index = () => {
         onStationSelect={handleStationSelect}
         isOpen={isStationListOpen}
         onClose={() => setIsStationListOpen(false)}
+        isFavorite={isFavorite}
+        onToggleFavorite={toggleFavorite}
+        favoriteIds={favoriteIds}
       />
 
       <PlayerControls
@@ -146,6 +151,8 @@ const Index = () => {
         eqActivePreset={activePreset}
         onEqBandsChange={updateBands}
         onEqPresetChange={applyPreset}
+        isFavorite={currentStation ? isFavorite(currentStation.id) : false}
+        onToggleFavorite={() => currentStation && toggleFavorite(currentStation.id)}
       />
 
       <InfoModal isOpen={isInfoModalOpen} onClose={() => setIsInfoModalOpen(false)} />

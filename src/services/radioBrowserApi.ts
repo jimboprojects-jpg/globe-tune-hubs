@@ -35,7 +35,7 @@ const mapStation = (s: RadioBrowserStation): RadioStation => ({
 
 export const fetchRadioStations = async (): Promise<RadioStation[]> => {
   const response = await fetch(
-    `${API_BASE}/json/stations?limit=5000&has_geo_info=true&hidebroken=true&order=clickcount&reverse=true`,
+    `${API_BASE}/json/stations?limit=40000&has_geo_info=true&hidebroken=true&order=clickcount&reverse=true`,
     {
       headers: {
         'User-Agent': 'RadioVerseApp/1.0',
