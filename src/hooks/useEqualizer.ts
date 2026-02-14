@@ -13,7 +13,13 @@ export const useEqualizer = () => {
 
   const initEQ = useCallback((audioElement: HTMLAudioElement) => {
     // Don't re-init for the same element
-    if (connectedAudioRef.current === audioElement && contextRef.current) return;
+    if (connectedAudioRef.current === audioElement && contextRef.current) {
+      // Resume if suspended (browser autoplay policy)
+      if (contextRef.current.state === 'suspended') {
+        contextRef.current.resume();
+      }
+      return;
+    }
 
     // Clean up previous
     if (contextRef.current) {
