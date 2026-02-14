@@ -41,6 +41,14 @@ const Index = () => {
     }
   }, [audioElement, initEQ]);
 
+  // Resume AudioContext on any user-initiated play
+  const handlePlay = useCallback((station: RadioStation) => {
+    if (audioElement) {
+      initEQ(audioElement); // will resume if suspended
+    }
+    play(station);
+  }, [audioElement, initEQ, play]);
+
   // Fetch stations on mount
   useEffect(() => {
     fetchRadioStations()
@@ -52,23 +60,23 @@ const Index = () => {
   // Auto-switch when already playing and user moves to new station
   useEffect(() => {
     if (isPlaying && focusedStation && focusedStation.id !== currentStation?.id) {
-      play(focusedStation);
+      handlePlay(focusedStation);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedStation]);
 
   const handleGlobeClick = useCallback(() => {
     if (focusedStation) {
-      play(focusedStation);
+      handlePlay(focusedStation);
     }
-  }, [focusedStation, play]);
+  }, [focusedStation, handlePlay]);
 
   const handleStationSelect = useCallback(
     (station: RadioStation) => {
-      play(station);
+      handlePlay(station);
       setIsStationListOpen(false);
     },
-    [play]
+    [handlePlay]
   );
 
   return (
@@ -130,7 +138,7 @@ const Index = () => {
         isLoading={isLoading}
         volume={volume}
         error={error}
-        onPlay={() => currentStation && play(currentStation)}
+        onPlay={() => currentStation && handlePlay(currentStation)}
         onPause={pause}
         onVolumeChange={setVolume}
         onStop={stop}

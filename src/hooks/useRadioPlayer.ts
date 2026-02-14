@@ -26,6 +26,7 @@ export const useRadioPlayer = (): UseRadioPlayerReturn => {
   // Initialize audio element
   useEffect(() => {
     audioRef.current = new Audio();
+    audioRef.current.crossOrigin = 'anonymous';
     audioRef.current.volume = volume;
     
     const audio = audioRef.current;
@@ -87,9 +88,12 @@ export const useRadioPlayer = (): UseRadioPlayerReturn => {
     
     // New station
     setCurrentStation(station);
+    audioRef.current.pause();
     audioRef.current.src = station.streamUrl;
+    audioRef.current.crossOrigin = 'anonymous';
     audioRef.current.load();
-    audioRef.current.play().catch(() => {
+    audioRef.current.play().catch((err) => {
+      console.error('Play error:', err);
       setError('Unable to connect to station. Please try another.');
       setIsLoading(false);
     });
