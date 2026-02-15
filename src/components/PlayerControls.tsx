@@ -113,12 +113,6 @@ export const PlayerControls = ({
                   </div>
                 </div>
 
-                {/* Full visualizer */}
-                {isPlaying && (
-                  <div className="hidden lg:block">
-                    <AudioVisualizer isPlaying={isPlaying} variant="full" />
-                  </div>
-                )}
               </div>
 
               {/* Error Message */}
