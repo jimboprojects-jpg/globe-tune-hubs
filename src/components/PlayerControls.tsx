@@ -155,7 +155,21 @@ export const PlayerControls = ({
                   )}
                 </Button>
 
-                {/* Volume Control */}
+                {/* Volume Control - Mobile: toggle button only */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => onVolumeChange(isMuted ? 0.7 : 0)}
+                  className="md:hidden text-muted-foreground hover:text-foreground"
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-5 h-5" />
+                  ) : (
+                    <Volume2 className="w-5 h-5" />
+                  )}
+                </Button>
+
+                {/* Volume Control - Desktop: button + slider */}
                 <div className="hidden md:flex items-center gap-2">
                   <Button
                     variant="ghost"
