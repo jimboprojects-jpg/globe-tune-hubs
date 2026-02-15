@@ -89,7 +89,7 @@ const Index = () => {
         stationCount={stations.length}
       />
 
-      <main className="h-screen pt-14 pb-24">
+      <main className="h-[100dvh] pt-12 md:pt-14 pb-20 md:pb-24">
         {isLoadingStations ? (
           <SatelliteLoader />
         ) : (
@@ -113,7 +113,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="absolute bottom-32 left-1/2 -translate-x-1/2 text-center pointer-events-none"
+            className="absolute bottom-24 md:bottom-32 left-1/2 -translate-x-1/2 text-center pointer-events-none px-4"
           >
             <p className="text-muted-foreground text-sm md:text-base">
               Rotate the globe to target a <span className="text-primary font-medium">station</span>
