@@ -53,12 +53,12 @@ export const PlayerControls = ({
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           className="fixed bottom-0 left-0 right-0 z-50"
         >
-          <div className="glass-strong border-t border-border/50 px-4 py-3 md:px-8">
-            <div className="max-w-7xl mx-auto flex items-center gap-4 md:gap-6">
+          <div className="glass-strong border-t border-border/50 px-3 py-2 md:px-8 md:py-3">
+            <div className="max-w-7xl mx-auto flex items-center gap-2 md:gap-6">
               {/* Station Info */}
               <div className="flex items-center gap-3 flex-1 min-w-0">
                 <div className="relative">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center ${
                     isPlaying ? 'bg-accent/20 glow-accent' : 'bg-primary/20 glow-primary'
                   } transition-all duration-500`}>
                     {station.favicon ? (
@@ -129,7 +129,7 @@ export const PlayerControls = ({
               )}
 
               {/* Playback Controls */}
-              <div className="flex items-center gap-2 md:gap-3 relative">
+              <div className="flex items-center gap-1.5 md:gap-3 relative">
                 {/* Equalizer */}
                 <div className="hidden md:block relative">
                   <Equalizer
@@ -146,7 +146,7 @@ export const PlayerControls = ({
                   size="icon"
                   onClick={isPlaying ? onPause : onPlay}
                   disabled={isLoading}
-                  className={`w-12 h-12 rounded-full ${
+                  className={`w-10 h-10 md:w-12 md:h-12 rounded-full ${
                     isPlaying 
                       ? 'bg-accent text-accent-foreground hover:bg-accent/90 glow-accent' 
                       : 'bg-primary text-primary-foreground hover:bg-primary/90 glow-primary'
