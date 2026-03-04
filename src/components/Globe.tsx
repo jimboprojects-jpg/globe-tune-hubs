@@ -195,7 +195,9 @@ const GlobeScene = forwardRef<any, GlobeSceneProps>(({ stations, focusedStation,
       />
     </>
   );
-};
+});
+
+GlobeScene.displayName = 'GlobeScene';
 
 export const Globe = (props: GlobeProps) => {
   const controlsRef = useRef<any>(null);
