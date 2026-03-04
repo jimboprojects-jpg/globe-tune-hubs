@@ -1,4 +1,4 @@
-import { useRef, useMemo, useCallback, useState } from 'react';
+import { useRef, useMemo, useCallback, useState, forwardRef } from 'react';
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -96,7 +96,7 @@ const FocusedMarker = ({ station }: { station: RadioStation }) => {
 };
 
 /* ── Scene with Earth, points, raycasting ── */
-const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlobeClick, controlsRef }: GlobeSceneProps) => {
+const GlobeScene = forwardRef<any, GlobeSceneProps>(({ stations, focusedStation, isPlaying, onStationFocus, onGlobeClick, controlsRef }, _ref) => {
   const globeMeshRef = useRef<THREE.Mesh>(null);
   const focusedIdRef = useRef<string | null>(null);
   const { camera } = useThree();
@@ -195,7 +195,9 @@ const GlobeScene = ({ stations, focusedStation, isPlaying, onStationFocus, onGlo
       />
     </>
   );
-};
+});
+
+GlobeScene.displayName = 'GlobeScene';
 
 export const Globe = (props: GlobeProps) => {
   const controlsRef = useRef<any>(null);
