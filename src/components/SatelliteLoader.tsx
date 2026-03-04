@@ -58,4 +58,6 @@ export const SatelliteLoader = forwardRef<HTMLDivElement, { message?: string }>(
       </div>
     </div>
   );
-};
+});
+
+SatelliteLoader.displayName = 'SatelliteLoader';
