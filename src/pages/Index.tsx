@@ -11,7 +11,7 @@ import { useRadioPlayer } from '@/hooks/useRadioPlayer';
 import { useEqualizer } from '@/hooks/useEqualizer';
 import { useFavorites } from '@/hooks/useFavorites';
 import { RadioStation } from '@/data/radioStations';
-import { fetchRadioStations } from '@/services/radioBrowserApi';
+import { fetchInitialStations, fetchRemainingStations } from '@/services/radioBrowserApi';
 
 const Index = () => {
   const [stations, setStations] = useState<RadioStation[]>([]);
@@ -51,12 +51,31 @@ const Index = () => {
     play(station);
   }, [audioElement, initEQ, play]);
 
-  // Fetch stations on mount
+  // Fetch stations progressively
   useEffect(() => {
-    fetchRadioStations()
-      .then(setStations)
-      .catch(console.error)
-      .finally(() => setIsLoadingStations(false));
+    let cancelled = false;
+
+    fetchInitialStations()
+      .then((initial) => {
+        if (cancelled) return;
+        setStations(initial);
+        setIsLoadingStations(false);
+
+        // Load remaining stations in background
+        fetchRemainingStations(
+          (batch) => {
+            if (cancelled) return;
+            setStations(prev => [...prev, ...batch]);
+          },
+          (total) => console.log(`Background loading complete: ${total} additional stations loaded`)
+        );
+      })
+      .catch((err) => {
+        console.error('Failed to load stations:', err);
+        setIsLoadingStations(false);
+      });
+
+    return () => { cancelled = true; };
   }, []);
 
   // Auto-switch when already playing and user moves to new station
