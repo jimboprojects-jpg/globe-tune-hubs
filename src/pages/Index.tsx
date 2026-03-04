@@ -16,6 +16,7 @@ import { fetchInitialStations, fetchRemainingStations } from '@/services/radioBr
 const Index = () => {
   const [stations, setStations] = useState<RadioStation[]>([]);
   const [isLoadingStations, setIsLoadingStations] = useState(true);
+  const [isBackgroundLoading, setIsBackgroundLoading] = useState(false);
   const [focusedStation, setFocusedStation] = useState<RadioStation | null>(null);
   const [isStationListOpen, setIsStationListOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -62,12 +63,16 @@ const Index = () => {
         setIsLoadingStations(false);
 
         // Load remaining stations in background
+        setIsBackgroundLoading(true);
         fetchRemainingStations(
           (batch) => {
             if (cancelled) return;
             setStations(prev => [...prev, ...batch]);
           },
-          (total) => console.log(`Background loading complete: ${total} additional stations loaded`)
+          (total) => {
+            console.log(`Background loading complete: ${total} additional stations loaded`);
+            if (!cancelled) setIsBackgroundLoading(false);
+          }
         );
       })
       .catch((err) => {
@@ -106,6 +111,7 @@ const Index = () => {
         onMenuClick={() => setIsStationListOpen(true)}
         onInfoClick={() => setIsInfoModalOpen(true)}
         stationCount={stations.length}
+        isBackgroundLoading={isBackgroundLoading}
       />
 
       <main className="h-[100dvh] pt-12 md:pt-14 pb-20 md:pb-24">
