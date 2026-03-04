@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 
-export const SatelliteLoader = ({ message = 'Loading radio stations worldwide…' }: { message?: string }) => {
+export const SatelliteLoader = forwardRef<HTMLDivElement, { message?: string }>(({ message = 'Loading radio stations worldwide…' }, ref) => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-6 pt-8">
+    <div ref={ref} className="w-full h-full flex flex-col items-center justify-center gap-6 pt-8">
       {/* Earth */}
       <div className="relative w-24 h-24">
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-accent/10 to-secondary/30 shadow-[0_0_40px_hsl(var(--primary)/0.2)]" />
