@@ -1,9 +1,10 @@
-import { useRef, useMemo, useCallback, useState, forwardRef } from 'react';
+import { useRef, useMemo, useCallback, forwardRef } from 'react';
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import { Plus, Minus } from 'lucide-react';
 import { RadioStation } from '@/data/radioStations';
+import { SpatialGrid } from '@/utils/spatialGrid';
 
 export interface GlobeProps {
   stations: RadioStation[];
