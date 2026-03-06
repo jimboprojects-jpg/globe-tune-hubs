@@ -1,6 +1,5 @@
 import { RadioStation } from '@/data/radioStations';
 
-// Use multiple API servers for reliability
 const API_SERVERS = [
   'https://de1.api.radio-browser.info',
   'https://nl1.api.radio-browser.info',
@@ -17,8 +16,8 @@ interface RadioBrowserStation {
   state: string;
   tags: string;
   language: string;
-  geo_lat: number;
-  geo_long: number;
+  geo_lat: number | null;
+  geo_long: number | null;
   favicon: string;
   clickcount: number;
 }
@@ -31,24 +30,26 @@ const mapStation = (s: RadioBrowserStation): RadioStation => ({
   city: s.state || s.country,
   genre: s.tags ? s.tags.split(',')[0].trim() : 'Radio',
   streamUrl: s.url_resolved || s.url,
-  latitude: s.geo_lat,
-  longitude: s.geo_long,
+  latitude: s.geo_lat ?? 0,
+  longitude: s.geo_long ?? 0,
   language: s.language,
   favicon: s.favicon,
   clickcount: s.clickcount,
 });
 
 const isValidStation = (s: RadioBrowserStation): boolean =>
-  s.geo_lat != null && s.geo_lat !== 0 &&
-  s.geo_long != null && s.geo_long !== 0 &&
   s.name.trim().length > 0;
+
+const hasGeo = (s: RadioBrowserStation): boolean =>
+  s.geo_lat != null && s.geo_lat !== 0 &&
+  s.geo_long != null && s.geo_long !== 0;
 
 const getApiServer = (index = 0): string => API_SERVERS[index % API_SERVERS.length];
 
 const fetchBatch = async (offset: number, limit: number, serverIndex = 0): Promise<RadioBrowserStation[]> => {
   const server = getApiServer(serverIndex);
   const response = await fetch(
-    `${server}/json/stations?limit=${limit}&offset=${offset}&has_geo_info=true&hidebroken=true&order=clickcount&reverse=true`,
+    `${server}/json/stations?limit=${limit}&offset=${offset}&hidebroken=true&order=clickcount&reverse=true`,
     {
       headers: { 'User-Agent': 'RadioVerseApp/1.0' },
     }
@@ -68,23 +69,26 @@ export const fetchInitialStations = async (): Promise<RadioStation[]> => {
 };
 
 /** 
- * Progressively load all remaining stations in background batches.
- * Calls onBatch with each new batch of stations as they arrive.
+ * Progressively load ALL remaining stations in background batches.
+ * Continues on failures instead of breaking.
  */
 export const fetchRemainingStations = async (
   onBatch: (stations: RadioStation[]) => void,
   onComplete?: (total: number) => void,
 ): Promise<void> => {
   const BATCH_SIZE = 10000;
-  let offset = 5000; // start after initial load
+  let offset = 5000;
   let totalLoaded = 0;
   let serverIndex = 0;
+  let consecutiveFailures = 0;
+  const MAX_CONSECUTIVE_FAILURES = 3;
 
-  while (true) {
+  while (consecutiveFailures < MAX_CONSECUTIVE_FAILURES) {
     try {
       const data = await fetchBatch(offset, BATCH_SIZE, serverIndex);
+      consecutiveFailures = 0; // reset on success
       
-      if (data.length === 0) break; // no more stations
+      if (data.length === 0) break;
 
       const validStations = data.filter(isValidStation).map(mapStation);
       
@@ -93,19 +97,21 @@ export const fetchRemainingStations = async (
         totalLoaded += validStations.length;
       }
 
-      if (data.length < BATCH_SIZE) break; // last batch
+      if (data.length < BATCH_SIZE) break;
       
       offset += BATCH_SIZE;
-      serverIndex++; // rotate servers to distribute load
-      
-      // Small delay between batches to avoid hammering the API
-      await new Promise(r => setTimeout(r, 500));
-    } catch (err) {
-      console.warn(`Batch at offset ${offset} failed, retrying with different server...`, err);
       serverIndex++;
-      // Retry once with different server, then skip
+      
+      await new Promise(r => setTimeout(r, 300));
+    } catch (err) {
+      console.warn(`Batch at offset ${offset} failed, trying next server...`, err);
+      consecutiveFailures++;
+      serverIndex++;
+      
+      // Try same offset with different server
       try {
         const data = await fetchBatch(offset, BATCH_SIZE, serverIndex);
+        consecutiveFailures = 0;
         const validStations = data.filter(isValidStation).map(mapStation);
         if (validStations.length > 0) {
           onBatch(validStations);
@@ -113,9 +119,13 @@ export const fetchRemainingStations = async (
         }
         if (data.length < BATCH_SIZE) break;
         offset += BATCH_SIZE;
+        serverIndex++;
+        await new Promise(r => setTimeout(r, 300));
       } catch {
-        console.warn(`Skipping batch at offset ${offset}`);
-        break;
+        console.warn(`Skipping batch at offset ${offset}, continuing...`);
+        offset += BATCH_SIZE;
+        serverIndex++;
+        // Don't break — try next offset
       }
     }
   }
@@ -123,5 +133,8 @@ export const fetchRemainingStations = async (
   onComplete?.(totalLoaded);
 };
 
-// Keep backward compat
+/** Check if a station has valid geo coordinates for globe display */
+export const stationHasGeo = (s: RadioStation): boolean =>
+  s.latitude !== 0 && s.longitude !== 0;
+
 export const fetchRadioStations = fetchInitialStations;
