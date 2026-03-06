@@ -32,8 +32,10 @@ const latLongToVector3 = (lat: number, lon: number, radius: number): THREE.Vecto
   );
 };
 
-/* ── All station dots as a single Points cloud ── */
+/* ── All station dots as a single Points cloud with LOD ── */
 const StationPoints = ({ stations }: { stations: RadioStation[] }) => {
+  const pointsRef = useRef<THREE.Points>(null);
+
   const geometry = useMemo(() => {
     const positions = new Float32Array(stations.length * 3);
     for (let i = 0; i < stations.length; i++) {
@@ -61,7 +63,18 @@ const StationPoints = ({ stations }: { stations: RadioStation[] }) => {
     []
   );
 
-  return <points geometry={geometry} material={material} />;
+  // Dynamic LOD: adjust point size & opacity based on camera distance
+  useFrame(({ camera }) => {
+    if (!pointsRef.current) return;
+    const dist = camera.position.length();
+    // Closer = larger dots, farther = smaller
+    const sizeFactor = THREE.MathUtils.clamp(THREE.MathUtils.mapLinear(dist, 2.5, 8, 0.018, 0.008), 0.006, 0.022);
+    const opacityFactor = THREE.MathUtils.clamp(THREE.MathUtils.mapLinear(dist, 2.5, 8, 0.95, 0.6), 0.5, 1.0);
+    material.size = sizeFactor;
+    material.opacity = opacityFactor;
+  });
+
+  return <points ref={pointsRef} geometry={geometry} material={material} />;
 };
 
 /* ── Pulsing highlight for the focused station ── */
