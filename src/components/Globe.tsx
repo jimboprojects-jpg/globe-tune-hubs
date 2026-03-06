@@ -110,9 +110,12 @@ const FocusedMarker = ({ station }: { station: RadioStation }) => {
 };
 
 /* ── Scene with Earth, points, raycasting ── */
+const RAYCAST_INTERVAL = 3; // only raycast every N frames
+
 const GlobeScene = forwardRef<any, GlobeSceneProps>(({ stations, focusedStation, isPlaying, onStationFocus, onGlobeClick, controlsRef }, _ref) => {
   const globeMeshRef = useRef<THREE.Mesh>(null);
   const focusedIdRef = useRef<string | null>(null);
+  const frameCount = useRef(0);
   const { camera } = useThree();
   const raycaster = useMemo(() => new THREE.Raycaster(), []);
 
@@ -120,8 +123,8 @@ const GlobeScene = forwardRef<any, GlobeSceneProps>(({ stations, focusedStation,
   earthTexture.colorSpace = THREE.SRGBColorSpace;
   earthTexture.anisotropy = 16;
 
-  // Pre-compute 3-component flat array for fast lookup
-  const stationCoords = useMemo(() => {
+  // Pre-compute coords + spatial grid for O(1) nearest lookup
+  const { stationCoords, grid } = useMemo(() => {
     const arr = new Float32Array(stations.length * 3);
     for (let i = 0; i < stations.length; i++) {
       const p = latLongToVector3(stations[i].latitude, stations[i].longitude, GLOBE_RADIUS + STATION_ALT);
@@ -129,34 +132,23 @@ const GlobeScene = forwardRef<any, GlobeSceneProps>(({ stations, focusedStation,
       arr[i * 3 + 1] = p.y;
       arr[i * 3 + 2] = p.z;
     }
-    return arr;
+    const g = new SpatialGrid(0.15);
+    g.build(arr, stations.length);
+    return { stationCoords: arr, grid: g };
   }, [stations]);
 
+  // Throttled raycasting with spatial grid lookup
   useFrame(() => {
+    frameCount.current++;
+    if (frameCount.current % RAYCAST_INTERVAL !== 0) return;
     if (!globeMeshRef.current || stations.length === 0) return;
 
     raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
     const hit = raycaster.intersectObject(globeMeshRef.current);
     if (hit.length === 0) return;
 
-    const px = hit[0].point.x;
-    const py = hit[0].point.y;
-    const pz = hit[0].point.z;
-
-    let nearestIdx = -1;
-    let nearestSq = FOCUS_THRESHOLD * FOCUS_THRESHOLD;
-
-    for (let i = 0; i < stations.length; i++) {
-      const j = i * 3;
-      const dx = px - stationCoords[j];
-      const dy = py - stationCoords[j + 1];
-      const dz = pz - stationCoords[j + 2];
-      const sq = dx * dx + dy * dy + dz * dz;
-      if (sq < nearestSq) {
-        nearestIdx = i;
-        nearestSq = sq;
-      }
-    }
+    const { x: px, y: py, z: pz } = hit[0].point;
+    const nearestIdx = grid.findNearest(px, py, pz, stationCoords, FOCUS_THRESHOLD);
 
     const newId = nearestIdx >= 0 ? stations[nearestIdx].id : null;
     if (newId !== focusedIdRef.current) {
