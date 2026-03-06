@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback, useMemo, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Globe } from '@/components/Globe';
 import { Header } from '@/components/Header';
@@ -11,7 +11,7 @@ import { useRadioPlayer } from '@/hooks/useRadioPlayer';
 import { useEqualizer } from '@/hooks/useEqualizer';
 import { useFavorites } from '@/hooks/useFavorites';
 import { RadioStation } from '@/data/radioStations';
-import { fetchInitialStations, fetchRemainingStations } from '@/services/radioBrowserApi';
+import { fetchInitialStations, fetchRemainingStations, stationHasGeo } from '@/services/radioBrowserApi';
 
 const Index = () => {
   const [stations, setStations] = useState<RadioStation[]>([]);
@@ -37,17 +37,18 @@ const Index = () => {
   const { bands, activePreset, updateBands, applyPreset, initEQ } = useEqualizer();
   const { toggleFavorite, isFavorite, favoriteIds } = useFavorites();
 
-  // Initialize EQ when audio element is ready
+  // Only stations with geo for globe rendering
+  const geoStations = useMemo(() => stations.filter(stationHasGeo), [stations]);
+
   useEffect(() => {
     if (audioElement) {
       initEQ(audioElement);
     }
   }, [audioElement, initEQ]);
 
-  // Resume AudioContext on any user-initiated play
   const handlePlay = useCallback((station: RadioStation) => {
     if (audioElement) {
-      initEQ(audioElement); // will resume if suspended
+      initEQ(audioElement);
     }
     play(station);
   }, [audioElement, initEQ, play]);
@@ -62,7 +63,6 @@ const Index = () => {
         setStations(initial);
         setIsLoadingStations(false);
 
-        // Load remaining stations in background
         setIsBackgroundLoading(true);
         fetchRemainingStations(
           (batch) => {
@@ -112,6 +112,8 @@ const Index = () => {
         onInfoClick={() => setIsInfoModalOpen(true)}
         stationCount={stations.length}
         isBackgroundLoading={isBackgroundLoading}
+        currentStation={currentStation}
+        isPlaying={isPlaying}
       />
 
       <main className="h-[100dvh] pt-12 md:pt-14 pb-20 md:pb-24">
@@ -120,7 +122,7 @@ const Index = () => {
         ) : (
           <Suspense fallback={<SatelliteLoader message="Initializing globe…" />}>
             <Globe
-              stations={stations}
+              stations={geoStations}
               focusedStation={focusedStation}
               isPlaying={isPlaying}
               onStationFocus={setFocusedStation}
@@ -129,10 +131,8 @@ const Index = () => {
           </Suspense>
         )}
 
-        {/* Focus circle overlay */}
         <FocusCircle station={focusedStation} isPlaying={isPlaying} />
 
-        {/* Instructions */}
         {!currentStation && !isLoadingStations && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -1,9 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Radio, MapPin, Music, Loader2, X, Globe, Signal, Heart } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Loader2, X, Heart } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { RadioStation } from '@/data/radioStations';
-import { AudioVisualizer } from './AudioVisualizer';
 import { Equalizer, EQPreset } from './Equalizer';
 
 interface PlayerControlsProps {
@@ -54,65 +53,15 @@ export const PlayerControls = ({
           className="fixed bottom-0 left-0 right-0 z-50"
         >
           <div className="glass-strong border-t border-border/50 px-3 py-2 md:px-8 md:py-3">
-            <div className="max-w-7xl mx-auto flex items-center gap-2 md:gap-6">
-              {/* Station Info */}
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div className="relative">
-                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center ${
-                    isPlaying ? 'bg-accent/20 glow-accent' : 'bg-primary/20 glow-primary'
-                  } transition-all duration-500`}>
-                    {station.favicon ? (
-                      <img 
-                        src={station.favicon} 
-                        alt="" 
-                        className="w-8 h-8 rounded-lg object-cover"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                      />
-                    ) : (
-                      <Radio className={`w-6 h-6 ${isPlaying ? 'text-accent' : 'text-primary'}`} />
-                    )}
-                  </div>
-                  {isPlaying && (
-                    <motion.div
-                      className="absolute -top-1 -right-1"
-                      animate={{ scale: [1, 1.3, 1] }}
-                      transition={{ repeat: Infinity, duration: 1.5 }}
-                    >
-                      <div className="w-2.5 h-2.5 bg-accent rounded-full glow-accent" />
-                    </motion.div>
-                  )}
-                </div>
-                
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-semibold text-foreground truncate text-sm">
-                      {station.name}
-                    </h3>
-                    {isPlaying && (
-                      <div className="flex items-center gap-1">
-                        <Signal className="w-3 h-3 text-accent" />
-                        <span className="text-[10px] font-mono text-accent uppercase">LIVE</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 flex-shrink-0" />
-                      <span className="truncate">{station.city}, {station.country}</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Music className="w-3 h-3 flex-shrink-0" />
-                      <span className="truncate capitalize">{station.genre}</span>
-                    </span>
-                    {station.language && (
-                      <span className="hidden md:flex items-center gap-1">
-                        <Globe className="w-3 h-3 flex-shrink-0" />
-                        <span className="truncate capitalize">{station.language.split(',')[0]}</span>
-                      </span>
-                    )}
-                  </div>
-                </div>
-
+            <div className="max-w-7xl mx-auto flex items-center gap-2 md:gap-4">
+              {/* Left: Equalizer */}
+              <div className="hidden md:block relative flex-shrink-0">
+                <Equalizer
+                  bands={eqBands}
+                  onBandsChange={onEqBandsChange}
+                  activePreset={eqActivePreset}
+                  onPresetChange={onEqPresetChange}
+                />
               </div>
 
               {/* Error Message */}
@@ -122,19 +71,11 @@ export const PlayerControls = ({
                 </div>
               )}
 
-              {/* Playback Controls */}
-              <div className="flex items-center gap-1.5 md:gap-3 relative">
-                {/* Equalizer */}
-                <div className="hidden md:block relative">
-                  <Equalizer
-                    bands={eqBands}
-                    onBandsChange={onEqBandsChange}
-                    activePreset={eqActivePreset}
-                    onPresetChange={onEqPresetChange}
-                  />
-                </div>
+              {/* Spacer */}
+              <div className="flex-1" />
 
-                {/* Play/Pause Button */}
+              {/* Center: Playback Controls */}
+              <div className="flex items-center gap-1.5 md:gap-3">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -154,22 +95,24 @@ export const PlayerControls = ({
                     <Play className="w-5 h-5 ml-0.5" />
                   )}
                 </Button>
+              </div>
 
-                {/* Volume Control - Mobile: toggle button only */}
+              {/* Spacer */}
+              <div className="flex-1" />
+
+              {/* Right: Volume + Favorite + Close */}
+              <div className="flex items-center gap-1.5 md:gap-2 flex-shrink-0">
+                {/* Volume - Mobile toggle */}
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => onVolumeChange(isMuted ? 0.7 : 0)}
                   className="md:hidden text-muted-foreground hover:text-foreground"
                 >
-                  {isMuted ? (
-                    <VolumeX className="w-5 h-5" />
-                  ) : (
-                    <Volume2 className="w-5 h-5" />
-                  )}
+                  {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                 </Button>
 
-                {/* Volume Control - Desktop: button + slider */}
+                {/* Volume - Desktop */}
                 <div className="hidden md:flex items-center gap-2">
                   <Button
                     variant="ghost"
@@ -177,11 +120,7 @@ export const PlayerControls = ({
                     onClick={() => onVolumeChange(isMuted ? 0.7 : 0)}
                     className="text-muted-foreground hover:text-foreground"
                   >
-                    {isMuted ? (
-                      <VolumeX className="w-5 h-5" />
-                    ) : (
-                      <Volume2 className="w-5 h-5" />
-                    )}
+                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                   </Button>
                   <Slider
                     value={[volume * 100]}
@@ -192,7 +131,6 @@ export const PlayerControls = ({
                   />
                 </div>
 
-                {/* Favorite Button */}
                 <Button
                   variant="ghost"
                   size="icon"
@@ -202,13 +140,7 @@ export const PlayerControls = ({
                   <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
                 </Button>
 
-                {/* Close Button */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={onStop}
-                  className="text-muted-foreground hover:text-foreground"
-                >
+                <Button variant="ghost" size="icon" onClick={onStop} className="text-muted-foreground hover:text-foreground">
                   <X className="w-5 h-5" />
                 </Button>
               </div>
