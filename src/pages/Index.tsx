@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Globe } from '@/components/Globe';
 import { Header } from '@/components/Header';
@@ -9,51 +9,23 @@ import { FocusCircle } from '@/components/FocusCircle';
 import { SatelliteLoader } from '@/components/SatelliteLoader';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { RadioStation } from '@/data/radioStations';
-import { fetchInitialStations, fetchRemainingStations, stationHasGeo } from '@/services/radioBrowserApi';
 
 const Index = () => {
-  const [stations, setStations] = useState<RadioStation[]>([]);
-  const [isLoadingStations, setIsLoadingStations] = useState(true);
-  const [isBackgroundLoading, setIsBackgroundLoading] = useState(false);
   const [focusedStation, setFocusedStation] = useState<RadioStation | null>(null);
   const [isStationListOpen, setIsStationListOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   const {
+    stations, geoStations, isLoadingStations, isBackgroundLoading,
     currentStation, isPlaying, isLoading, volume, error,
     play, pause, setVolume, stop, audioElement,
     bands, activePreset, updateBands, applyPreset,
     toggleFavorite, isFavorite, favoriteIds,
   } = useGlobalPlayer();
 
-  const geoStations = useMemo(() => stations.filter(stationHasGeo), [stations]);
-
   const handlePlay = useCallback((station: RadioStation) => {
     play(station);
   }, [play]);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchInitialStations()
-      .then((initial) => {
-        if (cancelled) return;
-        setStations(initial);
-        setIsLoadingStations(false);
-        setIsBackgroundLoading(true);
-        fetchRemainingStations(
-          (batch) => { if (!cancelled) setStations(prev => [...prev, ...batch]); },
-          (total) => {
-            console.log(`Background loading complete: ${total} additional stations loaded`);
-            if (!cancelled) setIsBackgroundLoading(false);
-          }
-        );
-      })
-      .catch((err) => {
-        console.error('Failed to load stations:', err);
-        setIsLoadingStations(false);
-      });
-    return () => { cancelled = true; };
-  }, []);
 
   useEffect(() => {
     if (isPlaying && focusedStation && focusedStation.id !== currentStation?.id) {
