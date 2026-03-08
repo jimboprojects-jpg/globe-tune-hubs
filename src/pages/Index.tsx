@@ -7,9 +7,7 @@ import { StationList } from '@/components/StationList';
 import { InfoModal } from '@/components/InfoModal';
 import { FocusCircle } from '@/components/FocusCircle';
 import { SatelliteLoader } from '@/components/SatelliteLoader';
-import { useRadioPlayer } from '@/hooks/useRadioPlayer';
-import { useEqualizer } from '@/hooks/useEqualizer';
-import { useFavorites } from '@/hooks/useFavorites';
+import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { RadioStation } from '@/data/radioStations';
 import { fetchInitialStations, fetchRemainingStations, stationHasGeo } from '@/services/radioBrowserApi';
 
@@ -22,53 +20,28 @@ const Index = () => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   const {
-    currentStation,
-    isPlaying,
-    isLoading,
-    volume,
-    error,
-    play,
-    pause,
-    setVolume,
-    stop,
-    audioElement,
-  } = useRadioPlayer();
+    currentStation, isPlaying, isLoading, volume, error,
+    play, pause, setVolume, stop, audioElement,
+    bands, activePreset, updateBands, applyPreset,
+    toggleFavorite, isFavorite, favoriteIds,
+  } = useGlobalPlayer();
 
-  const { bands, activePreset, updateBands, applyPreset, initEQ } = useEqualizer();
-  const { toggleFavorite, isFavorite, favoriteIds } = useFavorites();
-
-  // Only stations with geo for globe rendering
   const geoStations = useMemo(() => stations.filter(stationHasGeo), [stations]);
 
-  useEffect(() => {
-    if (audioElement) {
-      initEQ(audioElement);
-    }
-  }, [audioElement, initEQ]);
-
   const handlePlay = useCallback((station: RadioStation) => {
-    if (audioElement) {
-      initEQ(audioElement);
-    }
     play(station);
-  }, [audioElement, initEQ, play]);
+  }, [play]);
 
-  // Fetch stations progressively
   useEffect(() => {
     let cancelled = false;
-
     fetchInitialStations()
       .then((initial) => {
         if (cancelled) return;
         setStations(initial);
         setIsLoadingStations(false);
-
         setIsBackgroundLoading(true);
         fetchRemainingStations(
-          (batch) => {
-            if (cancelled) return;
-            setStations(prev => [...prev, ...batch]);
-          },
+          (batch) => { if (!cancelled) setStations(prev => [...prev, ...batch]); },
           (total) => {
             console.log(`Background loading complete: ${total} additional stations loaded`);
             if (!cancelled) setIsBackgroundLoading(false);
@@ -79,11 +52,9 @@ const Index = () => {
         console.error('Failed to load stations:', err);
         setIsLoadingStations(false);
       });
-
     return () => { cancelled = true; };
   }, []);
 
-  // Auto-switch when already playing and user moves to new station
   useEffect(() => {
     if (isPlaying && focusedStation && focusedStation.id !== currentStation?.id) {
       handlePlay(focusedStation);
@@ -92,18 +63,13 @@ const Index = () => {
   }, [focusedStation]);
 
   const handleGlobeClick = useCallback(() => {
-    if (focusedStation) {
-      handlePlay(focusedStation);
-    }
+    if (focusedStation) handlePlay(focusedStation);
   }, [focusedStation, handlePlay]);
 
-  const handleStationSelect = useCallback(
-    (station: RadioStation) => {
-      handlePlay(station);
-      setIsStationListOpen(false);
-    },
-    [handlePlay]
-  );
+  const handleStationSelect = useCallback((station: RadioStation) => {
+    handlePlay(station);
+    setIsStationListOpen(false);
+  }, [handlePlay]);
 
   return (
     <div className="min-h-screen overflow-hidden">
@@ -170,7 +136,7 @@ const Index = () => {
         isLoading={isLoading}
         volume={volume}
         error={error}
-        onPlay={() => currentStation && handlePlay(currentStation)}
+        onPlay={() => currentStation && play(currentStation)}
         onPause={pause}
         onVolumeChange={setVolume}
         onStop={stop}

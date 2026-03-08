@@ -1,28 +1,37 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { PlayerControls } from '@/components/PlayerControls';
 import { RadioStation, searchStations } from '@/data/radioStations';
 import { fetchInitialStations, fetchRemainingStations } from '@/services/radioBrowserApi';
-import { useRadioPlayer } from '@/hooks/useRadioPlayer';
+import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 
-const countryCodeToFlag = (code: string): string => {
-  if (!code || code.length !== 2) return '🌍';
-  const codePoints = code
-    .toUpperCase()
-    .split('')
-    .map(c => 0x1F1E6 + c.charCodeAt(0) - 65);
-  return String.fromCodePoint(...codePoints);
-};
+const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }) => (
+  <img
+    src={`https://flagicons.lipis.dev/flags/4x3/${code.toLowerCase()}.svg`}
+    alt={code}
+    className={`${size} rounded-sm object-cover`}
+    onError={(e) => {
+      (e.target as HTMLImageElement).style.display = 'none';
+    }}
+  />
+);
 
 const CountryListPage = () => {
   const navigate = useNavigate();
   const [stations, setStations] = useState<RadioStation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const {
+    currentStation, isPlaying, isLoading: playerLoading, volume, error,
+    play, pause, setVolume, stop,
+    bands, activePreset, updateBands, applyPreset,
+    isFavorite, toggleFavorite,
+  } = useGlobalPlayer();
 
   useEffect(() => {
     let cancelled = false;
@@ -50,11 +59,11 @@ const CountryListPage = () => {
     }
     return Array.from(map.values())
       .filter(c => !searchQuery || c.name.toLowerCase().includes(searchQuery.toLowerCase()))
-      .sort((a, b) => b.count - a.count);
+      .sort((a, b) => a.name.localeCompare(b.name));
   }, [stations, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-24">
       {/* Header */}
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
@@ -99,7 +108,7 @@ const CountryListPage = () => {
                 onClick={() => navigate(`/countries/${country.code}`)}
                 className="glass hover:bg-muted/50 rounded-xl p-4 flex items-center gap-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span className="text-3xl">{countryCodeToFlag(country.code)}</span>
+                <CountryFlag code={country.code} size="w-10 h-7" />
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-foreground truncate text-sm">{country.name}</p>
                   <p className="text-xs text-muted-foreground">{country.count.toLocaleString()} stations</p>
@@ -110,6 +119,24 @@ const CountryListPage = () => {
           </div>
         )}
       </div>
+
+      <PlayerControls
+        station={currentStation}
+        isPlaying={isPlaying}
+        isLoading={playerLoading}
+        volume={volume}
+        error={error}
+        onPlay={() => currentStation && play(currentStation)}
+        onPause={pause}
+        onVolumeChange={setVolume}
+        onStop={stop}
+        eqBands={bands}
+        eqActivePreset={activePreset}
+        onEqBandsChange={updateBands}
+        onEqPresetChange={applyPreset}
+        isFavorite={currentStation ? isFavorite(currentStation.id) : false}
+        onToggleFavorite={() => currentStation && toggleFavorite(currentStation.id)}
+      />
     </div>
   );
 };
@@ -120,7 +147,12 @@ const CountryDetailPage = () => {
   const [stations, setStations] = useState<RadioStation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const { currentStation, isPlaying, play } = useRadioPlayer();
+  const {
+    currentStation, isPlaying, isLoading: playerLoading, volume, error,
+    play, pause, setVolume, stop,
+    bands, activePreset, updateBands, applyPreset,
+    isFavorite, toggleFavorite,
+  } = useGlobalPlayer();
 
   useEffect(() => {
     let cancelled = false;
@@ -146,14 +178,14 @@ const CountryDetailPage = () => {
   const countryName = countryStations[0]?.country || countryCode || '';
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-24">
       {/* Header */}
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/countries')}>
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <span className="text-2xl">{countryCodeToFlag(countryCode || '')}</span>
+          <CountryFlag code={countryCode || ''} size="w-8 h-6" />
           <div>
             <h1 className="text-base font-bold text-foreground">{countryName}</h1>
             <p className="text-xs text-muted-foreground">{countryStations.length.toLocaleString()} stations</p>
@@ -183,7 +215,7 @@ const CountryDetailPage = () => {
             <p>No stations found</p>
           </div>
         ) : (
-          <ScrollArea className="h-[calc(100vh-160px)]">
+          <ScrollArea className="h-[calc(100vh-220px)]">
             <div className="space-y-1">
               {countryStations.map((station) => {
                 const isActive = currentStation?.id === station.id;
@@ -199,7 +231,6 @@ const CountryDetailPage = () => {
                         : 'hover:bg-muted/50'
                     }`}
                   >
-                    {/* Favicon */}
                     <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
                       isActive ? 'bg-accent/20' : 'bg-muted/50'
                     }`}>
@@ -246,16 +277,31 @@ const CountryDetailPage = () => {
           </ScrollArea>
         )}
       </div>
+
+      <PlayerControls
+        station={currentStation}
+        isPlaying={isPlaying}
+        isLoading={playerLoading}
+        volume={volume}
+        error={error}
+        onPlay={() => currentStation && play(currentStation)}
+        onPause={pause}
+        onVolumeChange={setVolume}
+        onStop={stop}
+        eqBands={bands}
+        eqActivePreset={activePreset}
+        onEqBandsChange={updateBands}
+        onEqPresetChange={applyPreset}
+        isFavorite={currentStation ? isFavorite(currentStation.id) : false}
+        onToggleFavorite={() => currentStation && toggleFavorite(currentStation.id)}
+      />
     </div>
   );
 };
 
 const CountryPage = () => {
   const { countryCode } = useParams<{ countryCode: string }>();
-  
-  if (countryCode) {
-    return <CountryDetailPage />;
-  }
+  if (countryCode) return <CountryDetailPage />;
   return <CountryListPage />;
 };
 
