@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2 } from 'lucide-react';
@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PlayerControls } from '@/components/PlayerControls';
-import { RadioStation, searchStations } from '@/data/radioStations';
-import { fetchInitialStations, fetchRemainingStations } from '@/services/radioBrowserApi';
+import { searchStations } from '@/data/radioStations';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 
 const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }) => (
@@ -23,28 +22,14 @@ const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }
 
 const CountryListPage = () => {
   const navigate = useNavigate();
-  const [stations, setStations] = useState<RadioStation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const {
+    stations, isLoadingStations,
     currentStation, isPlaying, isLoading: playerLoading, volume, error,
     play, pause, setVolume, stop,
     bands, activePreset, updateBands, applyPreset,
     isFavorite, toggleFavorite,
   } = useGlobalPlayer();
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchInitialStations().then((initial) => {
-      if (cancelled) return;
-      setStations(initial);
-      setIsLoading(false);
-      fetchRemainingStations((batch) => {
-        if (!cancelled) setStations(prev => [...prev, ...batch]);
-      });
-    });
-    return () => { cancelled = true; };
-  }, []);
 
   const countries = useMemo(() => {
     const map = new Map<string, { name: string; code: string; count: number }>();
@@ -64,7 +49,6 @@ const CountryListPage = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      {/* Header */}
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
@@ -82,7 +66,6 @@ const CountryListPage = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-4">
-        {/* Search */}
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -93,7 +76,7 @@ const CountryListPage = () => {
           />
         </div>
 
-        {isLoading ? (
+        {isLoadingStations ? (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
@@ -144,28 +127,14 @@ const CountryListPage = () => {
 const CountryDetailPage = () => {
   const { countryCode } = useParams<{ countryCode: string }>();
   const navigate = useNavigate();
-  const [stations, setStations] = useState<RadioStation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const {
+    stations, isLoadingStations,
     currentStation, isPlaying, isLoading: playerLoading, volume, error,
     play, pause, setVolume, stop,
     bands, activePreset, updateBands, applyPreset,
     isFavorite, toggleFavorite,
   } = useGlobalPlayer();
-
-  useEffect(() => {
-    let cancelled = false;
-    fetchInitialStations().then((initial) => {
-      if (cancelled) return;
-      setStations(initial);
-      setIsLoading(false);
-      fetchRemainingStations((batch) => {
-        if (!cancelled) setStations(prev => [...prev, ...batch]);
-      });
-    });
-    return () => { cancelled = true; };
-  }, []);
 
   const countryStations = useMemo(() => {
     const filtered = stations.filter(
@@ -179,7 +148,6 @@ const CountryDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
-      {/* Header */}
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/countries')}>
@@ -194,7 +162,6 @@ const CountryDetailPage = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-4">
-        {/* Search */}
         <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -205,7 +172,7 @@ const CountryDetailPage = () => {
           />
         </div>
 
-        {isLoading ? (
+        {isLoadingStations ? (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
@@ -220,10 +187,8 @@ const CountryDetailPage = () => {
               {countryStations.map((station) => {
                 const isActive = currentStation?.id === station.id;
                 return (
-                  <motion.button
+                  <button
                     key={station.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
                     onClick={() => play(station)}
                     className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-all ${
                       isActive
@@ -270,7 +235,7 @@ const CountryDetailPage = () => {
                     ) : (
                       <Play className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                     )}
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>
