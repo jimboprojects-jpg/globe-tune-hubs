@@ -138,14 +138,16 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="absolute bottom-24 md:bottom-32 left-1/2 -translate-x-1/2 text-center pointer-events-none px-4"
+            className="fixed bottom-28 md:bottom-32 left-0 right-0 flex justify-center pointer-events-none px-4 z-10"
           >
-            <p className="text-muted-foreground text-sm md:text-base">
-              Rotate the globe to target a <span className="text-primary font-medium">station</span>
-            </p>
-            <p className="text-muted-foreground/60 text-xs mt-1">
-              Drag to rotate · Scroll to zoom · Click to play
-            </p>
+            <div className="text-center">
+              <p className="text-muted-foreground text-sm md:text-base">
+                Rotate the globe to target a <span className="text-primary font-medium">station</span>
+              </p>
+              <p className="text-muted-foreground/60 text-xs mt-1">
+                Drag to rotate · Scroll to zoom · Click to play
+              </p>
+            </div>
           </motion.div>
         )}
       </main>

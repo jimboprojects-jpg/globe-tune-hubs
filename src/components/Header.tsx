@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Globe } from 'lucide-react';
+import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Globe, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { RadioStation } from '@/data/radioStations';
 import { AudioVisualizer } from './AudioVisualizer';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +18,16 @@ interface HeaderProps {
 
 export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoading, currentStation, isPlaying }: HeaderProps) => {
   const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to countries page could be extended; for now just close
+      setShowSearch(false);
+    }
+  };
 
   return (
     <motion.header
@@ -55,7 +67,6 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
               exit={{ opacity: 0, y: -10 }}
               className="flex items-center gap-2 md:gap-3 flex-1 justify-center min-w-0 mx-2 md:mx-4"
             >
-              {/* Station Logo */}
               <div className={`w-8 h-8 md:w-9 md:h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
                 isPlaying ? 'bg-accent/20' : 'bg-primary/20'
               }`}>
@@ -93,12 +104,6 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
                     <Music className="w-2.5 h-2.5 flex-shrink-0" />
                     <span className="capitalize">{currentStation.genre}</span>
                   </span>
-                  {currentStation.language && (
-                    <span className="hidden lg:flex items-center gap-0.5 truncate">
-                      <Globe className="w-2.5 h-2.5 flex-shrink-0" />
-                      <span className="capitalize">{currentStation.language.split(',')[0]}</span>
-                    </span>
-                  )}
                 </div>
               </div>
             </motion.div>
@@ -134,9 +139,8 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
           )}
         </AnimatePresence>
 
-        {/* Right: Actions */}
+        {/* Right: Countries + Search + Info */}
         <div className="flex items-center gap-1 flex-shrink-0">
-          {/* Station count badge (when playing, show compact) */}
           {currentStation && (
             <div className="hidden md:flex items-center gap-1.5 text-[10px] text-muted-foreground mr-2">
               {isBackgroundLoading ? (
@@ -147,17 +151,17 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
               <span>{stationCount.toLocaleString()}</span>
             </div>
           )}
-          
+
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate('/countries')}
-            className="hidden md:flex text-xs text-muted-foreground hover:text-foreground gap-1"
+            className="text-xs text-muted-foreground hover:text-foreground gap-1"
           >
             <Globe className="w-4 h-4" />
-            Countries
+            <span className="hidden sm:inline">Countries</span>
           </Button>
-          
+
           <Button variant="ghost" size="icon" onClick={onInfoClick} className="text-muted-foreground hover:text-foreground">
             <Info className="w-5 h-5" />
           </Button>
