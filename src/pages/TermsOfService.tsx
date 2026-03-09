@@ -22,11 +22,11 @@ const TermsOfService = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">1. Acceptance of Terms</h2>
-            <p>By accessing and using CartoFM, you agree to be bound by these Terms of Service. If you do not agree, please discontinue use of the service.</p>
+            <p>By accessing and using CartoFMou agree to be bound by these Terms of Service. If you do not agree, please discontinue use of the service.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">2. Description of Service</h2>
-            <p>RadioVerse is a free radio aggregation platform that provides access to publicly available internet radio streams from around the world. We do not host or produce any radio content.</p>
+            <p>RadCartoFM a free radio aggregation platform that provides access to publicly available internet radio streams from around the world. We do not host or produce any radio content.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">3. Content Disclaimer</h2>
