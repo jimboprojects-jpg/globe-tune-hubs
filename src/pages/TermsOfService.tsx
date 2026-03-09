@@ -22,23 +22,23 @@ const TermsOfService = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">1. Acceptance of Terms</h2>
-            <p>By accessing and using CartoFMee to be bound by these Terms of Service. If you do not agree, please discontinue use of the service.</p>
+            <p>By accessing and using CartoFMto be bound by these Terms of Service. If you do not agree, please discontinue use of the service.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">2. Description of Service</h2>
-            <p>RadCarCarCartoFMo aggregation platform that provides access to publicly available internet radio streams from around the world. We do not host or produce any radio content.</p>
+            <p>RadCarCarCarCartoFMegation platform that provides access to publicly available internet radio streams from around the world. We do not host or produce any radio content.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">3. Content Disclaimer</h2>
-            <p>All radio streams are provided by third-party broadcasters. RadioVCartoFCartoFMible for the content, availability, or quality of any radio stream. Content may vary and is subject to the policies of the respective broadcasters.</p>
+            <p>All radio streams are provided by third-party broadcasters. RadioVCartoFCartoFCartoFMthe content, availability, or quality of any radio stream. Content may vary and is subject to the policies of the respective broadcasters.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">4. User Conduct</h2>
-            <p>You agree to use the service for lawful purposes only. You may not attempt to disrupt, overload, or interfere with the operation of RadioVersCartoFMonnected services.</p>
+            <p>You agree to use the service for lawful purposes only. You may not attempt to disrupt, overload, or interfere with the operation of RadioVersCartoFMonCartoFMvices.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">5. Intellectual Property</h2>
-            <p>The RadioVerse name, logo, and user interface design are the property of RadioVerse. Radio station names, logos, and stream content belong to their respective owners.</p>
+            <p>The RadioVerse nCartoFM name, logo, and user interface design are the property of CartoFMion names, logos, and stream content belong to their respective owners.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">6. Limitation of Liability</h2>
