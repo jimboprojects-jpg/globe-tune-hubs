@@ -29,8 +29,8 @@ const WhoWeAre = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-foreground">
-                <span className="text-gradient-primary">Radio</span>
-                <span className="text-gradient-accent">Verse</span>
+                <span className="text-gradient-primary">Carto</span>
+                <span className="text-gradient-accent">FM</span>
               </h2>
               <p className="text-muted-foreground text-sm">The world in your ears</p>
             </div>
@@ -42,7 +42,7 @@ const WhoWeAre = () => {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Our Mission</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  RadioVerse brings together radio stations from every corner of the globe into one beautiful, interactive experience. We believe that radio connects cultures, shares stories, and brings people together — no matter the distance.
+                  CartoFM brings together radio stations from every corner of the globe into one beautiful, interactive experience. We believe that radio connects cultures, shares stories, and brings people together — no matter the distance.
                 </p>
               </div>
             </div>
@@ -62,7 +62,7 @@ const WhoWeAre = () => {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Community</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  RadioVerse is built for music lovers, culture enthusiasts, and curious listeners. Save your favourites, explore by country, and share your discoveries with friends.
+                  CartoFM is built for music lovers, culture enthusiasts, and curious listeners. Save your favourites, explore by country, and share your discoveries with friends.
                 </p>
               </div>
             </div>

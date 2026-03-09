@@ -49,7 +49,7 @@ const fetchBatch = async (offset: number, limit: number, serverIndex = 0): Promi
   const server = getApiServer(serverIndex);
   const response = await fetch(
     `${server}/json/stations?limit=${limit}&offset=${offset}&hidebroken=true&order=clickcount&reverse=true`,
-    { headers: { 'User-Agent': 'RadioVerseApp/1.0' } }
+    { headers: { 'User-Agent': 'CartoFMApp/1.0' } }
   );
   if (!response.ok) throw new Error(`Failed to fetch stations: ${response.status}`);
   return response.json();
