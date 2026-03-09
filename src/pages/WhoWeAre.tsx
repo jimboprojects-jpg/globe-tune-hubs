@@ -29,8 +29,8 @@ const WhoWeAre = () => {
             </div>
             <div>
               <h2 className="text-2xl font-bold text-foreground">
-                <span className="text-gradient-primary">Radio</span>
-                <span className="text-gradient-accent">Verse</span>
+                <span className="text-gradient-primary">Carto</span>
+                <span className="text-gradient-accent">FM</span>
               </h2>
               <p className="text-muted-foreground text-sm">The world in your ears</p>
             </div>
