@@ -42,7 +42,7 @@ const WhoWeAre = () => {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Our Mission</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  RadioVerse brings together radio stations from every corner of the globe into one beautiful, interactive experience. We believe that radio connects cultures, shares stories, and brings people together — no matter the distance.
+                  CartoFM brings together radio stations from every corner of the globe into one beautiful, interactive experience. We believe that radio connects cultures, shares stories, and brings people together — no matter the distance.
                 </p>
               </div>
             </div>
