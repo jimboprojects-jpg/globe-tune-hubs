@@ -51,8 +51,8 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
               <Radio className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary-foreground" />
             </motion.div>
             <h1 className="text-base md:text-lg font-bold tracking-tight hidden sm:block">
-              <span className="text-gradient-primary">Radio</span>
-              <span className="text-gradient-accent">Verse</span>
+              <span className="text-gradient-primary">Carto</span>
+              <span className="text-gradient-accent">FM</span>
             </h1>
           </div>
         </div>
