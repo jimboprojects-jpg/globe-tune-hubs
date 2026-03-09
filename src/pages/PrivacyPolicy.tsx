@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">Information We Collect</h2>
-            <p>CartoFMes not collect personal information. Your favourite stations are stored locally in your browser using localStorage and are never transmitted to our servers.</p>
+            <p>CartoFMnot collect personal information. Your favourite stations are stored locally in your browser using localStorage and are never transmitted to our servers.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">How We Use Data</h2>
@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">Third-Party Services</h2>
-            <p>RadCartoFMnnects to third-party radio stream providers and APIs. These services have their own privacy policies. We encourage you to review the privacy practices of each broadcaster.</p>
+            <p>RadCarCartoFM to third-party radio stream providers and APIs. These services have their own privacy policies. We encourage you to review the privacy practices of each broadcaster.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">Cookies</h2>
@@ -38,7 +38,7 @@ const PrivacyPolicy = () => {
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">Data Security</h2>
-            <p>We take reasonable measures to protect the integrity of RadioVerse. However, no internet transmission is completely secure, and we cannot guarantee absolute security.</p>
+            <p>We take reasonable measures to protect the integrity of RadioVCartoFMver, no internet transmission is completely secure, and we cannot guarantee absolute security.</p>
           </div>
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">Contact</h2>

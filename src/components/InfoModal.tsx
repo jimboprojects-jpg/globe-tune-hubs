@@ -34,8 +34,8 @@ export const InfoModal = ({ isOpen, onClose }: InfoModalProps) => {
                   </div>
                   <div>
                     <h2 className="text-xl font-bold">
-                      <span className="text-gradient-primary">Radio</span>
-                      <span className="text-gradient-accent">Verse</span>
+                      <span className="text-gradient-primary">Carto</span>
+                      <span className="text-gradient-accent">FM</span>
                     </h2>
                     <p className="text-xs text-muted-foreground">Explore the world through radio</p>
                   </div>

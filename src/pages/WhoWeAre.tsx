@@ -62,7 +62,7 @@ const WhoWeAre = () => {
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Community</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  RadioVerse is built for music lovers, culture enthusiasts, and curious listeners. Save your favourites, explore by country, and share your discoveries with friends.
+                  CartoFM is built for music lovers, culture enthusiasts, and curious listeners. Save your favourites, explore by country, and share your discoveries with friends.
                 </p>
               </div>
             </div>
