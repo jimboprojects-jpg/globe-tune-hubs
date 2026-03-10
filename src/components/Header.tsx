@@ -43,13 +43,7 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
           </Button>
           
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center"
-            >
-              <Radio className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary-foreground" />
-            </motion.div>
+            <img src="/favicon.png" alt="CartoFM" className="w-7 h-7 md:w-8 md:h-8 rounded-md" />
             <h1 className="text-base md:text-lg font-bold tracking-tight hidden sm:block">
               <span className="text-gradient-primary">Carto</span>
               <span className="text-gradient-accent">FM</span>
