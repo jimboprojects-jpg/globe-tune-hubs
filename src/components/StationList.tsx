@@ -63,10 +63,10 @@ export const StationList = ({
               <div className="p-4 border-b border-border/50">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Radio className="w-5 h-5 text-primary" />
+                    <img src="/favicon.png" alt="CartoFM" className="w-7 h-7 rounded-md" />
                     <h2 className="text-lg font-bold">
-                      <span className="text-gradient-primary">Radio</span>
-                      <span className="text-gradient-accent">Verse</span>
+                      <span className="text-gradient-primary">Carto</span>
+                      <span className="text-gradient-accent">FM</span>
                     </h2>
                   </div>
                   <Button variant="ghost" size="icon" onClick={onClose}>

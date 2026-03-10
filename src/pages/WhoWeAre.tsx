@@ -24,9 +24,7 @@ const WhoWeAre = () => {
       <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <Radio className="w-8 h-8 text-primary-foreground" />
-            </div>
+            <img src="/favicon.png" alt="CartoFM" className="w-16 h-16 rounded-2xl" />
             <div>
               <h2 className="text-2xl font-bold text-foreground">
                 <span className="text-gradient-primary">Carto</span>
