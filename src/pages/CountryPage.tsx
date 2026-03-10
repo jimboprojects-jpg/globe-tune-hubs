@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2 } from 'lucide-react';
@@ -8,6 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { PlayerControls } from '@/components/PlayerControls';
 import { searchStations } from '@/data/radioStations';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
+import { getCountryContent, getCountryListSEO } from '@/data/countryRadioContent';
 
 const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }) => (
   <img
@@ -20,6 +21,23 @@ const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }
   />
 );
 
+const useDocumentMeta = (title: string, description: string) => {
+  useEffect(() => {
+    document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+    else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = description;
+      document.head.appendChild(meta);
+    }
+    return () => {
+      document.title = 'CartoFM – Stream Live Radio Stations Worldwide';
+    };
+  }, [title, description]);
+};
+
 const CountryListPage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,6 +48,9 @@ const CountryListPage = () => {
     bands, activePreset, updateBands, applyPreset,
     isFavorite, toggleFavorite,
   } = useGlobalPlayer();
+
+  const seo = getCountryListSEO();
+  useDocumentMeta(seo.title, seo.description);
 
   const countries = useMemo(() => {
     const map = new Map<string, { name: string; code: string; count: number }>();
@@ -66,6 +87,13 @@ const CountryListPage = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-4">
+        {/* SEO intro */}
+        <div className="mb-6">
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Browse live radio stations from every corner of the globe. Select a country below to explore its radio landscape, discover local music, news broadcasts, and cultural programming — all streaming free on CartoFM.
+          </p>
+        </div>
+
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -145,6 +173,42 @@ const CountryDetailPage = () => {
   }, [stations, countryCode, searchQuery]);
 
   const countryName = countryStations[0]?.country || countryCode || '';
+  const content = useMemo(
+    () => getCountryContent(countryCode || '', countryName, countryStations.length),
+    [countryCode, countryName, countryStations.length]
+  );
+
+  useDocumentMeta(content.metaTitle, content.metaDescription);
+
+  // JSON-LD structured data
+  const jsonLd = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": content.headline,
+    "description": content.metaDescription,
+    "url": `https://globe-tune-hubs.lovable.app/countries/${countryCode}`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "CartoFM",
+      "url": "https://globe-tune-hubs.lovable.app"
+    },
+    "about": {
+      "@type": "Country",
+      "name": countryName
+    },
+    "numberOfItems": countryStations.length
+  }), [content, countryCode, countryName, countryStations.length]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(jsonLd);
+    script.id = 'country-jsonld';
+    const existing = document.getElementById('country-jsonld');
+    if (existing) existing.remove();
+    document.head.appendChild(script);
+    return () => { script.remove(); };
+  }, [jsonLd]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -155,13 +219,40 @@ const CountryDetailPage = () => {
           </Button>
           <CountryFlag code={countryCode || ''} size="w-8 h-6" />
           <div>
-            <h1 className="text-base font-bold text-foreground">{countryName}</h1>
+            <h1 className="text-base font-bold text-foreground">{content.headline}</h1>
             <p className="text-xs text-muted-foreground">{countryStations.length.toLocaleString()} stations</p>
           </div>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-4">
+        {/* Radio landscape section */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-6 glass rounded-xl p-5 border border-border/20"
+        >
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+            {content.intro}
+          </p>
+          <h2 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+            <Radio className="w-4 h-4 text-primary" />
+            Radio Landscape
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {content.landscape}
+          </p>
+          {content.funFact && (
+            <div className="mt-3 p-3 rounded-lg bg-primary/5 border border-primary/10">
+              <p className="text-xs text-muted-foreground">
+                <span className="font-semibold text-primary">Did you know?</span>{' '}
+                {content.funFact}
+              </p>
+            </div>
+          )}
+        </motion.div>
+
         <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
@@ -182,7 +273,7 @@ const CountryDetailPage = () => {
             <p>No stations found</p>
           </div>
         ) : (
-          <ScrollArea className="h-[calc(100vh-220px)]">
+          <ScrollArea className="h-[calc(100vh-420px)]">
             <div className="space-y-1">
               {countryStations.map((station) => {
                 const isActive = currentStation?.id === station.id;
