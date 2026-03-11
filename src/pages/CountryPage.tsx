@@ -117,7 +117,7 @@ const CountryListPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.02, 0.5) }}
                 onClick={() => navigate(`/countries/${country.code}`)}
-                className="glass hover:bg-muted/50 rounded-xl p-4 flex items-center gap-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="glass hover:bg-muted/50 rounded-xl p-3 md:p-4 flex items-center gap-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
                 <CountryFlag code={country.code} size="w-10 h-7" />
                 <div className="flex-1 min-w-0">
