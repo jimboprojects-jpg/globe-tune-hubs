@@ -231,7 +231,7 @@ const CountryDetailPage = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-6 glass rounded-xl p-5 border border-border/20"
+          className="mb-4 md:mb-6 glass rounded-xl p-3.5 md:p-5 border border-border/20"
         >
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
             {content.intro}
