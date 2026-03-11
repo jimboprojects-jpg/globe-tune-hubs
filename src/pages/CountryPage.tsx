@@ -273,7 +273,7 @@ const CountryDetailPage = () => {
             <p>No stations found</p>
           </div>
         ) : (
-          <ScrollArea className="h-[calc(100vh-420px)]">
+          <ScrollArea className="h-[calc(100dvh-380px)] md:h-[calc(100dvh-420px)]">
             <div className="space-y-1">
               {countryStations.map((station) => {
                 const isActive = currentStation?.id === station.id;
