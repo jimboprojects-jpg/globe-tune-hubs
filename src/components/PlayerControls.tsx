@@ -55,7 +55,7 @@ export const PlayerControls = ({
           <div className="glass-strong border-t border-border/50 px-3 py-2 md:px-8 md:py-3">
             <div className="max-w-7xl mx-auto flex items-center gap-2 md:gap-4">
               {/* Left: Equalizer */}
-              <div className="hidden md:block relative flex-shrink-0">
+              <div className="relative flex-shrink-0">
                 <Equalizer
                   bands={eqBands}
                   onBandsChange={onEqBandsChange}
