@@ -21,7 +21,7 @@ const WhoWeAre = () => {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
+      <div className="max-w-3xl mx-auto px-3 md:px-4 py-5 md:py-8 space-y-6 md:space-y-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
           <div className="flex items-center gap-4">
             <img src="/favicon.png" alt="CartoFM" className="w-16 h-16 rounded-2xl" />
@@ -34,7 +34,7 @@ const WhoWeAre = () => {
             </div>
           </div>
 
-          <div className="glass rounded-xl p-6 space-y-4">
+          <div className="glass rounded-xl p-4 md:p-6 space-y-4">
             <div className="flex items-start gap-3">
               <Globe className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
               <div>

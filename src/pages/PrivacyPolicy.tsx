@@ -18,8 +18,8 @@ const PrivacyPolicy = () => {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
+      <div className="max-w-3xl mx-auto px-3 md:px-4 py-5 md:py-8">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 md:p-6 space-y-5 md:space-y-6 text-sm text-muted-foreground leading-relaxed">
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">Information We Collect</h2>
             <p>CartoFMnot collect personal information. Your favourite stations are stored locally in your browser using localStorage and are never transmitted to our servers.</p>

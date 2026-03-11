@@ -62,9 +62,9 @@ export const FocusCircle = ({ station, isPlaying }: FocusCircleProps) => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.9 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full left-1/2 -translate-x-1/2 mt-3 whitespace-nowrap text-center"
+              className="absolute top-full left-1/2 -translate-x-1/2 mt-2 md:mt-3 text-center w-[180px] md:w-auto md:whitespace-nowrap"
             >
-              <div className="glass-strong px-3 py-2 md:px-4 md:py-3 rounded-xl min-w-[160px] md:min-w-[200px]">
+              <div className="glass-strong px-2.5 py-2 md:px-4 md:py-3 rounded-xl min-w-[160px] md:min-w-[200px]">
                 {/* Station name with visualizer */}
                 <div className="flex items-center justify-center gap-2 mb-1.5">
                   {isPlaying && <AudioVisualizer isPlaying={isPlaying} variant="mini" />}

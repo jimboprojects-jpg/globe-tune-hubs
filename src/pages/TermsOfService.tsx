@@ -18,8 +18,8 @@ const TermsOfService = () => {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-6 space-y-6 text-sm text-muted-foreground leading-relaxed">
+      <div className="max-w-3xl mx-auto px-3 md:px-4 py-5 md:py-8">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass rounded-xl p-4 md:p-6 space-y-5 md:space-y-6 text-sm text-muted-foreground leading-relaxed">
           <div>
             <h2 className="text-base font-semibold text-foreground mb-2">1. Acceptance of Terms</h2>
             <p>By accessing and using CartoFM, you agree to be bound by these Terms of Service. If you do not agree, please discontinue use of the service.</p>

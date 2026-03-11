@@ -86,15 +86,15 @@ const CountryListPage = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="max-w-4xl mx-auto px-3 md:px-4 py-3 md:py-4">
         {/* SEO intro */}
-        <div className="mb-6">
+        <div className="mb-4 md:mb-6">
           <p className="text-sm text-muted-foreground leading-relaxed">
             Browse live radio stations from every corner of the globe. Select a country below to explore its radio landscape, discover local music, news broadcasts, and cultural programming — all streaming free on CartoFM.
           </p>
         </div>
 
-        <div className="relative mb-6">
+        <div className="relative mb-4 md:mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
             placeholder="Search countries..."
@@ -109,7 +109,7 @@ const CountryListPage = () => {
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
             {countries.map((country, i) => (
               <motion.button
                 key={country.code}
@@ -117,7 +117,7 @@ const CountryListPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.02, 0.5) }}
                 onClick={() => navigate(`/countries/${country.code}`)}
-                className="glass hover:bg-muted/50 rounded-xl p-4 flex items-center gap-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="glass hover:bg-muted/50 rounded-xl p-3 md:p-4 flex items-center gap-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
                 <CountryFlag code={country.code} size="w-10 h-7" />
                 <div className="flex-1 min-w-0">
@@ -225,13 +225,13 @@ const CountryDetailPage = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="max-w-4xl mx-auto px-3 md:px-4 py-3 md:py-4">
         {/* Radio landscape section */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="mb-6 glass rounded-xl p-5 border border-border/20"
+          className="mb-4 md:mb-6 glass rounded-xl p-3.5 md:p-5 border border-border/20"
         >
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">
             {content.intro}
@@ -273,7 +273,7 @@ const CountryDetailPage = () => {
             <p>No stations found</p>
           </div>
         ) : (
-          <ScrollArea className="h-[calc(100vh-420px)]">
+          <ScrollArea className="h-[calc(100dvh-380px)] md:h-[calc(100dvh-420px)]">
             <div className="space-y-1">
               {countryStations.map((station) => {
                 const isActive = currentStation?.id === station.id;

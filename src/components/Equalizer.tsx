@@ -61,7 +61,7 @@ export const Equalizer = ({ bands, onBandsChange, activePreset, onPresetChange }
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="absolute bottom-full right-0 md:left-1/2 md:-translate-x-1/2 mb-3 glass-strong rounded-2xl p-3 md:p-4 z-60 w-[300px] md:w-[500px]"
+            className="fixed bottom-16 left-2 right-2 md:absolute md:bottom-full md:left-1/2 md:right-auto md:-translate-x-1/2 mb-3 glass-strong rounded-2xl p-3 md:p-4 z-[60] md:w-[500px]"
           >
             <div className="flex items-center justify-between mb-3">
               <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
@@ -97,7 +97,7 @@ export const Equalizer = ({ bands, onBandsChange, activePreset, onPresetChange }
                   <span className="text-[10px] text-primary font-mono">
                     {gain > 0 ? `+${gain}` : gain}
                   </span>
-                  <div className="h-24 flex items-center">
+                  <div className="h-20 md:h-24 flex items-center">
                     <Slider
                       orientation="vertical"
                       value={[gain]}
