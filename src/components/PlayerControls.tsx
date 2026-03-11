@@ -66,7 +66,7 @@ export const PlayerControls = ({
 
               {/* Error Message */}
               {error && (
-                <div className="hidden md:block text-destructive text-xs max-w-48 text-center">
+                <div className="hidden md:block text-destructive text-xs max-w-48 text-center truncate">
                   {error}
                 </div>
               )}

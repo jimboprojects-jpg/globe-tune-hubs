@@ -24,9 +24,9 @@ export const InfoModal = ({ isOpen, onClose }: InfoModalProps) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg md:w-full glass-strong rounded-2xl z-50 overflow-hidden"
+             className="fixed inset-3 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg md:w-full glass-strong rounded-2xl z-50 overflow-auto max-h-[calc(100dvh-24px)]"
           >
-            <div className="p-6">
+            <div className="p-4 md:p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                   <img src="/favicon.png" alt="CartoFM" className="w-10 h-10 rounded-xl" />

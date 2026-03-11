@@ -233,7 +233,7 @@ export const Globe = (props: GlobeProps) => {
       </Canvas>
 
       {/* Zoom controls */}
-      <div className="absolute right-2 md:right-4 bottom-20 md:bottom-auto md:top-1/2 md:-translate-y-1/2 flex flex-col gap-2 z-10">
+      <div className="absolute right-2 md:right-4 bottom-24 md:bottom-auto md:top-1/2 md:-translate-y-1/2 flex flex-col gap-2 z-10">
         <button
           onClick={() => handleZoom('in')}
           className="glass w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center text-foreground/80 hover:text-primary hover:glow-primary transition-all"

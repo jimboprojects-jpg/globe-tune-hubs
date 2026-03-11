@@ -34,7 +34,7 @@ const WhoWeAre = () => {
             </div>
           </div>
 
-          <div className="glass rounded-xl p-6 space-y-4">
+          <div className="glass rounded-xl p-4 md:p-6 space-y-4">
             <div className="flex items-start gap-3">
               <Globe className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
               <div>

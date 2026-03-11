@@ -97,7 +97,7 @@ export const Equalizer = ({ bands, onBandsChange, activePreset, onPresetChange }
                   <span className="text-[10px] text-primary font-mono">
                     {gain > 0 ? `+${gain}` : gain}
                   </span>
-                  <div className="h-24 flex items-center">
+                  <div className="h-20 md:h-24 flex items-center">
                     <Slider
                       orientation="vertical"
                       value={[gain]}
