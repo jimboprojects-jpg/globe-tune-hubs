@@ -21,7 +21,7 @@ const WhoWeAre = () => {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-8 space-y-8">
+      <div className="max-w-3xl mx-auto px-3 md:px-4 py-5 md:py-8 space-y-6 md:space-y-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
           <div className="flex items-center gap-4">
             <img src="/favicon.png" alt="CartoFM" className="w-16 h-16 rounded-2xl" />
