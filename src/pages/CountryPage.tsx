@@ -86,9 +86,9 @@ const CountryListPage = () => {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="max-w-4xl mx-auto px-3 md:px-4 py-3 md:py-4">
         {/* SEO intro */}
-        <div className="mb-6">
+        <div className="mb-4 md:mb-6">
           <p className="text-sm text-muted-foreground leading-relaxed">
             Browse live radio stations from every corner of the globe. Select a country below to explore its radio landscape, discover local music, news broadcasts, and cultural programming — all streaming free on CartoFM.
           </p>
