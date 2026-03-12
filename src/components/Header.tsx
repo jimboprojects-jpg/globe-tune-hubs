@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Globe, Search, X } from 'lucide-react';
+import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { RadioStation } from '@/data/radioStations';
 import { AudioVisualizer } from './AudioVisualizer';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -14,20 +14,13 @@ interface HeaderProps {
   isBackgroundLoading?: boolean;
   currentStation?: RadioStation | null;
   isPlaying?: boolean;
+  favoriteCount?: number;
+  onFavoritesClick?: () => void;
 }
 
-export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoading, currentStation, isPlaying }: HeaderProps) => {
+export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoading, currentStation, isPlaying, favoriteCount = 0, onFavoritesClick }: HeaderProps) => {
   const navigate = useNavigate();
-  const [showSearch, setShowSearch] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // Navigate to countries page could be extended; for now just close
-      setShowSearch(false);
-    }
-  };
+  const { t } = useTranslation();
 
   return (
     <motion.header
@@ -85,7 +78,7 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
                   {isPlaying && (
                     <div className="flex items-center gap-1 flex-shrink-0">
                       <Signal className="w-3 h-3 text-accent" />
-                      <span className="text-[9px] md:text-[10px] font-mono text-accent uppercase">LIVE</span>
+                      <span className="text-[9px] md:text-[10px] font-mono text-accent uppercase">{t('header.live')}</span>
                     </div>
                   )}
                 </div>
@@ -118,13 +111,13 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
                         <motion.span key={stationCount} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className="inline-block text-accent font-medium">
                           {stationCount.toLocaleString()}
                         </motion.span>
-                        {' '}stations · loading more…
+                        {' '}{t('header.loadingMore')}
                       </span>
                     </motion.div>
                   ) : (
                     <motion.div key="done" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                      <span>{stationCount.toLocaleString()} live stations</span>
+                      <span>{t('header.liveStations', { count: stationCount })}</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -133,7 +126,7 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
           )}
         </AnimatePresence>
 
-        {/* Right: Countries + Search + Info */}
+        {/* Right: Favorites + Info */}
         <div className="flex items-center gap-1 flex-shrink-0">
           {currentStation && (
             <div className="hidden md:flex items-center gap-1.5 text-[10px] text-muted-foreground mr-2">
@@ -149,11 +142,15 @@ export const Header = ({ onMenuClick, onInfoClick, stationCount, isBackgroundLoa
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate('/countries')}
-            className="text-xs text-muted-foreground hover:text-foreground gap-1"
+            onClick={onFavoritesClick}
+            className="text-xs text-muted-foreground hover:text-foreground gap-1 relative"
           >
-            <Globe className="w-4 h-4" />
-            <span className="hidden sm:inline">Countries</span>
+            <Heart className="w-4 h-4" />
+            {favoriteCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-destructive text-destructive-foreground text-[9px] flex items-center justify-center font-bold">
+                {favoriteCount > 9 ? '9+' : favoriteCount}
+              </span>
+            )}
           </Button>
 
           <Button variant="ghost" size="icon" onClick={onInfoClick} className="text-muted-foreground hover:text-foreground">

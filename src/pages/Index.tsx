@@ -7,13 +7,16 @@ import { StationList } from '@/components/StationList';
 import { InfoModal } from '@/components/InfoModal';
 import { FocusCircle } from '@/components/FocusCircle';
 import { SatelliteLoader } from '@/components/SatelliteLoader';
+import { SEOHead } from '@/components/SEOHead';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { RadioStation } from '@/data/radioStations';
+import { useTranslation } from 'react-i18next';
 
 const Index = () => {
   const [focusedStation, setFocusedStation] = useState<RadioStation | null>(null);
   const [isStationListOpen, setIsStationListOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const {
     stations, geoStations, isLoadingStations, isBackgroundLoading,
@@ -43,8 +46,25 @@ const Index = () => {
     setIsStationListOpen(false);
   }, [handlePlay]);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CartoFM",
+    "url": "https://globe-tune-hubs.lovable.app",
+    "description": "Stream thousands of live radio stations from around the world on an interactive 3D globe.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
   return (
     <div className="min-h-screen overflow-hidden">
+      <SEOHead
+        title="CartoFM – Stream Live Radio Stations Worldwide"
+        description="CartoFM lets you listen to thousands of live radio stations from around the world in one place. Discover music, news, talk shows, and local broadcasts from every country."
+        jsonLd={jsonLd}
+      />
+
       <Header
         onMenuClick={() => setIsStationListOpen(true)}
         onInfoClick={() => setIsInfoModalOpen(true)}
@@ -52,6 +72,8 @@ const Index = () => {
         isBackgroundLoading={isBackgroundLoading}
         currentStation={currentStation}
         isPlaying={isPlaying}
+        favoriteCount={favoriteIds.size}
+        onFavoritesClick={() => setIsStationListOpen(true)}
       />
 
       <main className="h-[100dvh] pt-12 md:pt-14 pb-20 md:pb-24">
@@ -80,10 +102,10 @@ const Index = () => {
           >
             <div className="text-center">
               <p className="text-muted-foreground text-sm md:text-base">
-                Rotate the globe to target a <span className="text-primary font-medium">station</span>
+                {t('globe.rotateHint')} <span className="text-primary font-medium">{t('globe.station')}</span>
               </p>
               <p className="text-muted-foreground/60 text-xs mt-1">
-                Drag to rotate · Scroll to zoom · Click to play
+                {t('globe.dragHint')}
               </p>
             </div>
           </motion.div>

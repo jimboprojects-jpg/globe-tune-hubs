@@ -2,12 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Users, Headphones, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SEOHead } from '@/components/SEOHead';
+import { useTranslation } from 'react-i18next';
 
 const WhoWeAre = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Who We Are – CartoFM"
+        description="Learn about CartoFM — the interactive world radio platform connecting listeners to thousands of live stations from every corner of the globe."
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About CartoFM",
+          "url": "https://globe-tune-hubs.lovable.app/who-we-are",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+        }}
+      />
+
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
@@ -15,8 +30,8 @@ const WhoWeAre = () => {
           </Button>
           <Users className="w-5 h-5 text-primary" />
           <h1 className="text-lg font-bold">
-            <span className="text-gradient-primary">Who</span>{' '}
-            <span className="text-gradient-accent">We Are</span>
+            <span className="text-gradient-primary">{t('whoWeAre.title').split(' ')[0]}</span>{' '}
+            <span className="text-gradient-accent">{t('whoWeAre.title').split(' ').slice(1).join(' ')}</span>
           </h1>
         </div>
       </div>
@@ -30,7 +45,7 @@ const WhoWeAre = () => {
                 <span className="text-gradient-primary">Carto</span>
                 <span className="text-gradient-accent">FM</span>
               </h2>
-              <p className="text-muted-foreground text-sm">The world in your ears</p>
+              <p className="text-muted-foreground text-sm">{t('whoWeAre.tagline')}</p>
             </div>
           </div>
 
@@ -38,30 +53,24 @@ const WhoWeAre = () => {
             <div className="flex items-start gap-3">
               <Globe className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-1">Our Mission</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  CartoFM brings together radio stations from every corner of the globe into one beautiful, interactive experience. We believe that radio connects cultures, shares stories, and brings people together — no matter the distance.
-                </p>
+                <h3 className="font-semibold text-foreground mb-1">{t('whoWeAre.mission')}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t('whoWeAre.missionText')}</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
               <Headphones className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-1">What We Do</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  We aggregate over 90,000 radio stations from multiple sources including the Radio Browser API, radio.net, and radio.garden — giving you the most comprehensive radio listening experience on the web. Spin the globe, discover new sounds, and tune in to live broadcasts from anywhere.
-                </p>
+                <h3 className="font-semibold text-foreground mb-1">{t('whoWeAre.whatWeDo')}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t('whoWeAre.whatWeDoText')}</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
               <Users className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-1">Community</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  CartoFM is built for music lovers, culture enthusiasts, and curious listeners. Save your favourites, explore by country, and share your discoveries with friends.
-                </p>
+                <h3 className="font-semibold text-foreground mb-1">{t('whoWeAre.community')}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t('whoWeAre.communityText')}</p>
               </div>
             </div>
           </div>
