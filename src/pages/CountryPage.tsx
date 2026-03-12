@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PlayerControls } from '@/components/PlayerControls';
+import { SEOHead } from '@/components/SEOHead';
 import { searchStations } from '@/data/radioStations';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { getCountryContent, getCountryListSEO } from '@/data/countryRadioContent';
+import { useTranslation } from 'react-i18next';
 
 const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }) => (
   <img
@@ -21,26 +23,10 @@ const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }
   />
 );
 
-const useDocumentMeta = (title: string, description: string) => {
-  useEffect(() => {
-    document.title = title;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', description);
-    else {
-      const meta = document.createElement('meta');
-      meta.name = 'description';
-      meta.content = description;
-      document.head.appendChild(meta);
-    }
-    return () => {
-      document.title = 'CartoFM – Stream Live Radio Stations Worldwide';
-    };
-  }, [title, description]);
-};
-
 const CountryListPage = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useTranslation();
   const {
     stations, isLoadingStations,
     currentStation, isPlaying, isLoading: playerLoading, volume, error,
@@ -50,7 +36,6 @@ const CountryListPage = () => {
   } = useGlobalPlayer();
 
   const seo = getCountryListSEO();
-  useDocumentMeta(seo.title, seo.description);
 
   const countries = useMemo(() => {
     const map = new Map<string, { name: string; code: string; count: number }>();
@@ -70,6 +55,19 @@ const CountryListPage = () => {
 
   return (
     <div className="min-h-screen bg-background pb-24">
+      <SEOHead
+        title={seo.title}
+        description={seo.description}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Listen by Country – CartoFM",
+          "description": seo.description,
+          "url": "https://globe-tune-hubs.lovable.app/countries",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+        }}
+      />
+
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
@@ -77,27 +75,26 @@ const CountryListPage = () => {
           </Button>
           <Globe className="w-5 h-5 text-primary" />
           <h1 className="text-lg font-bold">
-            <span className="text-gradient-primary">Listen by</span>{' '}
-            <span className="text-gradient-accent">Country</span>
+            <span className="text-gradient-primary">{t('country.listenBy')}</span>{' '}
+            <span className="text-gradient-accent">{t('country.country')}</span>
           </h1>
           <span className="text-xs text-muted-foreground ml-auto">
-            {countries.length} countries
+            {t('country.countries', { count: countries.length })}
           </span>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-3 md:px-4 py-3 md:py-4">
-        {/* SEO intro */}
         <div className="mb-4 md:mb-6">
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Browse live radio stations from every corner of the globe. Select a country below to explore its radio landscape, discover local music, news broadcasts, and cultural programming — all streaming free on CartoFM.
+            {t('country.browseIntro')}
           </p>
         </div>
 
         <div className="relative mb-4 md:mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Search countries..."
+            placeholder={t('country.searchCountries')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 bg-muted/50 border-border/50"
@@ -122,7 +119,7 @@ const CountryListPage = () => {
                 <CountryFlag code={country.code} size="w-10 h-7" />
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-foreground truncate text-sm">{country.name}</p>
-                  <p className="text-xs text-muted-foreground">{country.count.toLocaleString()} stations</p>
+                  <p className="text-xs text-muted-foreground">{t('country.stations', { count: country.count })}</p>
                 </div>
                 <Radio className="w-4 h-4 text-muted-foreground flex-shrink-0" />
               </motion.button>
@@ -156,6 +153,7 @@ const CountryDetailPage = () => {
   const { countryCode } = useParams<{ countryCode: string }>();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useTranslation();
   const {
     stations, isLoadingStations,
     currentStation, isPlaying, isLoading: playerLoading, volume, error,
@@ -178,9 +176,6 @@ const CountryDetailPage = () => {
     [countryCode, countryName, countryStations.length]
   );
 
-  useDocumentMeta(content.metaTitle, content.metaDescription);
-
-  // JSON-LD structured data
   const jsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -199,19 +194,14 @@ const CountryDetailPage = () => {
     "numberOfItems": countryStations.length
   }), [content, countryCode, countryName, countryStations.length]);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(jsonLd);
-    script.id = 'country-jsonld';
-    const existing = document.getElementById('country-jsonld');
-    if (existing) existing.remove();
-    document.head.appendChild(script);
-    return () => { script.remove(); };
-  }, [jsonLd]);
-
   return (
     <div className="min-h-screen bg-background pb-24">
+      <SEOHead
+        title={content.metaTitle}
+        description={content.metaDescription}
+        jsonLd={jsonLd}
+      />
+
       <div className="glass border-b border-border/30 sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="icon" onClick={() => navigate('/countries')}>
@@ -220,13 +210,12 @@ const CountryDetailPage = () => {
           <CountryFlag code={countryCode || ''} size="w-8 h-6" />
           <div>
             <h1 className="text-base font-bold text-foreground">{content.headline}</h1>
-            <p className="text-xs text-muted-foreground">{countryStations.length.toLocaleString()} stations</p>
+            <p className="text-xs text-muted-foreground">{t('country.stations', { count: countryStations.length })}</p>
           </div>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto px-3 md:px-4 py-3 md:py-4">
-        {/* Radio landscape section */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -238,7 +227,7 @@ const CountryDetailPage = () => {
           </p>
           <h2 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
             <Radio className="w-4 h-4 text-primary" />
-            Radio Landscape
+            {t('country.radioLandscape')}
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
             {content.landscape}
@@ -246,7 +235,7 @@ const CountryDetailPage = () => {
           {content.funFact && (
             <div className="mt-3 p-3 rounded-lg bg-primary/5 border border-primary/10">
               <p className="text-xs text-muted-foreground">
-                <span className="font-semibold text-primary">Did you know?</span>{' '}
+                <span className="font-semibold text-primary">{t('country.didYouKnow')}</span>{' '}
                 {content.funFact}
               </p>
             </div>
@@ -256,7 +245,7 @@ const CountryDetailPage = () => {
         <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Search stations..."
+            placeholder={t('country.searchStations')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 bg-muted/50 border-border/50"
@@ -270,7 +259,7 @@ const CountryDetailPage = () => {
         ) : countryStations.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
             <Radio className="w-12 h-12 mx-auto mb-3 opacity-40" />
-            <p>No stations found</p>
+            <p>{t('country.noStations')}</p>
           </div>
         ) : (
           <ScrollArea className="h-[calc(100dvh-380px)] md:h-[calc(100dvh-420px)]">
