@@ -250,7 +250,7 @@ export const StationList = ({
               {/* Footer */}
               <div className="p-4 border-t border-border/50">
                 <div className="text-[10px] text-muted-foreground/60 text-center">
-                  {t('menu.stationsWorldwide', { count: String(stations.length.toLocaleString()) } as any)}
+                  {String(t('menu.stationsWorldwide', { count: stations.length.toLocaleString() }))}
                 </div>
               </div>
             </div>
