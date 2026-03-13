@@ -203,7 +203,12 @@
     0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
   }
-
+/* Hide Lovable badge */
+a[href*="lovable.dev"],
+iframe[src*="lovable"],
+[class*="lovable"] {
+  display: none !important;
+}
   .animate-twinkle {
     animation: twinkle 3s ease-in-out infinite;
   }
