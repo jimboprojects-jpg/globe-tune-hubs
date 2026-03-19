@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://globe-tune-hubs.lovable.app/sitemap.xml
+Sitemap: https://cartofm.com/sitemap.xml
