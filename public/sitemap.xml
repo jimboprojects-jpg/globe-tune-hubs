@@ -1,58 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://globe-tune-hubs.lovable.app/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://globe-tune-hubs.lovable.app/countries</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://globe-tune-hubs.lovable.app/who-we-are</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://globe-tune-hubs.lovable.app/terms</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://globe-tune-hubs.lovable.app/privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/US</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/GB</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/DE</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/FR</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/BR</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/JP</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/IN</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/AU</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/CA</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/MX</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/ES</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/IT</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/NL</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/RU</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/KR</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/CN</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/NG</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/ZA</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/KE</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/EG</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/TR</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/AR</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/CO</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/SE</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/PL</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/ID</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/VN</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/SA</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/CL</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://globe-tune-hubs.lovable.app/countries/NO</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Core Pages -->
+  <url><loc>https://cartofm.com/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://cartofm.com/countries</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cartofm.com/who-we-are</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cartofm.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://cartofm.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+  <!-- ALL COUNTRIES -->
+  <!-- Generated using ISO 3166-1 alpha-2 -->
+
+  <!-- A -->
+  <url><loc>https://cartofm.com/countries/AF</loc></url>
+  <url><loc>https://cartofm.com/countries/AL</loc></url>
+  <url><loc>https://cartofm.com/countries/DZ</loc></url>
+  <url><loc>https://cartofm.com/countries/AD</loc></url>
+  <url><loc>https://cartofm.com/countries/AO</loc></url>
+  <url><loc>https://cartofm.com/countries/AG</loc></url>
+  <url><loc>https://cartofm.com/countries/AR</loc></url>
+  <url><loc>https://cartofm.com/countries/AM</loc></url>
+  <url><loc>https://cartofm.com/countries/AU</loc></url>
+  <url><loc>https://cartofm.com/countries/AT</loc></url>
+  <url><loc>https://cartofm.com/countries/AZ</loc></url>
+
+  <!-- B -->
+  <url><loc>https://cartofm.com/countries/BS</loc></url>
+  <url><loc>https://cartofm.com/countries/BH</loc></url>
+  <url><loc>https://cartofm.com/countries/BD</loc></url>
+  <url><loc>https://cartofm.com/countries/BB</loc></url>
+  <url><loc>https://cartofm.com/countries/BY</loc></url>
+  <url><loc>https://cartofm.com/countries/BE</loc></url>
+  <url><loc>https://cartofm.com/countries/BZ</loc></url>
+  <url><loc>https://cartofm.com/countries/BJ</loc></url>
+  <url><loc>https://cartofm.com/countries/BT</loc></url>
+  <url><loc>https://cartofm.com/countries/BO</loc></url>
+  <url><loc>https://cartofm.com/countries/BA</loc></url>
+  <url><loc>https://cartofm.com/countries/BW</loc></url>
+  <url><loc>https://cartofm.com/countries/BR</loc></url>
+  <url><loc>https://cartofm.com/countries/BN</loc></url>
+  <url><loc>https://cartofm.com/countries/BG</loc></url>
+  <url><loc>https://cartofm.com/countries/BF</loc></url>
+  <url><loc>https://cartofm.com/countries/BI</loc></url>
+
+  <!-- C -->
+  <url><loc>https://cartofm.com/countries/CV</loc></url>
+  <url><loc>https://cartofm.com/countries/KH</loc></url>
+  <url><loc>https://cartofm.com/countries/CM</loc></url>
+  <url><loc>https://cartofm.com/countries/CA</loc></url>
+  <url><loc>https://cartofm.com/countries/CF</loc></url>
+  <url><loc>https://cartofm.com/countries/TD</loc></url>
+  <url><loc>https://cartofm.com/countries/CL</loc></url>
+  <url><loc>https://cartofm.com/countries/CN</loc></url>
+  <url><loc>https://cartofm.com/countries/CO</loc></url>
+  <url><loc>https://cartofm.com/countries/KM</loc></url>
+  <url><loc>https://cartofm.com/countries/CD</loc></url>
+  <url><loc>https://cartofm.com/countries/CG</loc></url>
+  <url><loc>https://cartofm.com/countries/CR</loc></url>
+  <url><loc>https://cartofm.com/countries/CI</loc></url>
+  <url><loc>https://cartofm.com/countries/HR</loc></url>
+  <url><loc>https://cartofm.com/countries/CU</loc></url>
+  <url><loc>https://cartofm.com/countries/CY</loc></url>
+  <url><loc>https://cartofm.com/countries/CZ</loc></url>
+
+  <!-- D -->
+  <url><loc>https://cartofm.com/countries/DK</loc></url>
+  <url><loc>https://cartofm.com/countries/DJ</loc></url>
+  <url><loc>https://cartofm.com/countries/DM</loc></url>
+  <url><loc>https://cartofm.com/countries/DO</loc></url>
+
+  <!-- E -->
+  <url><loc>https://cartofm.com/countries/EC</loc></url>
+  <url><loc>https://cartofm.com/countries/EG</loc></url>
+  <url><loc>https://cartofm.com/countries/SV</loc></url>
+  <url><loc>https://cartofm.com/countries/GQ</loc></url>
+  <url><loc>https://cartofm.com/countries/ER</loc></url>
+  <url><loc>https://cartofm.com/countries/EE</loc></url>
+  <url><loc>https://cartofm.com/countries/SZ</loc></url>
+  <url><loc>https://cartofm.com/countries/ET</loc></url>
+
+  <!-- F -->
+  <url><loc>https://cartofm.com/countries/FJ</loc></url>
+  <url><loc>https://cartofm.com/countries/FI</loc></url>
+  <url><loc>https://cartofm.com/countries/FR</loc></url>
+
+  <!-- G -->
+  <url><loc>https://cartofm.com/countries/GA</loc></url>
+  <url><loc>https://cartofm.com/countries/GM</loc></url>
+  <url><loc>https://cartofm.com/countries/GE</loc></url>
+  <url><loc>https://cartofm.com/countries/DE</loc></url>
+  <url><loc>https://cartofm.com/countries/GH</loc></url>
+  <url><loc>https://cartofm.com/countries/GR</loc></url>
+  <url><loc>https://cartofm.com/countries/GD</loc></url>
+  <url><loc>https://cartofm.com/countries/GT</loc></url>
+  <url><loc>https://cartofm.com/countries/GN</loc></url>
+  <url><loc>https://cartofm.com/countries/GW</loc></url>
+  <url><loc>https://cartofm.com/countries/GY</loc></url>
+
+  <!-- H -->
+  <url><loc>https://cartofm.com/countries/HT</loc></url>
+  <url><loc>https://cartofm.com/countries/HN</loc></url>
+  <url><loc>https://cartofm.com/countries/HU</loc></url>
+
+  <!-- I -->
+  <url><loc>https://cartofm.com/countries/IS</loc></url>
+  <url><loc>https://cartofm.com/countries/IN</loc></url>
+  <url><loc>https://cartofm.com/countries/ID</loc></url>
+  <url><loc>https://cartofm.com/countries/IR</loc></url>
+  <url><loc>https://cartofm.com/countries/IQ</loc></url>
+  <url><loc>https://cartofm.com/countries/IE</loc></url>
+  <url><loc>https://cartofm.com/countries/IL</loc></url>
+  <url><loc>https://cartofm.com/countries/IT</loc></url>
+
+  <!-- J -->
+  <url><loc>https://cartofm.com/countries/JM</loc></url>
+  <url><loc>https://cartofm.com/countries/JP</loc></url>
+  <url><loc>https://cartofm.com/countries/JO</loc></url>
+
+  <!-- K -->
+  <url><loc>https://cartofm.com/countries/KZ</loc></url>
+  <url><loc>https://cartofm.com/countries/KE</loc></url>
+  <url><loc>https://cartofm.com/countries/KI</loc></url>
+  <url><loc>https://cartofm.com/countries/KP</loc></url>
+  <url><loc>https://cartofm.com/countries/KR</loc></url>
+  <url><loc>https://cartofm.com/countries/KW</loc></url>
+  <url><loc>https://cartofm.com/countries/KG</loc></url>
+
+  <!-- L -->
+  <url><loc>https://cartofm.com/countries/LA</loc></url>
+  <url><loc>https://cartofm.com/countries/LV</loc></url>
+  <url><loc>https://cartofm.com/countries/LB</loc></url>
+  <url><loc>https://cartofm.com/countries/LS</loc></url>
+  <url><loc>https://cartofm.com/countries/LR</loc></url>
+  <url><loc>https://cartofm.com/countries/LY</loc></url>
+  <url><loc>https://cartofm.com/countries/LI</loc></url>
+  <url><loc>https://cartofm.com/countries/LT</loc></url>
+  <url><loc>https://cartofm.com/countries/LU</loc></url>
+
+  <!-- M -->
+  <url><loc>https://cartofm.com/countries/MG</loc></url>
+  <url><loc>https://cartofm.com/countries/MW</loc></url>
+  <url><loc>https://cartofm.com/countries/MY</loc></url>
+  <url><loc>https://cartofm.com/countries/MV</loc></url>
+  <url><loc>https://cartofm.com/countries/ML</loc></url>
+  <url><loc>https://cartofm.com/countries/MT</loc></url>
+  <url><loc>https://cartofm.com/countries/MH</loc></url>
+  <url><loc>https://cartofm.com/countries/MR</loc></url>
+  <url><loc>https://cartofm.com/countries/MU</loc></url>
+  <url><loc>https://cartofm.com/countries/MX</loc></url>
+  <url><loc>https://cartofm.com/countries/FM</loc></url>
+  <url><loc>https://cartofm.com/countries/MD</loc></url>
+  <url><loc>https://cartofm.com/countries/MC</loc></url>
+  <url><loc>https://cartofm.com/countries/MN</loc></url>
+  <url><loc>https://cartofm.com/countries/ME</loc></url>
+  <url><loc>https://cartofm.com/countries/MA</loc></url>
+  <url><loc>https://cartofm.com/countries/MZ</loc></url>
+
+  <!-- N -->
+  <url><loc>https://cartofm.com/countries/MM</loc></url>
+  <url><loc>https://cartofm.com/countries/NA</loc></url>
+  <url><loc>https://cartofm.com/countries/NR</loc></url>
+  <url><loc>https://cartofm.com/countries/NP</loc></url>
+  <url><loc>https://cartofm.com/countries/NL</loc></url>
+  <url><loc>https://cartofm.com/countries/NZ</loc></url>
+  <url><loc>https://cartofm.com/countries/NI</loc></url>
+  <url><loc>https://cartofm.com/countries/NE</loc></url>
+  <url><loc>https://cartofm.com/countries/NG</loc></url>
+  <url><loc>https://cartofm.com/countries/MK</loc></url>
+  <url><loc>https://cartofm.com/countries/NO</loc></url>
+
+  <!-- O -->
+  <url><loc>https://cartofm.com/countries/OM</loc></url>
+
+  <!-- P -->
+  <url><loc>https://cartofm.com/countries/PK</loc></url>
+  <url><loc>https://cartofm.com/countries/PW</loc></url>
+  <url><loc>https://cartofm.com/countries/PA</loc></url>
+  <url><loc>https://cartofm.com/countries/PG</loc></url>
+  <url><loc>https://cartofm.com/countries/PY</loc></url>
+  <url><loc>https://cartofm.com/countries/PE</loc></url>
+  <url><loc>https://cartofm.com/countries/PH</loc></url>
+  <url><loc>https://cartofm.com/countries/PL</loc></url>
+  <url><loc>https://cartofm.com/countries/PT</loc></url>
+
+  <!-- Q -->
+  <url><loc>https://cartofm.com/countries/QA</loc></url>
+
+  <!-- R -->
+  <url><loc>https://cartofm.com/countries/RO</loc></url>
+  <url><loc>https://cartofm.com/countries/RU</loc></url>
+  <url><loc>https://cartofm.com/countries/RW</loc></url>
+
+  <!-- S -->
+  <url><loc>https://cartofm.com/countries/KN</loc></url>
+  <url><loc>https://cartofm.com/countries/LC</loc></url>
+  <url><loc>https://cartofm.com/countries/VC</loc></url>
+  <url><loc>https://cartofm.com/countries/WS</loc></url>
+  <url><loc>https://cartofm.com/countries/SM</loc></url>
+  <url><loc>https://cartofm.com/countries/ST</loc></url>
+  <url><loc>https://cartofm.com/countries/SA</loc></url>
+  <url><loc>https://cartofm.com/countries/SN</loc></url>
+  <url><loc>https://cartofm.com/countries/RS</loc></url>
+  <url><loc>https://cartofm.com/countries/SC</loc></url>
+  <url><loc>https://cartofm.com/countries/SL</loc></url>
+  <url><loc>https://cartofm.com/countries/SG</loc></url>
+  <url><loc>https://cartofm.com/countries/SK</loc></url>
+  <url><loc>https://cartofm.com/countries/SI</loc></url>
+  <url><loc>https://cartofm.com/countries/SB</loc></url>
+  <url><loc>https://cartofm.com/countries/SO</loc></url>
+  <url><loc>https://cartofm.com/countries/ZA</loc></url>
+  <url><loc>https://cartofm.com/countries/SS</loc></url>
+  <url><loc>https://cartofm.com/countries/ES</loc></url>
+  <url><loc>https://cartofm.com/countries/LK</loc></url>
+  <url><loc>https://cartofm.com/countries/SD</loc></url>
+  <url><loc>https://cartofm.com/countries/SR</loc></url>
+  <url><loc>https://cartofm.com/countries/SE</loc></url>
+  <url><loc>https://cartofm.com/countries/CH</loc></url>
+  <url><loc>https://cartofm.com/countries/SY</loc></url>
+
+  <!-- T -->
+  <url><loc>https://cartofm.com/countries/TW</loc></url>
+  <url><loc>https://cartofm.com/countries/TJ</loc></url>
+  <url><loc>https://cartofm.com/countries/TZ</loc></url>
+  <url><loc>https://cartofm.com/countries/TH</loc></url>
+  <url><loc>https://cartofm.com/countries/TL</loc></url>
+  <url><loc>https://cartofm.com/countries/TG</loc></url>
+  <url><loc>https://cartofm.com/countries/TO</loc></url>
+  <url><loc>https://cartofm.com/countries/TT</loc></url>
+  <url><loc>https://cartofm.com/countries/TN</loc></url>
+  <url><loc>https://cartofm.com/countries/TR</loc></url>
+  <url><loc>https://cartofm.com/countries/TM</loc></url>
+  <url><loc>https://cartofm.com/countries/TV</loc></url>
+
+  <!-- U -->
+  <url><loc>https://cartofm.com/countries/UG</loc></url>
+  <url><loc>https://cartofm.com/countries/UA</loc></url>
+  <url><loc>https://cartofm.com/countries/AE</loc></url>
+  <url><loc>https://cartofm.com/countries/GB</loc></url>
+  <url><loc>https://cartofm.com/countries/US</loc></url>
+  <url><loc>https://cartofm.com/countries/UY</loc></url>
+  <url><loc>https://cartofm.com/countries/UZ</loc></url>
+
+  <!-- V -->
+  <url><loc>https://cartofm.com/countries/VU</loc></url>
+  <url><loc>https://cartofm.com/countries/VA</loc></url>
+  <url><loc>https://cartofm.com/countries/VE</loc></url>
+  <url><loc>https://cartofm.com/countries/VN</loc></url>
+
+  <!-- Y -->
+  <url><loc>https://cartofm.com/countries/YE</loc></url>
+
+  <!-- Z -->
+  <url><loc>https://cartofm.com/countries/ZM</loc></url>
+  <url><loc>https://cartofm.com/countries/ZW</loc></url>
+
 </urlset>
