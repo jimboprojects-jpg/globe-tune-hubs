@@ -73,7 +73,10 @@ const Index = () => {
         currentStation={currentStation}
         isPlaying={isPlaying}
         favoriteCount={favoriteIds.size}
-        onFavoritesClick={() => setIsStationListOpen(true)}
+        favoriteStations={stations.filter(s => favoriteIds.has(s.id))}
+        onStationSelect={handleStationSelect}
+        isFavorite={isFavorite}
+        onToggleFavorite={toggleFavorite}
       />
 
       <main className="h-[100dvh] pt-12 md:pt-14 pb-20 md:pb-24">
