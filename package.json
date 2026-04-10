@@ -1,10 +1,7 @@
 {
-  "name": "cartotv-nextjs",
+  "name": "cartofm",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": "20.x"
-  },
   "scripts": {
     "dev": "vite --port 8080",
     "build": "tsc && vite build",
