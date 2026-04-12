@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SEOHead } from '@/components/SEOHead';
+import SEOFooter from '@/components/SEOFooter';
 import { useTranslation } from 'react-i18next';
 
 const TermsOfService = () => {
@@ -54,6 +55,7 @@ const TermsOfService = () => {
           <p className="text-xs text-muted-foreground/60 pt-4 border-t border-border/30">{t('terms.lastUpdated')}</p>
         </motion.div>
       </div>
+      <SEOFooter />
     </div>
   );
 };

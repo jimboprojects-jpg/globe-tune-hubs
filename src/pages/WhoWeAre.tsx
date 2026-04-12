@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Users, Headphones, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import SEOFooter from '@/components/SEOFooter';
 import { SEOHead } from '@/components/SEOHead';
 import { useTranslation } from 'react-i18next';
 
@@ -76,6 +77,7 @@ const WhoWeAre = () => {
           </div>
         </motion.div>
       </div>
+      <SEOFooter />
     </div>
   );
 };
