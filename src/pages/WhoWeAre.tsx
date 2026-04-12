@@ -18,8 +18,8 @@ const WhoWeAre = () => {
           "@context": "https://schema.org",
           "@type": "AboutPage",
           "name": "About CartoFM",
-          "url": "https://globe-tune-hubs.lovable.app/who-we-are",
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+          "url": "https://cartofm.com/who-we-are",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" }
         }}
       />
 

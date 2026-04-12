@@ -28,8 +28,8 @@ const TermsOfService = () => {
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Terms of Service – CartoFM",
-          "url": "https://globe-tune-hubs.lovable.app/terms",
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+          "url": "https://cartofm.com/terms",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" }
         }}
       />
 

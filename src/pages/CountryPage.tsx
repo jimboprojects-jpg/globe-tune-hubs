@@ -63,8 +63,8 @@ const CountryListPage = () => {
           "@type": "CollectionPage",
           "name": "Listen by Country – CartoFM",
           "description": seo.description,
-          "url": "https://globe-tune-hubs.lovable.app/countries",
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+          "url": "https://cartofm.com/countries",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" }
         }}
       />
 
@@ -181,11 +181,11 @@ const CountryDetailPage = () => {
     "@type": "CollectionPage",
     "name": content.headline,
     "description": content.metaDescription,
-    "url": `https://globe-tune-hubs.lovable.app/countries/${countryCode}`,
+    "url": `https://cartofm.com/countries/${countryCode}`,
     "isPartOf": {
       "@type": "WebSite",
       "name": "CartoFM",
-      "url": "https://globe-tune-hubs.lovable.app"
+      "url": "https://cartofm.com"
     },
     "about": {
       "@type": "Country",

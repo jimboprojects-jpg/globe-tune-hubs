@@ -27,8 +27,8 @@ const PrivacyPolicy = () => {
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Privacy Policy – CartoFM",
-          "url": "https://globe-tune-hubs.lovable.app/privacy",
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+          "url": "https://cartofm.com/privacy",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" }
         }}
       />
 
