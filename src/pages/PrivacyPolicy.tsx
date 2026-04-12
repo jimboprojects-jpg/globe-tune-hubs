@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SEOHead } from '@/components/SEOHead';
+import SEOFooter from '@/components/SEOFooter';
 import { useTranslation } from 'react-i18next';
 
 const PrivacyPolicy = () => {
@@ -27,8 +28,8 @@ const PrivacyPolicy = () => {
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Privacy Policy – CartoFM",
-          "url": "https://globe-tune-hubs.lovable.app/privacy",
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://globe-tune-hubs.lovable.app" }
+          "url": "https://cartofm.com/privacy",
+          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" }
         }}
       />
 
@@ -53,6 +54,7 @@ const PrivacyPolicy = () => {
           <p className="text-xs text-muted-foreground/60 pt-4 border-t border-border/30">{t('privacy.lastUpdated')}</p>
         </motion.div>
       </div>
+      <SEOFooter />
     </div>
   );
 };
