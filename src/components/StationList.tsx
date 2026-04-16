@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, FileText, Shield, Globe } from 'lucide-react';
+import { X, Users, FileText, Shield, Globe, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { RadioStation } from '@/data/radioStations';
@@ -87,6 +87,13 @@ export const StationList = ({
                       >
                         <Globe className="w-4 h-4 text-accent" />
                         <span className="text-sm text-foreground font-medium">{t('menu.countries')}</span>
+                      </button>
+                      <button
+                        onClick={() => handleNavigate('/blog')}
+                        className="w-full flex items-center gap-3 p-3 rounded-lg text-left hover:bg-muted/50 transition-colors"
+                      >
+                        <BookOpen className="w-4 h-4 text-accent" />
+                        <span className="text-sm text-foreground font-medium">{t('menu.blog')}</span>
                       </button>
                       <button
                         onClick={() => handleNavigate('/who-we-are')}

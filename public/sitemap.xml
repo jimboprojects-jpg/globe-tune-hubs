@@ -3641,17 +3641,225 @@
       <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/countries/ZW" />
   </url>
 
-  <url><loc>https://cartofm.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cartofm.com/blog/best-jazz-radio-stations-worldwide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/how-radio-shaped-music-culture</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/listen-to-radio-in-japan</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/african-radio-stations-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/best-classical-music-radio-stations</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/latin-american-radio-culture</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/how-to-discover-new-music-with-world-radio</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/european-radio-stations-hidden-gems</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/best-radio-stations-for-studying-and-focus</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cartofm.com/blog/middle-eastern-radio-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://cartofm.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/best-jazz-radio-stations-worldwide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/best-jazz-radio-stations-worldwide" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/how-radio-shaped-music-culture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/how-radio-shaped-music-culture" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/listen-to-radio-in-japan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/listen-to-radio-in-japan" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/african-radio-stations-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/african-radio-stations-guide" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/african-radio-stations-guide" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/best-classical-music-radio-stations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/best-classical-music-radio-stations" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/latin-american-radio-culture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/latin-american-radio-culture" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/latin-american-radio-culture" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/internet-radio-vs-spotify-why-live-radio-matters" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/how-to-discover-new-music-with-world-radio</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/how-to-discover-new-music-with-world-radio" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/indian-radio-stations-bollywood-classical-regional" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/european-radio-stations-hidden-gems</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/european-radio-stations-hidden-gems" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/best-radio-stations-for-studying-and-focus</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/best-radio-stations-for-studying-and-focus" />
+  </url>
+  <url>
+    <loc>https://cartofm.com/blog/middle-eastern-radio-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+      <xhtml:link rel="alternate" hreflang="en" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="fr" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="es" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="de" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="sw" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="ru" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="hi" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="ar" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="pt" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="id" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+      <xhtml:link rel="alternate" hreflang="x-default" href="https://cartofm.com/blog/middle-eastern-radio-guide" />
+  </url>
 </urlset>
