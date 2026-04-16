@@ -16,6 +16,7 @@ export const translations = {
       'menu.more': '+{{count}} more',
       'menu.pages': 'Pages',
       'menu.countries': 'Listen by Country',
+      'menu.blog': 'Blog',
       'menu.whoWeAre': 'Who We Are',
       'menu.terms': 'Terms of Service',
       'menu.privacy': 'Privacy Policy',
