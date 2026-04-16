@@ -19,6 +19,21 @@ const GENRES = [
   'country','news','rnb','reggae','latin','ambient',
 ];
 
+const BLOG_SLUGS = [
+  'best-jazz-radio-stations-worldwide',
+  'how-radio-shaped-music-culture',
+  'listen-to-radio-in-japan',
+  'african-radio-stations-guide',
+  'best-classical-music-radio-stations',
+  'latin-american-radio-culture',
+  'internet-radio-vs-spotify-why-live-radio-matters',
+  'how-to-discover-new-music-with-world-radio',
+  'indian-radio-stations-bollywood-classical-regional',
+  'european-radio-stations-hidden-gems',
+  'best-radio-stations-for-studying-and-focus',
+  'middle-eastern-radio-guide',
+];
+
 const COUNTRIES = [
   'AD','AE','AF','AG','AL','AM','AO','AR','AT','AU','AZ','BA','BB','BD','BE','BF','BG','BH','BI','BJ',
   'BN','BO','BR','BS','BT','BW','BY','BZ','CA','CD','CF','CG','CH','CI','CL','CM','CN','CO','CR','CU',
@@ -42,6 +57,8 @@ const routes = [
   '/terms',
   '/privacy',
   '/faq',
+  '/blog',
+  ...BLOG_SLUGS.map(s => `/blog/${s}`),
 ];
 
 // ── Tiny static file server ─────────────────────────────────────────

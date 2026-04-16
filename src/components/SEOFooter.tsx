@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { GENRES } from '@/data/genreContent';
+import { blogPosts } from '@/data/blogPosts';
 
 const SEOFooter = () => {
   const topCountries = [
@@ -54,10 +55,11 @@ const SEOFooter = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-foreground mb-3">More Countries</h3>
-            <nav aria-label="More countries" className="space-y-2">
-              {topCountries.slice(8).map(c => (
-                <Link key={c.code} to={`/countries/${c.code}`} className="block text-xs text-muted-foreground hover:text-foreground transition-colors">{c.name} Radio</Link>
+            <h3 className="text-sm font-semibold text-foreground mb-3">Blog</h3>
+            <nav aria-label="Blog articles" className="space-y-2">
+              <Link to="/blog" className="block text-xs text-muted-foreground hover:text-foreground transition-colors">All Articles</Link>
+              {blogPosts.slice(0, 5).map(p => (
+                <Link key={p.slug} to={`/blog/${p.slug}`} className="block text-xs text-muted-foreground hover:text-foreground transition-colors line-clamp-1">{p.title}</Link>
               ))}
             </nav>
             <div className="mt-4 space-y-2">
