@@ -9,6 +9,7 @@ import { PlayerControls } from '@/components/PlayerControls';
 import { SEOHead } from '@/components/SEOHead';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { GENRES, getGenreBySlug, getGenreListSEO, matchStationToGenre } from '@/data/genreContent';
+import { buildStationItemList } from '@/lib/stationJsonLd';
 import { useTranslation } from 'react-i18next';
 
 const GenreListPage = () => {
@@ -123,13 +124,23 @@ const GenreDetailPage = () => {
         description={genre.metaDescription}
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "name": genre.headline,
-          "description": genre.metaDescription,
-          "url": `https://cartofm.com/genres/${genreSlug}`,
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" },
-          "about": { "@type": "MusicGenre", "name": genre.name },
-          "numberOfItems": genreStations.length,
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": `https://cartofm.com/genres/${genreSlug}`,
+              name: genre.headline,
+              description: genre.metaDescription,
+              url: `https://cartofm.com/genres/${genreSlug}`,
+              isPartOf: { "@type": "WebSite", name: "CartoFM", url: "https://cartofm.com" },
+              about: { "@type": "MusicGenre", name: genre.name },
+              numberOfItems: genreStations.length,
+              mainEntity: buildStationItemList(
+                genreStations,
+                `https://cartofm.com/genres/${genreSlug}`,
+                50
+              ),
+            },
+          ],
         }}
       />
 
