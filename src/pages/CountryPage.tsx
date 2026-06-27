@@ -177,23 +177,25 @@ const CountryDetailPage = () => {
     [countryCode, countryName, countryStations.length]
   );
 
-  const jsonLd = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": content.headline,
-    "description": content.metaDescription,
-    "url": `https://cartofm.com/countries/${countryCode}`,
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "CartoFM",
-      "url": "https://cartofm.com"
-    },
-    "about": {
-      "@type": "Country",
-      "name": countryName
-    },
-    "numberOfItems": countryStations.length
-  }), [content, countryCode, countryName, countryStations.length]);
+  const jsonLd = useMemo(() => {
+    const pageUrl = `https://cartofm.com/countries/${countryCode}`;
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          "@id": pageUrl,
+          name: content.headline,
+          description: content.metaDescription,
+          url: pageUrl,
+          isPartOf: { "@type": "WebSite", name: "CartoFM", url: "https://cartofm.com" },
+          about: { "@type": "Country", name: countryName },
+          numberOfItems: countryStations.length,
+          mainEntity: buildStationItemList(countryStations, pageUrl, 50),
+        },
+      ],
+    };
+  }, [content, countryCode, countryName, countryStations]);
 
   return (
     <div className="min-h-screen bg-background pb-24">
