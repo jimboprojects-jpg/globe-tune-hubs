@@ -1,5 +1,5 @@
 # CartoFM Robots.txt
-# https://cartofm.com
+# https://globe-tune-hubs.lovable.app
 
 User-agent: Googlebot
 Allow: /
@@ -28,4 +28,4 @@ User-agent: *
 Allow: /
 Crawl-delay: 5
 
-Sitemap: https://cartofm.com/sitemap.xml
+Sitemap: https://globe-tune-hubs.lovable.app/sitemap.xml
