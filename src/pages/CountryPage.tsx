@@ -10,6 +10,7 @@ import { SEOHead } from '@/components/SEOHead';
 import { searchStations } from '@/data/radioStations';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { getCountryContent, getCountryListSEO } from '@/data/countryRadioContent';
+import { buildStationItemList } from '@/lib/stationJsonLd';
 import { useTranslation } from 'react-i18next';
 
 const CountryFlag = ({ code, size = 'w-8 h-6' }: { code: string; size?: string }) => (
