@@ -124,13 +124,23 @@ const GenreDetailPage = () => {
         description={genre.metaDescription}
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "name": genre.headline,
-          "description": genre.metaDescription,
-          "url": `https://cartofm.com/genres/${genreSlug}`,
-          "isPartOf": { "@type": "WebSite", "name": "CartoFM", "url": "https://cartofm.com" },
-          "about": { "@type": "MusicGenre", "name": genre.name },
-          "numberOfItems": genreStations.length,
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": `https://cartofm.com/genres/${genreSlug}`,
+              name: genre.headline,
+              description: genre.metaDescription,
+              url: `https://cartofm.com/genres/${genreSlug}`,
+              isPartOf: { "@type": "WebSite", name: "CartoFM", url: "https://cartofm.com" },
+              about: { "@type": "MusicGenre", name: genre.name },
+              numberOfItems: genreStations.length,
+              mainEntity: buildStationItemList(
+                genreStations,
+                `https://cartofm.com/genres/${genreSlug}`,
+                50
+              ),
+            },
+          ],
         }}
       />
 
