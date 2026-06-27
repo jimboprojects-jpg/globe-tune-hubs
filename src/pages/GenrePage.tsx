@@ -9,6 +9,7 @@ import { PlayerControls } from '@/components/PlayerControls';
 import { SEOHead } from '@/components/SEOHead';
 import { useGlobalPlayer } from '@/contexts/RadioPlayerContext';
 import { GENRES, getGenreBySlug, getGenreListSEO, matchStationToGenre } from '@/data/genreContent';
+import { buildStationItemList } from '@/lib/stationJsonLd';
 import { useTranslation } from 'react-i18next';
 
 const GenreListPage = () => {
