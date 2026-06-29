@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2 } from 'lucide-react';
+import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -270,55 +270,66 @@ const CountryDetailPage = () => {
               {countryStations.map((station) => {
                 const isActive = currentStation?.id === station.id;
                 return (
-                  <button
+                  <div
                     key={station.id}
-                    onClick={() => play(station)}
-                    className={`w-full flex items-center gap-3 p-3 rounded-lg text-left transition-all ${
+                    className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
                       isActive
                         ? 'bg-accent/10 border border-accent/30'
                         : 'hover:bg-muted/50'
                     }`}
                   >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      isActive ? 'bg-accent/20' : 'bg-muted/50'
-                    }`}>
-                      {station.favicon ? (
-                        <img
-                          src={station.favicon}
-                          alt=""
-                          className="w-7 h-7 rounded-md object-cover"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                        />
+                    <button
+                      onClick={() => play(station)}
+                      className="flex items-center gap-3 flex-1 min-w-0 text-left"
+                      aria-label={`Play ${station.name}`}
+                    >
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                        isActive ? 'bg-accent/20' : 'bg-muted/50'
+                      }`}>
+                        {station.favicon ? (
+                          <img
+                            src={station.favicon}
+                            alt=""
+                            className="w-7 h-7 rounded-md object-cover"
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <Radio className={`w-4 h-4 ${isActive ? 'text-accent' : 'text-muted-foreground'}`} />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-medium truncate ${isActive ? 'text-accent' : 'text-foreground'}`}>
+                          {station.name}
+                        </p>
+                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                          <span className="flex items-center gap-0.5 truncate">
+                            <MapPin className="w-2.5 h-2.5" />
+                            {station.city}
+                          </span>
+                          <span className="flex items-center gap-0.5 truncate capitalize">
+                            <Music className="w-2.5 h-2.5" />
+                            {station.genre}
+                          </span>
+                        </div>
+                      </div>
+                      {isActive && isPlaying ? (
+                        <div className="flex items-center gap-1 flex-shrink-0">
+                          <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+                          <span className="text-[10px] font-mono text-accent">LIVE</span>
+                        </div>
                       ) : (
-                        <Radio className={`w-4 h-4 ${isActive ? 'text-accent' : 'text-muted-foreground'}`} />
+                        <Play className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                       )}
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-medium truncate ${isActive ? 'text-accent' : 'text-foreground'}`}>
-                        {station.name}
-                      </p>
-                      <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                        <span className="flex items-center gap-0.5 truncate">
-                          <MapPin className="w-2.5 h-2.5" />
-                          {station.city}
-                        </span>
-                        <span className="flex items-center gap-0.5 truncate capitalize">
-                          <Music className="w-2.5 h-2.5" />
-                          {station.genre}
-                        </span>
-                      </div>
-                    </div>
-
-                    {isActive && isPlaying ? (
-                      <div className="flex items-center gap-1 flex-shrink-0">
-                        <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-                        <span className="text-[10px] font-mono text-accent">LIVE</span>
-                      </div>
-                    ) : (
-                      <Play className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                    )}
-                  </button>
+                    </button>
+                    <Link
+                      to={`/stations/${station.id}`}
+                      className="p-1.5 rounded hover:bg-muted/70 text-muted-foreground hover:text-foreground flex-shrink-0"
+                      aria-label={`Open ${station.name} station page`}
+                      title="Station details"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 );
               })}
             </div>
