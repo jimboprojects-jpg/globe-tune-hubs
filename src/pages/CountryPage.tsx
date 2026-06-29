@@ -318,6 +318,14 @@ const CountryDetailPage = () => {
                     ) : (
                       <Play className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                     )}
+                    <Link
+                      to={`/stations/${station.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="ml-1 p-1 rounded hover:bg-muted/70 text-muted-foreground hover:text-foreground flex-shrink-0"
+                      aria-label={`Open ${station.name} station page`}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
                   </button>
                 );
               })}
