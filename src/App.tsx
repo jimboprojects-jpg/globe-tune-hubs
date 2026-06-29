@@ -14,6 +14,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import FAQ from "./pages/FAQ";
 import BlogList from "./pages/BlogList";
 import BlogPostPage from "./pages/BlogPost";
+import StationPage from "./pages/StationPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
