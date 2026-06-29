@@ -103,3 +103,45 @@ export function buildStationItemList(
     })),
   };
 }
+
+/**
+ * Build a full @graph for a dedicated station page.
+ * Includes WebPage, BreadcrumbList, and a rich RadioStation / RadioBroadcastService /
+ * MusicGroup node with sameAs and a ListenAction pointing at the live stream.
+ */
+export function buildStationPageJsonLd(station: RadioStation, pageUrl: string) {
+  const stationNode = buildStationJsonLd(station, pageUrl) as Record<string, unknown>;
+  // Promote to also be a MusicGroup (per request) so search engines can pick the
+  // most appropriate rich-result template.
+  stationNode['@type'] = ['RadioBroadcastService', 'RadioStation', 'MusicGroup'];
+  stationNode['@id'] = pageUrl;
+  stationNode.url = pageUrl;
+  stationNode.mainEntityOfPage = pageUrl;
+
+  const breadcrumb = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: station.country, item: `${SITE}/countries/${station.countryCode?.toUpperCase() || ''}` },
+      { '@type': 'ListItem', position: 3, name: station.name, item: pageUrl },
+    ],
+  };
+
+  const webPage = {
+    '@type': 'WebPage',
+    '@id': `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: `${station.name} – Listen Live`,
+    inLanguage: station.language || 'en',
+    isPartOf: { '@type': 'WebSite', name: 'CartoFM', url: SITE },
+    primaryImageOfPage: station.favicon ? { '@type': 'ImageObject', url: station.favicon } : undefined,
+    mainEntity: { '@id': pageUrl },
+    breadcrumb,
+  };
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [webPage, breadcrumb, stationNode],
+  };
+}
+
