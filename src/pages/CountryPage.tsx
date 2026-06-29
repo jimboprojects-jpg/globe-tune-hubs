@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2 } from 'lucide-react';
+import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
