@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Play, Pause, MapPin, Music, Globe, Loader2, Languages, Heart } from 'lucide-react';
