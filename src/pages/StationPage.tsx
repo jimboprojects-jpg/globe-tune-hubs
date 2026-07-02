@@ -53,6 +53,12 @@ const StationPage = () => {
   const isActive = currentStation?.id === station.id;
   const fav = isFavorite(station.id);
 
+  // og:image must be an absolute https URL for crawlers. Fall back to the
+  // default social card when the station's favicon isn't a valid https URL.
+  const ogImage = station.favicon && /^https:\/\//i.test(station.favicon)
+    ? station.favicon
+    : undefined;
+
   return (
     <div className="min-h-screen bg-background pb-24">
       <SEOHead
@@ -60,7 +66,7 @@ const StationPage = () => {
         description={description}
         jsonLd={jsonLd}
         ogType="music.radio_station"
-        ogImage={station.favicon || undefined}
+        ogImage={ogImage}
       />
 
       <div className="glass border-b border-border/30 sticky top-0 z-40">
