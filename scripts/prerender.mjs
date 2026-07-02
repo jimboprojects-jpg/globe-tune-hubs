@@ -52,6 +52,15 @@ const COUNTRIES = [
   'UA','UG','US','UY','UZ','VA','VC','VE','VN','VU','WS','YE','ZA','ZM','ZW',
 ];
 
+const stationRoutes = existsSync(STATION_ROUTES_FILE)
+  ? JSON.parse(readFileSync(STATION_ROUTES_FILE, 'utf-8'))
+  : [];
+if (stationRoutes.length) {
+  console.log(`Including ${stationRoutes.length} top station detail routes.`);
+} else {
+  console.log('No top-station-routes.json found – skipping station prerender.');
+}
+
 const routes = [
   '/',
   '/countries',
@@ -64,6 +73,7 @@ const routes = [
   '/faq',
   '/blog',
   ...BLOG_SLUGS.map(s => `/blog/${s}`),
+  ...stationRoutes,
 ];
 
 // ── Tiny static file server ─────────────────────────────────────────
