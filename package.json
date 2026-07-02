@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --port 8080",
-    "build": "tsc && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/fetch-top-stations.mjs && node scripts/inject-station-urls.mjs && tsc && vite build && node scripts/prerender.mjs",
     "build:dev": "vite build",
     "preview": "vite preview",
     "prerender": "node scripts/prerender.mjs"

@@ -49,7 +49,20 @@ const SEOFooter = () => {
             <h3 className="text-sm font-semibold text-foreground mb-3">Popular Countries</h3>
             <nav aria-label="Popular countries" className="space-y-2">
               {topCountries.slice(0, 8).map(c => (
-                <Link key={c.code} to={`/countries/${c.code}`} className="block text-xs text-muted-foreground hover:text-foreground transition-colors">{c.name} Radio</Link>
+                <Link
+                  key={c.code}
+                  to={`/countries/${c.code}`}
+                  className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <img
+                    src={`https://flagicons.lipis.dev/flags/4x3/${c.code.toLowerCase()}.svg`}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="w-5 h-[15px] rounded-sm object-cover flex-shrink-0"
+                  />
+                  <span>{c.name} Radio</span>
+                </Link>
               ))}
             </nav>
           </div>

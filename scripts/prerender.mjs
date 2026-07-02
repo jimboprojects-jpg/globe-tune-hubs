@@ -12,6 +12,11 @@ import puppeteer from 'puppeteer';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, '..', 'dist');
 const PORT = 4173;
+const STATION_ROUTES_FILE = join(__dirname, 'top-station-routes.json');
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const DIST = join(__dirname, '..', 'dist');
+const PORT = 4173;
 
 // ── Route list ──────────────────────────────────────────────────────
 const GENRES = [
@@ -47,6 +52,15 @@ const COUNTRIES = [
   'UA','UG','US','UY','UZ','VA','VC','VE','VN','VU','WS','YE','ZA','ZM','ZW',
 ];
 
+const stationRoutes = existsSync(STATION_ROUTES_FILE)
+  ? JSON.parse(readFileSync(STATION_ROUTES_FILE, 'utf-8'))
+  : [];
+if (stationRoutes.length) {
+  console.log(`Including ${stationRoutes.length} top station detail routes.`);
+} else {
+  console.log('No top-station-routes.json found – skipping station prerender.');
+}
+
 const routes = [
   '/',
   '/countries',
@@ -59,6 +73,7 @@ const routes = [
   '/faq',
   '/blog',
   ...BLOG_SLUGS.map(s => `/blog/${s}`),
+  ...stationRoutes,
 ];
 
 // ── Tiny static file server ─────────────────────────────────────────
