@@ -47,8 +47,16 @@ export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImag
     setMeta('property', 'og:url', canonicalUrl);
     setMeta('property', 'og:type', ogType);
     setMeta('property', 'og:image', ogImage);
-    setMeta('property', 'og:image:width', '1200');
-    setMeta('property', 'og:image:height', '630');
+    setMeta('property', 'og:image:alt', title);
+    // Only advertise 1200x630 dims for the default social card; custom
+    // images (e.g. station favicons) have unknown intrinsic sizes.
+    if (ogImage === OG_IMAGE) {
+      setMeta('property', 'og:image:width', '1200');
+      setMeta('property', 'og:image:height', '630');
+    } else {
+      document.querySelector('meta[property="og:image:width"]')?.remove();
+      document.querySelector('meta[property="og:image:height"]')?.remove();
+    }
     setMeta('property', 'og:site_name', 'CartoFM');
     setMeta('property', 'og:locale', 'en_US');
 
@@ -57,6 +65,7 @@ export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImag
     setMeta('name', 'twitter:title', title);
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'twitter:image', ogImage);
+    setMeta('name', 'twitter:image:alt', title);
     setMeta('name', 'twitter:site', '@CartoFM');
 
     // Canonical link
