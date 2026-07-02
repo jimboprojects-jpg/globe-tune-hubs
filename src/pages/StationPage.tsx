@@ -24,12 +24,7 @@ const StationPage = () => {
     [stations, stationId]
   );
 
-  // Auto-resume highlighting when user lands here
-  useEffect(() => {
-    if (station) {
-      document.title = `${station.name} – Listen Live | CartoFM`;
-    }
-  }, [station]);
+  // Note: title, canonical, og:url are all set by <SEOHead /> below.
 
   if (isLoadingStations && !station) {
     return (
