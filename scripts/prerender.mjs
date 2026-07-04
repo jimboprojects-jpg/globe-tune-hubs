@@ -14,10 +14,6 @@ const DIST = join(__dirname, '..', 'dist');
 const PORT = 4173;
 const STATION_ROUTES_FILE = join(__dirname, 'top-station-routes.json');
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const DIST = join(__dirname, '..', 'dist');
-const PORT = 4173;
-
 // ── Route list ──────────────────────────────────────────────────────
 const GENRES = [
   'pop','rock','jazz','classical','electronic','hiphop',
