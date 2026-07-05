@@ -46,15 +46,50 @@ const Index = () => {
     setIsStationListOpen(false);
   }, [handlePlay]);
 
+  const SITE = 'https://cartofm.com';
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "CartoFM",
-    "url": "https://cartofm.com",
-    "description": "Stream thousands of live radio stations from around the world on an interactive 3D globe.",
-    "applicationCategory": "MultimediaApplication",
-    "operatingSystem": "Web",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE}/#organization`,
+        "name": "CartoFM",
+        "url": SITE,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${SITE}/favicon.png`,
+        },
+        "sameAs": [SITE],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE}/#website`,
+        "url": SITE,
+        "name": "CartoFM",
+        "description": "Stream thousands of live radio stations from around the world on an interactive 3D globe.",
+        "publisher": { "@id": `${SITE}/#organization` },
+        "inLanguage": ["en", "fr", "es", "de", "sw", "zh", "ru", "hi", "ar", "pt", "id"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": `${SITE}/?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@type": "WebApplication",
+        "@id": `${SITE}/#webapp`,
+        "name": "CartoFM",
+        "url": SITE,
+        "description": "Stream thousands of live radio stations from around the world on an interactive 3D globe.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": `${SITE}/#organization` },
+      },
+    ],
   };
 
   return (
