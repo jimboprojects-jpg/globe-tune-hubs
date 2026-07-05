@@ -28,12 +28,47 @@ export function buildStationJsonLd(station: RadioStation, pageUrl: string) {
     },
     potentialAction: {
       '@type': 'ListenAction',
-      target: station.streamUrl,
+      target: [
+        {
+          '@type': 'EntryPoint',
+          urlTemplate: station.streamUrl,
+          contentType: 'audio/mpeg',
+          actionPlatform: [
+            'https://schema.org/DesktopWebPlatform',
+            'https://schema.org/MobileWebPlatform',
+            'https://schema.org/IOSPlatform',
+            'https://schema.org/AndroidPlatform',
+          ],
+          inLanguage: station.language || 'en',
+        },
+        {
+          '@type': 'EntryPoint',
+          urlTemplate: pageUrl,
+          actionPlatform: [
+            'https://schema.org/DesktopWebPlatform',
+            'https://schema.org/MobileWebPlatform',
+          ],
+        },
+      ],
       expectsAcceptanceOf: {
         '@type': 'Offer',
         category: 'free',
+        price: '0',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
         eligibleRegion: { '@type': 'Country', name: station.country },
+        availabilityStarts: '00:00:00+00:00',
+        availabilityEnds: '23:59:59+00:00',
       },
+    },
+    audio: {
+      '@type': 'AudioObject',
+      contentUrl: station.streamUrl,
+      encodingFormat: 'audio/mpeg',
+      isLiveBroadcast: true,
+      isAccessibleForFree: true,
+      requiresSubscription: false,
+      ...(station.language ? { inLanguage: station.language } : {}),
     },
   };
 
