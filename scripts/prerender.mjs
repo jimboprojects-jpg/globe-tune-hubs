@@ -7,7 +7,18 @@ import { createServer } from 'http';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join, extname, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import puppeteer from 'puppeteer';
+let puppeteer;
+try {
+  puppeteer = (await import('puppeteer')).default;
+} catch (err) {
+  console.warn('⚠ Puppeteer unavailable – skipping prerender.', err.message);
+  process.exit(0);
+}
+
+// Hard wall-clock budget so the hosted build never hits its own time limit.
+const TIME_BUDGET_MS = Number(process.env.PRERENDER_BUDGET_MS || 5 * 60 * 1000);
+const START_TIME = Date.now();
+const outOfTime = () => Date.now() - START_TIME > TIME_BUDGET_MS;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, '..', 'dist');
@@ -131,13 +142,13 @@ async function prerender() {
       }
     });
 
-    while (idx < routes.length) {
+    while (idx < routes.length && !outOfTime()) {
       const route = routes[idx++];
       const url = `http://localhost:${PORT}${route}`;
       try {
-        await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 });
         // Wait a bit for React to hydrate and SEOHead to inject meta tags
-        await page.evaluate(() => new Promise(r => setTimeout(r, 1500)));
+        await page.evaluate(() => new Promise(r => setTimeout(r, 800)));
 
         const html = await page.content();
 
@@ -167,10 +178,17 @@ async function prerender() {
 
   await browser.close();
   server.close();
+  if (outOfTime()) {
+    console.warn(`⚠ Time budget reached – stopped after ${done}/${routes.length} routes.`);
+  }
   console.log(`✅ Prerendering complete – ${done} pages written.`);
 }
 
-prerender().catch((err) => {
-  console.error('Prerender failed:', err);
-  process.exit(1);
-});
+prerender()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    // Never fail the production build on prerender problems – the SPA
+    // still ships; only the static snapshots are missing.
+    console.warn('⚠ Prerender failed, continuing with SPA build:', err.message);
+    process.exit(0);
+  });

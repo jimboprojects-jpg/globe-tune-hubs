@@ -44,7 +44,10 @@ if (xml.includes(START) && xml.includes(END)) {
 }
 writeFileSync(SITEMAP, xml, 'utf-8');
 
-const routes = stations.map(s => `/stations/${s.id}`);
+// Sitemap lists all stations, but prerendering every one blows the build
+// time limit. Only prerender the highest-traffic slice.
+const MAX_PRERENDER_STATIONS = Number(process.env.MAX_PRERENDER_STATIONS || 150);
+const routes = stations.slice(0, MAX_PRERENDER_STATIONS).map(s => `/stations/${s.id}`);
 writeFileSync(ROUTES_OUT, JSON.stringify(routes), 'utf-8');
 
 console.log(`✅ Injected ${stations.length} station URLs into sitemap.xml`);
