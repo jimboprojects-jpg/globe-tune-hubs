@@ -142,7 +142,7 @@ async function prerender() {
       }
     });
 
-    while (idx < routes.length) {
+    while (idx < routes.length && !outOfTime()) {
       const route = routes[idx++];
       const url = `http://localhost:${PORT}${route}`;
       try {
