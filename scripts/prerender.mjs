@@ -146,7 +146,7 @@ async function prerender() {
       const route = routes[idx++];
       const url = `http://localhost:${PORT}${route}`;
       try {
-        await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 });
         // Wait a bit for React to hydrate and SEOHead to inject meta tags
         await page.evaluate(() => new Promise(r => setTimeout(r, 1500)));
 
