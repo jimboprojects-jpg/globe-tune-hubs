@@ -22,7 +22,7 @@ async function fetchTop() {
     try {
       const r = await fetch(
         `${s}/json/stations?limit=${LIMIT}&offset=0&hidebroken=true&order=clickcount&reverse=true`,
-        { headers: { 'User-Agent': 'CartoFMApp/1.0' } }
+        { headers: { 'User-Agent': 'CartoFMApp/1.0' }, signal: AbortSignal.timeout(20000) }
       );
       if (!r.ok) continue;
       const data = await r.json();
