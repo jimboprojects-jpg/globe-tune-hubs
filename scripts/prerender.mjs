@@ -148,7 +148,7 @@ async function prerender() {
       try {
         await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 });
         // Wait a bit for React to hydrate and SEOHead to inject meta tags
-        await page.evaluate(() => new Promise(r => setTimeout(r, 1500)));
+        await page.evaluate(() => new Promise(r => setTimeout(r, 800)));
 
         const html = await page.content();
 
