@@ -178,10 +178,17 @@ async function prerender() {
 
   await browser.close();
   server.close();
+  if (outOfTime()) {
+    console.warn(`⚠ Time budget reached – stopped after ${done}/${routes.length} routes.`);
+  }
   console.log(`✅ Prerendering complete – ${done} pages written.`);
 }
 
-prerender().catch((err) => {
-  console.error('Prerender failed:', err);
-  process.exit(1);
-});
+prerender()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    // Never fail the production build on prerender problems – the SPA
+    // still ships; only the static snapshots are missing.
+    console.warn('⚠ Prerender failed, continuing with SPA build:', err.message);
+    process.exit(0);
+  });
