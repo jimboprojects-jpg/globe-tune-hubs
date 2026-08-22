@@ -7,7 +7,18 @@ import { createServer } from 'http';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join, extname, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import puppeteer from 'puppeteer';
+let puppeteer;
+try {
+  puppeteer = (await import('puppeteer')).default;
+} catch (err) {
+  console.warn('⚠ Puppeteer unavailable – skipping prerender.', err.message);
+  process.exit(0);
+}
+
+// Hard wall-clock budget so the hosted build never hits its own time limit.
+const TIME_BUDGET_MS = Number(process.env.PRERENDER_BUDGET_MS || 5 * 60 * 1000);
+const START_TIME = Date.now();
+const outOfTime = () => Date.now() - START_TIME > TIME_BUDGET_MS;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, '..', 'dist');
