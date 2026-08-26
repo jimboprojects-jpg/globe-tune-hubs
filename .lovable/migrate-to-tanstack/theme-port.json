@@ -1,0 +1,21 @@
+{
+  "customizations": [
+    { "token": "--background/--foreground cosmic palette (:root HSL triplets)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--primary/--primary-glow", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--secondary deep purple", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--accent/--accent-glow amber", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--cosmic-deep/--cosmic-navy/--cosmic-purple", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--station-glow/--station-active", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--glass-bg/--glass-border/--glass-highlight", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--sidebar-* set", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--radius: 1rem", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "font-sans Space Grotesk / font-mono JetBrains Mono (+Google Fonts import)", "source": "src/index.css + tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "glass / glass-strong utilities", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "glow-primary / glow-accent / glow-station / glow-station-active utilities", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "text-gradient-primary / text-gradient-accent utilities", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "animate-pulse-glow / animate-twinkle / equalizer-bar keyframes+utilities", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "accordion-down / accordion-up keyframes+animations", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "body cosmic radial-gradient background", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "Lovable badge hide CSS", "source": "src/index.css", "reappliedIn": "src/styles.css" }
+  ]
+}
