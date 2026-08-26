@@ -1,0 +1,286 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * CartoFM design system — deep space cosmic theme.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root variables keep the legacy HSL-triplet format so existing
+ * hsl(var(--token)) usages in utilities and components keep working.
+ */
+
+@theme inline {
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-glow: hsl(var(--primary-glow));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-glow: hsl(var(--accent-glow));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-ring-offset-background: hsl(var(--background));
+  --color-cosmic-deep: hsl(var(--cosmic-deep));
+  --color-cosmic-navy: hsl(var(--cosmic-navy));
+  --color-cosmic-purple: hsl(var(--cosmic-purple));
+  --color-station-glow: hsl(var(--station-glow));
+  --color-station-active: hsl(var(--station-active));
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+:root {
+  /* Deep space cosmic theme */
+  --background: 222 47% 5%;
+  --foreground: 210 40% 98%;
+
+  --card: 222 47% 8%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222 47% 8%;
+  --popover-foreground: 210 40% 98%;
+
+  /* Vibrant cyan/teal primary */
+  --primary: 175 84% 50%;
+  --primary-foreground: 222 47% 5%;
+  --primary-glow: 175 84% 60%;
+
+  /* Deep purple secondary */
+  --secondary: 250 45% 20%;
+  --secondary-foreground: 210 40% 98%;
+
+  /* Muted space tones */
+  --muted: 222 30% 15%;
+  --muted-foreground: 215 20% 55%;
+
+  /* Warm amber accent for active states */
+  --accent: 35 100% 55%;
+  --accent-foreground: 222 47% 5%;
+  --accent-glow: 35 100% 65%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 222 30% 18%;
+  --input: 222 30% 15%;
+  --ring: 175 84% 50%;
+
+  --radius: 1rem;
+
+  /* Custom cosmic colors */
+  --cosmic-deep: 222 47% 3%;
+  --cosmic-navy: 222 47% 8%;
+  --cosmic-purple: 270 50% 25%;
+  --station-glow: 175 84% 55%;
+  --station-active: 35 100% 55%;
+
+  /* Glassmorphism */
+  --glass-bg: 222 47% 10% / 0.7;
+  --glass-border: 210 40% 98% / 0.1;
+  --glass-highlight: 210 40% 98% / 0.05;
+
+  --sidebar-background: 222 47% 5%;
+  --sidebar-foreground: 210 40% 98%;
+  --sidebar-primary: 175 84% 50%;
+  --sidebar-primary-foreground: 222 47% 5%;
+  --sidebar-accent: 222 30% 15%;
+  --sidebar-accent-foreground: 210 40% 98%;
+  --sidebar-border: 222 30% 18%;
+  --sidebar-ring: 175 84% 50%;
+}
+
+.dark {
+  --background: 222 47% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 47% 8%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 175 84% 50%;
+  --primary-foreground: 222 47% 5%;
+  --secondary: 250 45% 20%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 222 30% 15%;
+  --muted-foreground: 215 20% 55%;
+  --accent: 35 100% 55%;
+  --accent-foreground: 222 47% 5%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 222 30% 18%;
+  --input: 222 30% 15%;
+  --ring: 175 84% 50%;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes equalizer {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background:
+      radial-gradient(ellipse at 20% 20%, hsl(var(--cosmic-purple) / 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, hsl(var(--cosmic-navy)) 0%, hsl(var(--cosmic-deep)) 100%);
+    min-height: 100vh;
+  }
+}
+
+@utility font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@utility glass {
+  background: hsl(var(--glass-bg));
+  backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--glass-border));
+}
+
+@utility glass-strong {
+  background: hsl(222 47% 12% / 0.85);
+  backdrop-filter: blur(30px);
+  border: 1px solid hsl(var(--glass-border));
+}
+
+@utility glow-primary {
+  box-shadow:
+    0 0 20px hsl(var(--primary) / 0.3),
+    0 0 40px hsl(var(--primary) / 0.2),
+    inset 0 0 20px hsl(var(--primary) / 0.1);
+}
+
+@utility glow-accent {
+  box-shadow:
+    0 0 20px hsl(var(--accent) / 0.4),
+    0 0 40px hsl(var(--accent) / 0.2),
+    inset 0 0 20px hsl(var(--accent) / 0.1);
+}
+
+@utility glow-station {
+  box-shadow:
+    0 0 8px hsl(var(--station-glow)),
+    0 0 16px hsl(var(--station-glow) / 0.6),
+    0 0 24px hsl(var(--station-glow) / 0.3);
+}
+
+@utility glow-station-active {
+  box-shadow:
+    0 0 12px hsl(var(--station-active)),
+    0 0 24px hsl(var(--station-active) / 0.6),
+    0 0 36px hsl(var(--station-active) / 0.3);
+}
+
+@utility text-gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-gradient-accent {
+  background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@utility animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@utility equalizer-bar {
+  animation: equalizer 0.8s ease-in-out infinite;
+
+  &:nth-child(1) { animation-delay: 0s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.4s; }
+  &:nth-child(4) { animation-delay: 0.1s; }
+  &:nth-child(5) { animation-delay: 0.3s; }
+}
+
+/* Hide Lovable badge */
+a[href*="lovable.dev"],
+iframe[src*="lovable"],
+[class*="lovable"] {
+  display: none !important;
+}
