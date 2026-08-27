@@ -3,7 +3,7 @@ import { X, Users, FileText, Shield, Globe, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { RadioStation } from '@/data/radioStations';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@/lib/router-compat';
 import { useTranslation } from 'react-i18next';
 
 interface StationListProps {

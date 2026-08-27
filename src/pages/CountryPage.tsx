@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from '@/lib/router-compat';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Play, Search, MapPin, Music, Globe, Loader2, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';

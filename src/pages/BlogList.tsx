@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link } from '@/lib/router-compat';
+import { useNavigate } from '@/lib/router-compat';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';

@@ -4,7 +4,7 @@ import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Heart, Languages, X 
 import { Button } from '@/components/ui/button';
 import { RadioStation } from '@/data/radioStations';
 import { AudioVisualizer } from './AudioVisualizer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@/lib/router-compat';
 import { useTranslation } from 'react-i18next';
 import { languageNames } from '@/i18n/translations';
 

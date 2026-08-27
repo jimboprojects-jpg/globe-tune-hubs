@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@/lib/router-compat';
 
 const BASE_URL = 'https://cartofm.com';
 const OG_IMAGE = 'https://cartofm.com/og-image.png';
