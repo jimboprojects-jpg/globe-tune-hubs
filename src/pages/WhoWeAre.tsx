@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@/lib/router-compat';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Radio, Users, Headphones, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
