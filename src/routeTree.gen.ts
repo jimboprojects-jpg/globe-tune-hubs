@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CountriesRouteImport } from './routes/countries'
+import { Route as GenresRouteImport } from './routes/genres'
 import { Route as CountriesCountryCodeRouteImport } from './routes/countries.$countryCode'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const CountriesRoute = CountriesRouteImport.update({
   path: '/countries',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GenresRoute = GenresRouteImport.update({
+  id: '/genres',
+  path: '/genres',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CountriesCountryCodeRoute = CountriesCountryCodeRouteImport.update({
   id: '/$countryCode',
   path: '/$countryCode',
@@ -32,30 +38,34 @@ const CountriesCountryCodeRoute = CountriesCountryCodeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/countries': typeof CountriesRouteWithChildren
+  '/genres': typeof GenresRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/countries': typeof CountriesRouteWithChildren
+  '/genres': typeof GenresRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/countries': typeof CountriesRouteWithChildren
+  '/genres': typeof GenresRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/countries' | '/countries/$countryCode'
+  fullPaths: '/' | '/countries' | '/genres' | '/countries/$countryCode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/countries' | '/countries/$countryCode'
-  id: '__root__' | '/' | '/countries' | '/countries/$countryCode'
+  to: '/' | '/countries' | '/genres' | '/countries/$countryCode'
+  id: '__root__' | '/' | '/countries' | '/genres' | '/countries/$countryCode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CountriesRoute: typeof CountriesRouteWithChildren
+  GenresRoute: typeof GenresRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -72,6 +82,13 @@ declare module '@tanstack/react-router' {
       path: '/countries'
       fullPath: '/countries'
       preLoaderRoute: typeof CountriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/genres': {
+      id: '/genres'
+      path: '/genres'
+      fullPath: '/genres'
+      preLoaderRoute: typeof GenresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/countries/$countryCode': {
@@ -99,6 +116,7 @@ const CountriesRouteWithChildren = CountriesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CountriesRoute: CountriesRouteWithChildren,
+  GenresRoute: GenresRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
