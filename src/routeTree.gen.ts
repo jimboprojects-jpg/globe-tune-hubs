@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CountriesRouteImport } from './routes/countries'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GenresRouteImport } from './routes/genres'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as CountriesCountryCodeRouteImport } from './routes/countries.$countryCode'
@@ -31,6 +32,11 @@ const BlogRoute = BlogRouteImport.update({
 const CountriesRoute = CountriesRouteImport.update({
   id: '/countries',
   path: '/countries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GenresRoute = GenresRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/countries': typeof CountriesRouteWithChildren
+  '/faq': typeof FaqRoute
   '/genres': typeof GenresRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/countries': typeof CountriesRouteWithChildren
+  '/faq': typeof FaqRoute
   '/genres': typeof GenresRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/countries': typeof CountriesRouteWithChildren
+  '/faq': typeof FaqRoute
   '/genres': typeof GenresRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blog'
     | '/countries'
+    | '/faq'
     | '/genres'
     | '/blog/$slug'
     | '/countries/$countryCode'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blog'
     | '/countries'
+    | '/faq'
     | '/genres'
     | '/blog/$slug'
     | '/countries/$countryCode'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blog'
     | '/countries'
+    | '/faq'
     | '/genres'
     | '/blog/$slug'
     | '/countries/$countryCode'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRouteWithChildren
   CountriesRoute: typeof CountriesRouteWithChildren
+  FaqRoute: typeof FaqRoute
   GenresRoute: typeof GenresRouteWithChildren
   StationsStationIdRoute: typeof StationsStationIdRoute
 }
@@ -152,6 +165,13 @@ declare module '@tanstack/react-router' {
       path: '/countries'
       fullPath: '/countries'
       preLoaderRoute: typeof CountriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/genres': {
@@ -229,6 +249,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRouteWithChildren,
   CountriesRoute: CountriesRouteWithChildren,
+  FaqRoute: FaqRoute,
   GenresRoute: GenresRouteWithChildren,
   StationsStationIdRoute: StationsStationIdRoute,
 }
