@@ -14,6 +14,7 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GenresRouteImport } from './routes/genres'
+import { Route as WhoWeAreRouteImport } from './routes/who-we-are'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as CountriesCountryCodeRouteImport } from './routes/countries.$countryCode'
 import { Route as GenresGenreSlugRouteImport } from './routes/genres.$genreSlug'
@@ -44,6 +45,11 @@ const GenresRoute = GenresRouteImport.update({
   path: '/genres',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WhoWeAreRoute = WhoWeAreRouteImport.update({
+  id: '/who-we-are',
+  path: '/who-we-are',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/countries': typeof CountriesRouteWithChildren
   '/faq': typeof FaqRoute
   '/genres': typeof GenresRouteWithChildren
+  '/who-we-are': typeof WhoWeAreRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/countries': typeof CountriesRouteWithChildren
   '/faq': typeof FaqRoute
   '/genres': typeof GenresRouteWithChildren
+  '/who-we-are': typeof WhoWeAreRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/countries': typeof CountriesRouteWithChildren
   '/faq': typeof FaqRoute
   '/genres': typeof GenresRouteWithChildren
+  '/who-we-are': typeof WhoWeAreRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/faq'
     | '/genres'
+    | '/who-we-are'
     | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/faq'
     | '/genres'
+    | '/who-we-are'
     | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/countries'
     | '/faq'
     | '/genres'
+    | '/who-we-are'
     | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   CountriesRoute: typeof CountriesRouteWithChildren
   FaqRoute: typeof FaqRoute
   GenresRoute: typeof GenresRouteWithChildren
+  WhoWeAreRoute: typeof WhoWeAreRoute
   StationsStationIdRoute: typeof StationsStationIdRoute
 }
 
@@ -179,6 +192,13 @@ declare module '@tanstack/react-router' {
       path: '/genres'
       fullPath: '/genres'
       preLoaderRoute: typeof GenresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/who-we-are': {
+      id: '/who-we-are'
+      path: '/who-we-are'
+      fullPath: '/who-we-are'
+      preLoaderRoute: typeof WhoWeAreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -251,6 +271,7 @@ const rootRouteChildren: RootRouteChildren = {
   CountriesRoute: CountriesRouteWithChildren,
   FaqRoute: FaqRoute,
   GenresRoute: GenresRouteWithChildren,
+  WhoWeAreRoute: WhoWeAreRoute,
   StationsStationIdRoute: StationsStationIdRoute,
 }
 export const routeTree = rootRouteImport
