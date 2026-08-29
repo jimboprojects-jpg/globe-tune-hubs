@@ -53,9 +53,9 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CountriesIndexRoute = CountriesIndexRouteImport.update({
   id: '/countries/',
@@ -63,9 +63,9 @@ const CountriesIndexRoute = CountriesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CountriesCountryCodeRoute = CountriesCountryCodeRouteImport.update({
-  id: '/$countryCode',
-  path: '/$countryCode',
-  getParentRoute: () => CountriesRoute,
+  id: '/countries/$countryCode',
+  path: '/countries/$countryCode',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GenresIndexRoute = GenresIndexRouteImport.update({
   id: '/genres/',
@@ -73,9 +73,9 @@ const GenresIndexRoute = GenresIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const GenresGenreSlugRoute = GenresGenreSlugRouteImport.update({
-  id: '/$genreSlug',
-  path: '/$genreSlug',
-  getParentRoute: () => GenresRoute,
+  id: '/genres/$genreSlug',
+  path: '/genres/$genreSlug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const StationsStationIdRoute = StationsStationIdRouteImport.update({
   id: '/stations/$stationId',
@@ -177,6 +177,9 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
   WhoWeAreRoute: typeof WhoWeAreRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  CountriesCountryCodeRoute: typeof CountriesCountryCodeRoute
+  GenresGenreSlugRoute: typeof GenresGenreSlugRoute
   StationsStationIdRoute: typeof StationsStationIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
   CountriesIndexRoute: typeof CountriesIndexRoute
@@ -229,10 +232,10 @@ declare module '@tanstack/react-router' {
     }
     '/blog/$slug': {
       id: '/blog/$slug'
-      path: '/$slug'
+      path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/countries/': {
       id: '/countries/'
@@ -243,10 +246,10 @@ declare module '@tanstack/react-router' {
     }
     '/countries/$countryCode': {
       id: '/countries/$countryCode'
-      path: '/$countryCode'
+      path: '/countries/$countryCode'
       fullPath: '/countries/$countryCode'
       preLoaderRoute: typeof CountriesCountryCodeRouteImport
-      parentRoute: typeof CountriesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/genres/': {
       id: '/genres/'
@@ -257,10 +260,10 @@ declare module '@tanstack/react-router' {
     }
     '/genres/$genreSlug': {
       id: '/genres/$genreSlug'
-      path: '/$genreSlug'
+      path: '/genres/$genreSlug'
       fullPath: '/genres/$genreSlug'
       preLoaderRoute: typeof GenresGenreSlugRouteImport
-      parentRoute: typeof GenresRoute
+      parentRoute: typeof rootRouteImport
     }
     '/stations/$stationId': {
       id: '/stations/$stationId'
@@ -278,6 +281,9 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
   WhoWeAreRoute: WhoWeAreRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  CountriesCountryCodeRoute: CountriesCountryCodeRoute,
+  GenresGenreSlugRoute: GenresGenreSlugRoute,
   StationsStationIdRoute: StationsStationIdRoute,
   BlogIndexRoute: BlogIndexRoute,
   CountriesIndexRoute: CountriesIndexRoute,
