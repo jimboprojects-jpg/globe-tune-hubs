@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CountriesRouteImport } from './routes/countries'
+import { Route as CountriesCountryCodeRouteImport } from './routes/countries.$countryCode'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,39 @@ const CountriesRoute = CountriesRouteImport.update({
   path: '/countries',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CountriesCountryCodeRoute = CountriesCountryCodeRouteImport.update({
+  id: '/$countryCode',
+  path: '/$countryCode',
+  getParentRoute: () => CountriesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/countries': typeof CountriesRoute
+  '/countries': typeof CountriesRouteWithChildren
+  '/countries/$countryCode': typeof CountriesCountryCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/countries': typeof CountriesRoute
+  '/countries': typeof CountriesRouteWithChildren
+  '/countries/$countryCode': typeof CountriesCountryCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/countries': typeof CountriesRoute
+  '/countries': typeof CountriesRouteWithChildren
+  '/countries/$countryCode': typeof CountriesCountryCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/countries'
+  fullPaths: '/' | '/countries' | '/countries/$countryCode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/countries'
-  id: '__root__' | '/' | '/countries'
+  to: '/' | '/countries' | '/countries/$countryCode'
+  id: '__root__' | '/' | '/countries' | '/countries/$countryCode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CountriesRoute: typeof CountriesRoute
+  CountriesRoute: typeof CountriesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +74,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CountriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/countries/$countryCode': {
+      id: '/countries/$countryCode'
+      path: '/$countryCode'
+      fullPath: '/countries/$countryCode'
+      preLoaderRoute: typeof CountriesCountryCodeRouteImport
+      parentRoute: typeof CountriesRoute
+    }
   }
 }
 
+interface CountriesRouteChildren {
+  CountriesCountryCodeRoute: typeof CountriesCountryCodeRoute
+}
+
+const CountriesRouteChildren: CountriesRouteChildren = {
+  CountriesCountryCodeRoute: CountriesCountryCodeRoute,
+}
+
+const CountriesRouteWithChildren = CountriesRoute._addFileChildren(
+  CountriesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CountriesRoute: CountriesRoute,
+  CountriesRoute: CountriesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
