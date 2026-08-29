@@ -5,7 +5,7 @@ const TITLE = "Radio by Country – Browse Live Stations Worldwide | CartoFM";
 const DESCRIPTION =
   "Browse live radio stations by country. Explore thousands of FM, AM and internet radio streams from every nation on the CartoFM interactive directory.";
 
-export const Route = createFileRoute("/countries")({
+export const Route = createFileRoute("/countries/")({
   head: () => ({
     meta: [
       { title: TITLE },

@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import GenrePage from "@/pages/GenrePage";
+import BlogList from "@/pages/BlogList";
 
-const TITLE = "Radio by Genre – Pop, Rock, Jazz, News & More | CartoFM";
+const TITLE = "World Radio Blog – Music Discovery & Country Guides | CartoFM";
 const DESCRIPTION =
-  "Browse live radio stations by genre. Stream pop, rock, jazz, classical, electronic, hip-hop, news and more from stations around the world on CartoFM.";
+  "Stories, guides and deep dives on world radio culture, music discovery and country-by-country radio traditions from the CartoFM team.";
 
-export const Route = createFileRoute("/genres")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: TITLE },
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/genres")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://cartofm.com/genres" }],
+    links: [{ rel: "canonical", href: "https://cartofm.com/blog" }],
   }),
-  component: GenrePage,
+  component: BlogList,
 });
