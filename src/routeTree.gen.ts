@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CountriesRouteImport } from './routes/countries'
 import { Route as GenresRouteImport } from './routes/genres'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as CountriesCountryCodeRouteImport } from './routes/countries.$countryCode'
 import { Route as GenresGenreSlugRouteImport } from './routes/genres.$genreSlug'
 
@@ -36,6 +37,11 @@ const GenresRoute = GenresRouteImport.update({
   path: '/genres',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 const CountriesCountryCodeRoute = CountriesCountryCodeRouteImport.update({
   id: '/$countryCode',
   path: '/$countryCode',
@@ -49,26 +55,29 @@ const GenresGenreSlugRoute = GenresGenreSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/countries': typeof CountriesRouteWithChildren
   '/genres': typeof GenresRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/countries': typeof CountriesRouteWithChildren
   '/genres': typeof GenresRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog': typeof BlogRoute
+  '/blog': typeof BlogRouteWithChildren
   '/countries': typeof CountriesRouteWithChildren
   '/genres': typeof GenresRouteWithChildren
+  '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/countries'
     | '/genres'
+    | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/countries'
     | '/genres'
+    | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
   id:
@@ -95,13 +106,14 @@ export interface FileRouteTypes {
     | '/blog'
     | '/countries'
     | '/genres'
+    | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRoute
+  BlogRoute: typeof BlogRouteWithChildren
   CountriesRoute: typeof CountriesRouteWithChildren
   GenresRoute: typeof GenresRouteWithChildren
 }
@@ -136,6 +148,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GenresRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/countries/$countryCode': {
       id: '/countries/$countryCode'
       path: '/$countryCode'
@@ -152,6 +171,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface CountriesRouteChildren {
   CountriesCountryCodeRoute: typeof CountriesCountryCodeRoute
@@ -178,7 +207,7 @@ const GenresRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogRoute: BlogRoute,
+  BlogRoute: BlogRouteWithChildren,
   CountriesRoute: CountriesRouteWithChildren,
   GenresRoute: GenresRouteWithChildren,
 }
