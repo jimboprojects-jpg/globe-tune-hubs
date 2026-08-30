@@ -11,13 +11,15 @@ const TermsOfService = () => {
   const { t } = useTranslation();
 
   const sections = [
-    { title: t('terms.acceptance'), text: t('terms.acceptanceText') },
-    { title: t('terms.description'), text: t('terms.descriptionText') },
-    { title: t('terms.content'), text: t('terms.contentText') },
-    { title: t('terms.conduct'), text: t('terms.conductText') },
-    { title: t('terms.ip'), text: t('terms.ipText') },
-    { title: t('terms.liability'), text: t('terms.liabilityText') },
-    { title: t('terms.changes'), text: t('terms.changesText') },
+    { title: 'Acceptance of Terms', text: 'By accessing or using CartoFM, you agree to these Terms of Service. If you do not agree with them, please do not use the service. You must be legally able to enter into this agreement in your jurisdiction.' },
+    { title: 'The CartoFM Service', text: 'CartoFM is a free platform that helps users discover and listen to publicly available internet radio streams from around the world. CartoFM does not host, broadcast, edit, or control the third-party streams linked through the service.' },
+    { title: 'Third-Party Content and Availability', text: 'Stations, broadcasts, artwork, trademarks, and other materials are supplied by third parties and remain their property. Streams may be unavailable, interrupted, changed, geo-restricted, or removed without notice. CartoFM does not guarantee the accuracy, legality, quality, suitability, or availability of third-party content.' },
+    { title: 'Acceptable Use', text: 'You may use CartoFM only for lawful, personal purposes and in accordance with these terms. You must not misuse the service, interfere with its operation, attempt unauthorized access, introduce malicious code, scrape or overload infrastructure, infringe rights, or use the service to violate any applicable law.' },
+    { title: 'Intellectual Property', text: 'The CartoFM name, branding, software, interface, and original materials are owned by or licensed to CartoFM and may not be copied, modified, distributed, or commercially exploited without permission. Third-party names, logos, and broadcasts belong to their respective owners.' },
+    { title: 'Disclaimers', text: 'CartoFM is provided on an “as is” and “as available” basis to the fullest extent permitted by law. We disclaim all warranties, express or implied, including warranties of merchantability, fitness for a particular purpose, non-infringement, accuracy, and uninterrupted or error-free operation.' },
+    { title: 'Limitation of Liability', text: 'To the fullest extent permitted by law, CartoFM and its contributors will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for loss of data, revenue, profits, or access arising from or related to your use of the service or third-party content.' },
+    { title: 'Changes and Termination', text: 'We may update these terms or modify, suspend, or discontinue any part of CartoFM at any time. Updated terms become effective when posted. Your continued use of the service after an update means you accept the revised terms.' },
+    { title: 'Contact', text: 'Questions about these Terms of Service may be sent to hello@cartofm.com.' },
   ];
 
   return (

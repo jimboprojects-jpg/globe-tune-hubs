@@ -50,28 +50,30 @@ const WhoWeAre = () => {
             </div>
           </div>
 
-          <div className="glass rounded-xl p-4 md:p-6 space-y-4">
+          <div className="glass rounded-xl p-4 md:p-6 space-y-5 text-sm text-muted-foreground leading-relaxed">
             <div className="flex items-start gap-3">
               <Globe className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-1">{t('whoWeAre.mission')}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{t('whoWeAre.missionText')}</p>
+                <h3 className="font-semibold text-foreground mb-1">CartoFM and CartoTV</h3>
+                <p>CartoFM is a spin of CartoTV, both proudly built by Geo-Appsmith, a location-services consulting company powered by a dedicated team of GIS Developers and Engineers passionate about creating tools, applications, and geospatial systems that truly delight.</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
               <Headphones className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-1">{t('whoWeAre.whatWeDo')}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{t('whoWeAre.whatWeDoText')}</p>
+                <h3 className="font-semibold text-foreground mb-1">Curiosity and innovation</h3>
+                <p>We are driven by curiosity and innovation — constantly pushing boundaries and solving problems in creative, unconventional ways. We love understanding how things work, asking the tough questions, and designing smart solutions that make a real impact.</p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
               <Users className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-1">{t('whoWeAre.community')}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{t('whoWeAre.communityText')}</p>
+                <h3 className="font-semibold text-foreground mb-1">Geospatial solutions for everyone</h3>
+                <p>At our core, we are especially committed to developing geospatial solutions that serve underserved communities around the world. We believe maps and location intelligence are powerful tools for inclusion, access, and opportunity.</p>
+                <p className="mt-3">Whether you have a mapping task, a GIS project, or any idea involving maps — big or small — we&apos;d love to collaborate.</p>
+                <p className="mt-3">Feel free to reach out to us at <a className="text-primary hover:underline" href="mailto:hello@cartofm.com">hello@cartofm.com</a> and let&apos;s explore how we can work together to bring your vision to life.</p>
               </div>
             </div>
           </div>
