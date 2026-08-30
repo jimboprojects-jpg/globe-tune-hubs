@@ -14,6 +14,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { RadioPlayerProvider } from "@/contexts/RadioPlayerContext";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
+import { Analytics } from "@vercel/analytics/react";
 import appCss from "../styles.css?url";
 import "@/i18n";
 
@@ -118,6 +119,7 @@ function RootComponent() {
           <Outlet />
         </RadioPlayerProvider>
       </TooltipProvider>
+      <Analytics />
     </QueryClientProvider>
   );
 }

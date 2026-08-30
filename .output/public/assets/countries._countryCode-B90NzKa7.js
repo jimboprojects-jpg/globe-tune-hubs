@@ -1,0 +1,1 @@
+import{t as e}from"./CountryPage-DVXSoW8E.js";var t=e;export{t as component};
