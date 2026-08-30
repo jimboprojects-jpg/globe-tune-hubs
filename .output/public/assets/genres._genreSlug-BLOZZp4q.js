@@ -1,0 +1,1 @@
+import{t as e}from"./GenrePage-BFeW2-OM.js";var t=e;export{t as component};
