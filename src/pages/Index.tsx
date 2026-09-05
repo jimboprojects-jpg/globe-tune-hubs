@@ -1,6 +1,9 @@
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
-import { Globe } from '@/components/Globe';
+import { ClientOnly } from '@tanstack/react-router';
+
+// three.js / react-three-fiber must never load during server rendering.
+const Globe = lazy(() => import('@/components/Globe').then((m) => ({ default: m.Globe })));
 import { Header } from '@/components/Header';
 import { PlayerControls } from '@/components/PlayerControls';
 import { StationList } from '@/components/StationList';
@@ -118,6 +121,7 @@ const Index = () => {
         {isLoadingStations ? (
           <SatelliteLoader />
         ) : (
+          <ClientOnly fallback={<SatelliteLoader message="Initializing globe…" />}>
           <Suspense fallback={<SatelliteLoader message="Initializing globe…" />}>
             <Globe
               stations={geoStations}
@@ -127,6 +131,7 @@ const Index = () => {
               onGlobeClick={handleGlobeClick}
             />
           </Suspense>
+          </ClientOnly>
         )}
 
         <FocusCircle station={focusedStation} isPlaying={isPlaying} />
