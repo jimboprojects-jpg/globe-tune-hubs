@@ -86,35 +86,35 @@ export const StationList = ({
                         className="w-full flex items-center gap-3 p-3 rounded-lg text-left hover:bg-muted/50 transition-colors"
                       >
                         <Globe className="w-4 h-4 text-accent" />
-                        <span className="text-sm text-foreground font-medium">{t('menu.countries')}</span>
+                        <span className="text-sm text-foreground font-medium">{t('menu.countries', 'Listen by Country')}</span>
                       </button>
                       <button
                         onClick={() => handleNavigate('/blog')}
                         className="w-full flex items-center gap-3 p-3 rounded-lg text-left hover:bg-muted/50 transition-colors"
                       >
                         <BookOpen className="w-4 h-4 text-accent" />
-                        <span className="text-sm text-foreground font-medium">{t('menu.blog')}</span>
+                        <span className="text-sm text-foreground font-medium">{t('menu.blog', 'Blog')}</span>
                       </button>
                       <button
                         onClick={() => handleNavigate('/who-we-are')}
                         className="w-full flex items-center gap-3 p-3 rounded-lg text-left hover:bg-muted/50 transition-colors"
                       >
                         <Users className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-foreground">{t('menu.whoWeAre')}</span>
+                        <span className="text-sm text-foreground">{t('menu.whoWeAre', 'Who We Are')}</span>
                       </button>
                       <button
                         onClick={() => handleNavigate('/terms')}
                         className="w-full flex items-center gap-3 p-3 rounded-lg text-left hover:bg-muted/50 transition-colors"
                       >
                         <FileText className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-foreground">{t('menu.terms')}</span>
+                        <span className="text-sm text-foreground">{t('menu.terms', 'Terms of Service')}</span>
                       </button>
                       <button
                         onClick={() => handleNavigate('/privacy')}
                         className="w-full flex items-center gap-3 p-3 rounded-lg text-left hover:bg-muted/50 transition-colors"
                       >
                         <Shield className="w-4 h-4 text-primary" />
-                        <span className="text-sm text-foreground">{t('menu.privacy')}</span>
+                        <span className="text-sm text-foreground">{t('menu.privacy', 'Privacy Policy')}</span>
                       </button>
                     </div>
                   </div>
