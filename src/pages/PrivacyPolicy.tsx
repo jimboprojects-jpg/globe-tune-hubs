@@ -51,7 +51,7 @@ const PrivacyPolicy = () => {
           {sections.map((section, i) => (
             <div key={i}>
               <h2 className="text-base font-semibold text-foreground mb-2">{section.title}</h2>
-              <p>{section.text}</p>
+              <p className="whitespace-pre-line">{section.text}</p>
             </div>
           ))}
           <p className="text-xs text-muted-foreground/60 pt-4 border-t border-border/30">{t('privacy.lastUpdated')}</p>
