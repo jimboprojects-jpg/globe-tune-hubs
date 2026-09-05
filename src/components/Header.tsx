@@ -171,6 +171,82 @@ export const Header = ({
             </div>
           )}
 
+          {/* Global Station Search */}
+          <div className="relative" ref={searchRef}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => { setShowSearch(!showSearch); setShowLangDropdown(false); setShowFavDropdown(false); }}
+              className="text-muted-foreground hover:text-foreground"
+              aria-label={t('header.searchPlaceholder')}
+            >
+              <Search className="w-4 h-4" />
+            </Button>
+            <AnimatePresence>
+              {showSearch && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                  className="absolute right-0 top-full mt-1 w-80 max-w-[calc(100vw-1rem)] glass-strong border border-border/50 rounded-xl shadow-xl z-50 overflow-hidden"
+                >
+                  <div className="p-2 border-b border-border/30">
+                    <div className="flex items-center gap-2 px-2">
+                      <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <input
+                        autoFocus
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder={t('header.searchPlaceholder')}
+                        className="w-full bg-transparent py-1.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
+                      />
+                      {searchQuery && (
+                        <button onClick={() => setSearchQuery('')} className="text-muted-foreground hover:text-foreground">
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="max-h-72 overflow-y-auto p-1.5">
+                    {query.length < 2 ? (
+                      <p className="text-[11px] text-muted-foreground/70 text-center py-4">{t('header.searchHint')}</p>
+                    ) : searchResults.length === 0 ? (
+                      <p className="text-[11px] text-muted-foreground/70 text-center py-4">{t('header.searchNoResults')}</p>
+                    ) : (
+                      <div className="space-y-0.5">
+                        {searchResults.map(station => {
+                          const isActive = currentStation?.id === station.id;
+                          return (
+                            <button
+                              key={station.id}
+                              onClick={() => handleSearchSelect(station)}
+                              className={`w-full p-2 rounded-lg text-left transition-all flex items-center gap-2.5 ${
+                                isActive
+                                  ? 'bg-primary/20 border border-primary/40'
+                                  : 'hover:bg-muted/50 border border-transparent'
+                              }`}
+                            >
+                              <Radio className={`w-3.5 h-3.5 flex-shrink-0 ${isActive ? 'text-primary' : 'text-muted-foreground'}`} />
+                              <div className="min-w-0 flex-1">
+                                <div className="text-xs font-medium text-foreground truncate">{station.name}</div>
+                                <div className="text-[10px] text-muted-foreground truncate flex items-center gap-1">
+                                  <MapPin className="w-2.5 h-2.5 flex-shrink-0" />
+                                  {station.city ? `${station.city}, ` : ''}{station.country}
+                                </div>
+                              </div>
+                              {isActive && isPlaying && <span className="w-2 h-2 bg-accent rounded-full animate-pulse flex-shrink-0" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {/* Language Selector */}
           <div className="relative" ref={langRef}>
             <Button
