@@ -9,6 +9,7 @@ i18n
   .init({
     resources: translations,
     fallbackLng: 'en',
+    keySeparator: false,
     interpolation: {
       escapeValue: false,
     },
