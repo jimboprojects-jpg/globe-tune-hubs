@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Heart, Languages, X } from 'lucide-react';
+import { Radio, Menu, Info, Loader2, Signal, MapPin, Music, Heart, Languages, X, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { RadioStation } from '@/data/radioStations';
 import { AudioVisualizer } from './AudioVisualizer';
@@ -12,6 +12,7 @@ interface HeaderProps {
   onMenuClick: () => void;
   onInfoClick: () => void;
   stationCount: number;
+  stations?: RadioStation[];
   isBackgroundLoading?: boolean;
   currentStation?: RadioStation | null;
   isPlaying?: boolean;
@@ -26,23 +27,44 @@ export const Header = ({
   onMenuClick, onInfoClick, stationCount, isBackgroundLoading,
   currentStation, isPlaying, favoriteCount = 0,
   favoriteStations = [], onStationSelect, isFavorite, onToggleFavorite,
+  stations = [],
 }: HeaderProps) => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [showLangDropdown, setShowLangDropdown] = useState(false);
   const [showFavDropdown, setShowFavDropdown] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const langRef = useRef<HTMLDivElement>(null);
   const favRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (langRef.current && !langRef.current.contains(e.target as Node)) setShowLangDropdown(false);
       if (favRef.current && !favRef.current.contains(e.target as Node)) setShowFavDropdown(false);
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) setShowSearch(false);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, []);
+
+  const query = searchQuery.trim().toLowerCase();
+  const searchResults = query.length < 2 ? [] : stations
+    .filter(s =>
+      s.name.toLowerCase().includes(query) ||
+      s.country.toLowerCase().includes(query) ||
+      (s.city && s.city.toLowerCase().includes(query)) ||
+      (s.genre && s.genre.toLowerCase().includes(query))
+    )
+    .slice(0, 10);
+
+  const handleSearchSelect = (station: RadioStation) => {
+    onStationSelect?.(station);
+    setShowSearch(false);
+    setSearchQuery('');
+  };
 
   const currentLang = i18n.language?.split('-')[0] || 'en';
 
