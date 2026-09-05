@@ -4,6 +4,9 @@ export const translations = {
       // Header
       'header.liveStations': '{{count}} live stations',
       'header.loadingMore': 'stations · loading more…',
+      'header.searchPlaceholder': 'Search stations by name or country…',
+      'header.searchHint': 'Type at least 2 characters to search',
+      'header.searchNoResults': 'No stations found',
       'header.live': 'LIVE',
       // Globe hints
       'globe.rotateHint': 'Rotate the globe to target a',
@@ -87,6 +90,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} stations en direct',
       'header.loadingMore': 'stations · chargement…',
+      'header.searchPlaceholder': 'Rechercher par nom ou pays…',
+      'header.searchHint': 'Tapez au moins 2 caractères pour rechercher',
+      'header.searchNoResults': 'Aucune station trouvée',
       'header.live': 'EN DIRECT',
       'globe.rotateHint': 'Tournez le globe pour cibler une',
       'globe.station': 'station',
@@ -158,6 +164,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} estaciones en vivo',
       'header.loadingMore': 'estaciones · cargando más…',
+      'header.searchPlaceholder': 'Buscar por nombre o país…',
+      'header.searchHint': 'Escribe al menos 2 caracteres para buscar',
+      'header.searchNoResults': 'No se encontraron estaciones',
       'header.live': 'EN VIVO',
       'globe.rotateHint': 'Gira el globo para apuntar a una',
       'globe.station': 'estación',
@@ -229,6 +238,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} Live-Sender',
       'header.loadingMore': 'Sender · lade mehr…',
+      'header.searchPlaceholder': 'Sender nach Name oder Land suchen…',
+      'header.searchHint': 'Mindestens 2 Zeichen eingeben',
+      'header.searchNoResults': 'Keine Sender gefunden',
       'header.live': 'LIVE',
       'globe.rotateHint': 'Drehe den Globus, um einen',
       'globe.station': 'Sender',
@@ -300,6 +312,9 @@ export const translations = {
     translation: {
       'header.liveStations': 'Vituo {{count}} vya moja kwa moja',
       'header.loadingMore': 'vituo · inapakia zaidi…',
+      'header.searchPlaceholder': 'Tafuta kituo kwa jina au nchi…',
+      'header.searchHint': 'Andika angalau herufi 2 kutafuta',
+      'header.searchNoResults': 'Hakuna vituo vilivyopatikana',
       'header.live': 'MOJA KWA MOJA',
       'globe.rotateHint': 'Zungusha dunia kulenga',
       'globe.station': 'kituo',
@@ -371,6 +386,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} 个直播电台',
       'header.loadingMore': '电台 · 正在加载更多…',
+      'header.searchPlaceholder': '按名称或国家搜索电台…',
+      'header.searchHint': '输入至少 2 个字符进行搜索',
+      'header.searchNoResults': '未找到电台',
       'header.live': '直播',
       'globe.rotateHint': '旋转地球仪以瞄准一个',
       'globe.station': '电台',
@@ -442,6 +460,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} станций в эфире',
       'header.loadingMore': 'станций · загрузка…',
+      'header.searchPlaceholder': 'Поиск по названию или стране…',
+      'header.searchHint': 'Введите не менее 2 символов',
+      'header.searchNoResults': 'Станции не найдены',
       'header.live': 'В ЭФИРЕ',
       'globe.rotateHint': 'Вращайте глобус, чтобы нацелиться на',
       'globe.station': 'станцию',
@@ -513,6 +534,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} लाइव स्टेशन',
       'header.loadingMore': 'स्टेशन · और लोड हो रहे हैं…',
+      'header.searchPlaceholder': 'नाम या देश से स्टेशन खोजें…',
+      'header.searchHint': 'खोजने के लिए कम से कम 2 अक्षर लिखें',
+      'header.searchNoResults': 'कोई स्टेशन नहीं मिला',
       'header.live': 'लाइव',
       'globe.rotateHint': 'एक स्टेशन को लक्षित करने के लिए ग्लोब घुमाएं',
       'globe.station': 'स्टेशन',
@@ -584,6 +608,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} محطة مباشرة',
       'header.loadingMore': 'محطات · جاري التحميل…',
+      'header.searchPlaceholder': 'ابحث عن محطة بالاسم أو البلد…',
+      'header.searchHint': 'اكتب حرفين على الأقل للبحث',
+      'header.searchNoResults': 'لم يتم العثور على محطات',
       'header.live': 'مباشر',
       'globe.rotateHint': 'أدر الكرة الأرضية لاستهداف',
       'globe.station': 'محطة',
@@ -655,6 +682,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} estações ao vivo',
       'header.loadingMore': 'estações · carregando mais…',
+      'header.searchPlaceholder': 'Buscar por nome ou país…',
+      'header.searchHint': 'Digite pelo menos 2 caracteres para buscar',
+      'header.searchNoResults': 'Nenhuma estação encontrada',
       'header.live': 'AO VIVO',
       'globe.rotateHint': 'Gire o globo para mirar uma',
       'globe.station': 'estação',
@@ -726,6 +756,9 @@ export const translations = {
     translation: {
       'header.liveStations': '{{count}} stasiun langsung',
       'header.loadingMore': 'stasiun · memuat lebih banyak…',
+      'header.searchPlaceholder': 'Cari stasiun berdasarkan nama atau negara…',
+      'header.searchHint': 'Ketik minimal 2 karakter untuk mencari',
+      'header.searchNoResults': 'Tidak ada stasiun ditemukan',
       'header.live': 'LANGSUNG',
       'globe.rotateHint': 'Putar globe untuk menargetkan',
       'globe.station': 'stasiun',

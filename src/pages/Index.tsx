@@ -107,6 +107,7 @@ const Index = () => {
         onMenuClick={() => setIsStationListOpen(true)}
         onInfoClick={() => setIsInfoModalOpen(true)}
         stationCount={stations.length}
+        stations={stations}
         isBackgroundLoading={isBackgroundLoading}
         currentStation={currentStation}
         isPlaying={isPlaying}
