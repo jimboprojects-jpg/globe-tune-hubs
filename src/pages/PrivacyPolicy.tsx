@@ -16,6 +16,9 @@ const PrivacyPolicy = () => {
     { title: t('privacy.thirdParty'), text: t('privacy.thirdPartyText') },
     { title: t('privacy.cookies'), text: t('privacy.cookiesText') },
     { title: t('privacy.security'), text: t('privacy.securityText') },
+    { title: t('privacy.children'), text: t('privacy.childrenText') },
+    { title: t('privacy.rights'), text: t('privacy.rightsText') },
+    { title: t('privacy.changes'), text: t('privacy.changesText') },
     { title: t('privacy.contact'), text: t('privacy.contactText') },
   ];
 
