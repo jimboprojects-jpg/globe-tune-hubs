@@ -12,7 +12,9 @@ import {
   Link as TSLink,
   Navigate as TSNavigate,
   Outlet as TSOutlet,
+  useParams as tsParamsRaw,
 } from "@tanstack/react-router";
+import { isLang, withLocale } from "@/lib/locale";
 import { useMemo, useCallback, forwardRef, type ComponentProps, type ReactNode } from "react";
 
 // ---------- shared URL parsing ----------
@@ -41,20 +43,23 @@ type NavigateFn = {
 export function useNavigate(): NavigateFn {
   const tsNav = tsNavigate();
   const router = useRouter();
+  const { lang: langRef } = tsParamsRaw({ strict: false }) as { lang?: string };
   return useCallback((to: string | number, options?: NavigateOptions) => {
     if (typeof to === "number") {
       router.history.go(to);
       return;
     }
     const { pathname, search, hash } = parseTo(to);
+    const localized =
+      pathname.startsWith("/") && isLang(langRef) ? withLocale(pathname, langRef) : pathname;
     tsNav({
-      to: pathname,
+      to: localized,
       search: search as never,
       hash,
       state: options?.state as never,
       replace: options?.replace,
     });
-  }, [tsNav, router]) as NavigateFn;
+  }, [tsNav, router, langRef]) as NavigateFn;
 }
 
 // ---------- useLocation ----------
@@ -126,10 +131,14 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   ref,
 ) {
   const { pathname, search, hash } = parseTo(to);
+  const { lang } = tsParamsRaw({ strict: false }) as { lang?: string };
+  // Keep internal navigation inside the active language tree (/fr/...).
+  const localized =
+    pathname.startsWith("/") && isLang(lang) ? withLocale(pathname, lang) : pathname;
   return (
     <TSLink
       ref={ref as never}
-      to={pathname as never}
+      to={localized as never}
       search={search as never}
       hash={hash}
       replace={replace}
