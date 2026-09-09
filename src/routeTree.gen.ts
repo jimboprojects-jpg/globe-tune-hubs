@@ -15,6 +15,11 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WhoWeAreRouteImport } from './routes/who-we-are'
+import { Route as LangIndexRouteImport } from './routes/$lang/index'
+import { Route as LangFaqRouteImport } from './routes/$lang/faq'
+import { Route as LangPrivacyRouteImport } from './routes/$lang/privacy'
+import { Route as LangTermsRouteImport } from './routes/$lang/terms'
+import { Route as LangWhoWeAreRouteImport } from './routes/$lang/who-we-are'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as CountriesIndexRouteImport } from './routes/countries.index'
@@ -22,6 +27,13 @@ import { Route as CountriesCountryCodeRouteImport } from './routes/countries.$co
 import { Route as GenresIndexRouteImport } from './routes/genres.index'
 import { Route as GenresGenreSlugRouteImport } from './routes/genres.$genreSlug'
 import { Route as StationsStationIdRouteImport } from './routes/stations.$stationId'
+import { Route as LangBlogIndexRouteImport } from './routes/$lang/blog.index'
+import { Route as LangBlogSlugRouteImport } from './routes/$lang/blog.$slug'
+import { Route as LangCountriesIndexRouteImport } from './routes/$lang/countries.index'
+import { Route as LangCountriesCountryCodeRouteImport } from './routes/$lang/countries.$countryCode'
+import { Route as LangGenresIndexRouteImport } from './routes/$lang/genres.index'
+import { Route as LangGenresGenreSlugRouteImport } from './routes/$lang/genres.$genreSlug'
+import { Route as LangStationsStationIdRouteImport } from './routes/$lang/stations.$stationId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +64,31 @@ const WhoWeAreRoute = WhoWeAreRouteImport.update({
   id: '/who-we-are',
   path: '/who-we-are',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LangIndexRoute = LangIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangFaqRoute = LangFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangPrivacyRoute = LangPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangTermsRoute = LangTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangWhoWeAreRoute = LangWhoWeAreRouteImport.update({
+  id: '/who-we-are',
+  path: '/who-we-are',
+  getParentRoute: () => LangRouteRoute,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
@@ -88,52 +125,123 @@ const StationsStationIdRoute = StationsStationIdRouteImport.update({
   path: '/stations/$stationId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangBlogIndexRoute = LangBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangBlogSlugRoute = LangBlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangCountriesIndexRoute = LangCountriesIndexRouteImport.update({
+  id: '/countries/',
+  path: '/countries/',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangCountriesCountryCodeRoute =
+  LangCountriesCountryCodeRouteImport.update({
+    id: '/countries/$countryCode',
+    path: '/countries/$countryCode',
+    getParentRoute: () => LangRouteRoute,
+  } as any)
+const LangGenresIndexRoute = LangGenresIndexRouteImport.update({
+  id: '/genres/',
+  path: '/genres/',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangGenresGenreSlugRoute = LangGenresGenreSlugRouteImport.update({
+  id: '/genres/$genreSlug',
+  path: '/genres/$genreSlug',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangStationsStationIdRoute = LangStationsStationIdRouteImport.update({
+  id: '/stations/$stationId',
+  path: '/stations/$stationId',
+  getParentRoute: () => LangRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/$lang': typeof LangRouteRoute
+  '/$lang': typeof LangRouteRouteWithChildren
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/$lang/faq': typeof LangFaqRoute
+  '/$lang/privacy': typeof LangPrivacyRoute
+  '/$lang/terms': typeof LangTermsRoute
+  '/$lang/who-we-are': typeof LangWhoWeAreRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
   '/stations/$stationId': typeof StationsStationIdRoute
+  '/$lang/': typeof LangIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/countries/': typeof CountriesIndexRoute
   '/genres/': typeof GenresIndexRoute
+  '/$lang/blog/$slug': typeof LangBlogSlugRoute
+  '/$lang/countries/$countryCode': typeof LangCountriesCountryCodeRoute
+  '/$lang/genres/$genreSlug': typeof LangGenresGenreSlugRoute
+  '/$lang/stations/$stationId': typeof LangStationsStationIdRoute
+  '/$lang/blog/': typeof LangBlogIndexRoute
+  '/$lang/countries/': typeof LangCountriesIndexRoute
+  '/$lang/genres/': typeof LangGenresIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/$lang': typeof LangRouteRoute
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/$lang/faq': typeof LangFaqRoute
+  '/$lang/privacy': typeof LangPrivacyRoute
+  '/$lang/terms': typeof LangTermsRoute
+  '/$lang/who-we-are': typeof LangWhoWeAreRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
   '/stations/$stationId': typeof StationsStationIdRoute
+  '/$lang': typeof LangIndexRoute
   '/blog': typeof BlogIndexRoute
   '/countries': typeof CountriesIndexRoute
   '/genres': typeof GenresIndexRoute
+  '/$lang/blog/$slug': typeof LangBlogSlugRoute
+  '/$lang/countries/$countryCode': typeof LangCountriesCountryCodeRoute
+  '/$lang/genres/$genreSlug': typeof LangGenresGenreSlugRoute
+  '/$lang/stations/$stationId': typeof LangStationsStationIdRoute
+  '/$lang/blog': typeof LangBlogIndexRoute
+  '/$lang/countries': typeof LangCountriesIndexRoute
+  '/$lang/genres': typeof LangGenresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/$lang': typeof LangRouteRoute
+  '/$lang': typeof LangRouteRouteWithChildren
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/$lang/faq': typeof LangFaqRoute
+  '/$lang/privacy': typeof LangPrivacyRoute
+  '/$lang/terms': typeof LangTermsRoute
+  '/$lang/who-we-are': typeof LangWhoWeAreRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/countries/$countryCode': typeof CountriesCountryCodeRoute
   '/genres/$genreSlug': typeof GenresGenreSlugRoute
   '/stations/$stationId': typeof StationsStationIdRoute
+  '/$lang/': typeof LangIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/countries/': typeof CountriesIndexRoute
   '/genres/': typeof GenresIndexRoute
+  '/$lang/blog/$slug': typeof LangBlogSlugRoute
+  '/$lang/countries/$countryCode': typeof LangCountriesCountryCodeRoute
+  '/$lang/genres/$genreSlug': typeof LangGenresGenreSlugRoute
+  '/$lang/stations/$stationId': typeof LangStationsStationIdRoute
+  '/$lang/blog/': typeof LangBlogIndexRoute
+  '/$lang/countries/': typeof LangCountriesIndexRoute
+  '/$lang/genres/': typeof LangGenresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -144,28 +252,51 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/who-we-are'
+    | '/$lang/faq'
+    | '/$lang/privacy'
+    | '/$lang/terms'
+    | '/$lang/who-we-are'
     | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
     | '/stations/$stationId'
+    | '/$lang/'
     | '/blog/'
     | '/countries/'
     | '/genres/'
+    | '/$lang/blog/$slug'
+    | '/$lang/countries/$countryCode'
+    | '/$lang/genres/$genreSlug'
+    | '/$lang/stations/$stationId'
+    | '/$lang/blog/'
+    | '/$lang/countries/'
+    | '/$lang/genres/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/$lang'
     | '/faq'
     | '/privacy'
     | '/terms'
     | '/who-we-are'
+    | '/$lang/faq'
+    | '/$lang/privacy'
+    | '/$lang/terms'
+    | '/$lang/who-we-are'
     | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
     | '/stations/$stationId'
+    | '/$lang'
     | '/blog'
     | '/countries'
     | '/genres'
+    | '/$lang/blog/$slug'
+    | '/$lang/countries/$countryCode'
+    | '/$lang/genres/$genreSlug'
+    | '/$lang/stations/$stationId'
+    | '/$lang/blog'
+    | '/$lang/countries'
+    | '/$lang/genres'
   id:
     | '__root__'
     | '/'
@@ -174,18 +305,30 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/terms'
     | '/who-we-are'
+    | '/$lang/faq'
+    | '/$lang/privacy'
+    | '/$lang/terms'
+    | '/$lang/who-we-are'
     | '/blog/$slug'
     | '/countries/$countryCode'
     | '/genres/$genreSlug'
     | '/stations/$stationId'
+    | '/$lang/'
     | '/blog/'
     | '/countries/'
     | '/genres/'
+    | '/$lang/blog/$slug'
+    | '/$lang/countries/$countryCode'
+    | '/$lang/genres/$genreSlug'
+    | '/$lang/stations/$stationId'
+    | '/$lang/blog/'
+    | '/$lang/countries/'
+    | '/$lang/genres/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LangRouteRoute: typeof LangRouteRoute
+  LangRouteRoute: typeof LangRouteRouteWithChildren
   FaqRoute: typeof FaqRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -243,6 +386,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WhoWeAreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/': {
+      id: '/$lang/'
+      path: '/'
+      fullPath: '/$lang/'
+      preLoaderRoute: typeof LangIndexRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/faq': {
+      id: '/$lang/faq'
+      path: '/faq'
+      fullPath: '/$lang/faq'
+      preLoaderRoute: typeof LangFaqRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/privacy': {
+      id: '/$lang/privacy'
+      path: '/privacy'
+      fullPath: '/$lang/privacy'
+      preLoaderRoute: typeof LangPrivacyRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/terms': {
+      id: '/$lang/terms'
+      path: '/terms'
+      fullPath: '/$lang/terms'
+      preLoaderRoute: typeof LangTermsRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/who-we-are': {
+      id: '/$lang/who-we-are'
+      path: '/who-we-are'
+      fullPath: '/$lang/who-we-are'
+      preLoaderRoute: typeof LangWhoWeAreRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -292,12 +470,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StationsStationIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/blog/': {
+      id: '/$lang/blog/'
+      path: '/blog'
+      fullPath: '/$lang/blog/'
+      preLoaderRoute: typeof LangBlogIndexRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/blog/$slug': {
+      id: '/$lang/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/$lang/blog/$slug'
+      preLoaderRoute: typeof LangBlogSlugRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/countries/': {
+      id: '/$lang/countries/'
+      path: '/countries'
+      fullPath: '/$lang/countries/'
+      preLoaderRoute: typeof LangCountriesIndexRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/countries/$countryCode': {
+      id: '/$lang/countries/$countryCode'
+      path: '/countries/$countryCode'
+      fullPath: '/$lang/countries/$countryCode'
+      preLoaderRoute: typeof LangCountriesCountryCodeRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/genres/': {
+      id: '/$lang/genres/'
+      path: '/genres'
+      fullPath: '/$lang/genres/'
+      preLoaderRoute: typeof LangGenresIndexRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/genres/$genreSlug': {
+      id: '/$lang/genres/$genreSlug'
+      path: '/genres/$genreSlug'
+      fullPath: '/$lang/genres/$genreSlug'
+      preLoaderRoute: typeof LangGenresGenreSlugRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/stations/$stationId': {
+      id: '/$lang/stations/$stationId'
+      path: '/stations/$stationId'
+      fullPath: '/$lang/stations/$stationId'
+      preLoaderRoute: typeof LangStationsStationIdRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
   }
 }
 
+interface LangRouteRouteChildren {
+  LangFaqRoute: typeof LangFaqRoute
+  LangPrivacyRoute: typeof LangPrivacyRoute
+  LangTermsRoute: typeof LangTermsRoute
+  LangWhoWeAreRoute: typeof LangWhoWeAreRoute
+  LangIndexRoute: typeof LangIndexRoute
+  LangBlogSlugRoute: typeof LangBlogSlugRoute
+  LangCountriesCountryCodeRoute: typeof LangCountriesCountryCodeRoute
+  LangGenresGenreSlugRoute: typeof LangGenresGenreSlugRoute
+  LangStationsStationIdRoute: typeof LangStationsStationIdRoute
+  LangBlogIndexRoute: typeof LangBlogIndexRoute
+  LangCountriesIndexRoute: typeof LangCountriesIndexRoute
+  LangGenresIndexRoute: typeof LangGenresIndexRoute
+}
+
+const LangRouteRouteChildren: LangRouteRouteChildren = {
+  LangFaqRoute: LangFaqRoute,
+  LangPrivacyRoute: LangPrivacyRoute,
+  LangTermsRoute: LangTermsRoute,
+  LangWhoWeAreRoute: LangWhoWeAreRoute,
+  LangIndexRoute: LangIndexRoute,
+  LangBlogSlugRoute: LangBlogSlugRoute,
+  LangCountriesCountryCodeRoute: LangCountriesCountryCodeRoute,
+  LangGenresGenreSlugRoute: LangGenresGenreSlugRoute,
+  LangStationsStationIdRoute: LangStationsStationIdRoute,
+  LangBlogIndexRoute: LangBlogIndexRoute,
+  LangCountriesIndexRoute: LangCountriesIndexRoute,
+  LangGenresIndexRoute: LangGenresIndexRoute,
+}
+
+const LangRouteRouteWithChildren = LangRouteRoute._addFileChildren(
+  LangRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LangRouteRoute: LangRouteRoute,
+  LangRouteRoute: LangRouteRouteWithChildren,
   FaqRoute: FaqRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
