@@ -7,6 +7,8 @@ import { AudioVisualizer } from './AudioVisualizer';
 import { useNavigate } from '@/lib/router-compat';
 import { useTranslation } from 'react-i18next';
 import { languageNames } from '@/i18n/translations';
+import { useSwitchLanguage } from '@/lib/locale';
+import { useLocation } from '@tanstack/react-router';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -67,6 +69,8 @@ export const Header = ({
   };
 
   const currentLang = i18n.language?.split('-')[0] || 'en';
+  const switchLanguage = useSwitchLanguage();
+  const routerLocation = useLocation();
 
   return (
     <motion.header
@@ -270,7 +274,7 @@ export const Header = ({
                     {Object.entries(languageNames).map(([code, name]) => (
                       <button
                         key={code}
-                        onClick={() => { i18n.changeLanguage(code); setShowLangDropdown(false); }}
+                        onClick={() => { i18n.changeLanguage(code); switchLanguage(code, routerLocation.pathname); setShowLangDropdown(false); }}
                         className={`p-2 rounded-lg text-xs text-left transition-colors ${
                           currentLang === code
                             ? 'bg-primary/20 text-primary border border-primary/30'

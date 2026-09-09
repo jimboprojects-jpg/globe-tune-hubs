@@ -4,12 +4,6 @@ import { useLocation } from '@/lib/router-compat';
 const BASE_URL = 'https://cartofm.com';
 const OG_IMAGE = 'https://cartofm.com/og-image.png';
 
-const SUPPORTED_LANGS = ['en', 'fr', 'es', 'de', 'sw', 'zh', 'ru', 'hi', 'ar', 'pt', 'id'] as const;
-const LANG_HREFLANG_MAP: Record<string, string> = {
-  en: 'en', fr: 'fr', es: 'es', de: 'de', sw: 'sw',
-  zh: 'zh-Hans', ru: 'ru', hi: 'hi', ar: 'ar', pt: 'pt', id: 'id',
-};
-
 interface SEOHeadProps {
   title: string;
   description: string;
@@ -68,34 +62,6 @@ export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImag
     setMeta('name', 'twitter:image:alt', title);
     setMeta('name', 'twitter:site', '@CartoFM');
 
-    // Canonical link
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
-    canonical.href = canonicalUrl;
-
-    // Hreflang alternate links
-    // Remove old hreflang links
-    document.querySelectorAll('link[data-hreflang]').forEach(el => el.remove());
-    for (const lang of SUPPORTED_LANGS) {
-      const link = document.createElement('link');
-      link.rel = 'alternate';
-      link.hreflang = LANG_HREFLANG_MAP[lang];
-      link.href = canonicalUrl; // same URL, language detected client-side
-      link.setAttribute('data-hreflang', 'true');
-      document.head.appendChild(link);
-    }
-    // x-default
-    const xDefault = document.createElement('link');
-    xDefault.rel = 'alternate';
-    xDefault.hreflang = 'x-default';
-    xDefault.href = canonicalUrl;
-    xDefault.setAttribute('data-hreflang', 'true');
-    document.head.appendChild(xDefault);
-
     // JSON-LD
     if (jsonLd) {
       const existing = document.getElementById('page-jsonld');
@@ -111,7 +77,6 @@ export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImag
       document.title = 'CartoFM – Stream Live Radio Stations Worldwide';
       const jsonLdScript = document.getElementById('page-jsonld');
       if (jsonLdScript) jsonLdScript.remove();
-      document.querySelectorAll('link[data-hreflang]').forEach(el => el.remove());
     };
   }, [title, description, canonicalUrl, jsonLd, ogType, ogImage]);
 
