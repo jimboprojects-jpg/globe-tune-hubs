@@ -84,3 +84,19 @@ export function buildHead({
 
   return scripts ? { meta, links, scripts } : { meta, links };
 }
+
+/** Canonical + hreflang alternates only (pages that set their own title). */
+export function buildAlternates(path: string, lang: Lang) {
+  const links: Array<Record<string, string>> = [
+    { rel: "canonical", href: `${BASE_URL}${withLocale(path, lang)}` },
+  ];
+  for (const code of SUPPORTED_LANGS) {
+    links.push({
+      rel: "alternate",
+      hrefLang: HREFLANG[code],
+      href: `${BASE_URL}${withLocale(path, code)}`,
+    });
+  }
+  links.push({ rel: "alternate", hrefLang: "x-default", href: `${BASE_URL}${path}` });
+  return links;
+}
