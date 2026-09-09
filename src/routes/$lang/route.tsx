@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute, notFound, redirect, Outlet } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { isLang, RTL_LANGS, type Lang } from "@/lib/locale";
+import { isLang, RTL_LANGS } from "@/lib/locale";
 
 export const Route = createFileRoute("/$lang")({
   beforeLoad: ({ params, location }) => {
@@ -28,8 +28,3 @@ function LangLayout() {
 
   return <Outlet />;
 }
-
-export const useLang = (): Lang => {
-  const { lang } = Route.useParams();
-  return (isLang(lang) ? lang : "en") as Lang;
-};
