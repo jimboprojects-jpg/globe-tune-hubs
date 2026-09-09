@@ -4,12 +4,6 @@ import { useLocation } from '@/lib/router-compat';
 const BASE_URL = 'https://cartofm.com';
 const OG_IMAGE = 'https://cartofm.com/og-image.png';
 
-const SUPPORTED_LANGS = ['en', 'fr', 'es', 'de', 'sw', 'zh', 'ru', 'hi', 'ar', 'pt', 'id'] as const;
-const LANG_HREFLANG_MAP: Record<string, string> = {
-  en: 'en', fr: 'fr', es: 'es', de: 'de', sw: 'sw',
-  zh: 'zh-Hans', ru: 'ru', hi: 'hi', ar: 'ar', pt: 'pt', id: 'id',
-};
-
 interface SEOHeadProps {
   title: string;
   description: string;
