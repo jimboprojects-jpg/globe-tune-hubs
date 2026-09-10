@@ -67,6 +67,7 @@ const StationPage = () => {
         jsonLd={jsonLd}
         ogType="music.radio_station"
         ogImage={ogImage}
+        overrideTitle
       />
 
       <div className="glass border-b border-border/30 sticky top-0 z-40">
