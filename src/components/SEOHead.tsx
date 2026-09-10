@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useLocation } from '@/lib/router-compat';
 
 const BASE_URL = 'https://cartofm.com';
 const OG_IMAGE = 'https://cartofm.com/og-image.png';
@@ -10,15 +9,23 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown>;
   ogType?: string;
   ogImage?: string;
+  /**
+   * Routes own title/description/OG tags (localized, server-rendered).
+   * Set this only where the real values are known just on the client —
+   * e.g. a station page whose name is fetched at runtime.
+   */
+  overrideTitle?: boolean;
 }
 
-export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImage = OG_IMAGE }: SEOHeadProps) => {
-  const location = useLocation();
-  const canonicalUrl = `${BASE_URL}${location.pathname}`;
-
+export const SEOHead = ({
+  title,
+  description,
+  jsonLd,
+  ogType = 'website',
+  ogImage = OG_IMAGE,
+  overrideTitle = false,
+}: SEOHeadProps) => {
   useEffect(() => {
-    document.title = title;
-
     const setMeta = (attr: 'name' | 'property', key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`);
       if (el) {
@@ -31,38 +38,30 @@ export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImag
       }
     };
 
-    // Core meta
-    setMeta('name', 'description', description);
-    setMeta('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1');
+    if (overrideTitle) {
+      const canonicalUrl =
+        document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? BASE_URL;
 
-    // Open Graph
-    setMeta('property', 'og:title', title);
-    setMeta('property', 'og:description', description);
-    setMeta('property', 'og:url', canonicalUrl);
-    setMeta('property', 'og:type', ogType);
-    setMeta('property', 'og:image', ogImage);
-    setMeta('property', 'og:image:alt', title);
-    // Only advertise 1200x630 dims for the default social card; custom
-    // images (e.g. station favicons) have unknown intrinsic sizes.
-    if (ogImage === OG_IMAGE) {
-      setMeta('property', 'og:image:width', '1200');
-      setMeta('property', 'og:image:height', '630');
-    } else {
-      document.querySelector('meta[property="og:image:width"]')?.remove();
-      document.querySelector('meta[property="og:image:height"]')?.remove();
+      document.title = title;
+      setMeta('name', 'description', description);
+      setMeta('property', 'og:title', title);
+      setMeta('property', 'og:description', description);
+      setMeta('property', 'og:url', canonicalUrl);
+      setMeta('property', 'og:type', ogType);
+      setMeta('property', 'og:image', ogImage);
+      setMeta('property', 'og:image:alt', title);
+      setMeta('name', 'twitter:card', 'summary_large_image');
+      setMeta('name', 'twitter:title', title);
+      setMeta('name', 'twitter:description', description);
+      setMeta('name', 'twitter:image', ogImage);
+      setMeta('name', 'twitter:image:alt', title);
     }
-    setMeta('property', 'og:site_name', 'CartoFM');
-    setMeta('property', 'og:locale', 'en_US');
 
-    // Twitter
-    setMeta('name', 'twitter:card', 'summary_large_image');
-    setMeta('name', 'twitter:title', title);
-    setMeta('name', 'twitter:description', description);
-    setMeta('name', 'twitter:image', ogImage);
-    setMeta('name', 'twitter:image:alt', title);
+    // Sitewide extras the route head does not emit.
+    setMeta('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1');
+    setMeta('property', 'og:site_name', 'CartoFM');
     setMeta('name', 'twitter:site', '@CartoFM');
 
-    // JSON-LD
     if (jsonLd) {
       const existing = document.getElementById('page-jsonld');
       if (existing) existing.remove();
@@ -74,11 +73,9 @@ export const SEOHead = ({ title, description, jsonLd, ogType = 'website', ogImag
     }
 
     return () => {
-      document.title = 'CartoFM – Stream Live Radio Stations Worldwide';
-      const jsonLdScript = document.getElementById('page-jsonld');
-      if (jsonLdScript) jsonLdScript.remove();
+      document.getElementById('page-jsonld')?.remove();
     };
-  }, [title, description, canonicalUrl, jsonLd, ogType, ogImage]);
+  }, [title, description, jsonLd, ogType, ogImage, overrideTitle]);
 
   return null;
 };
