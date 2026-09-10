@@ -29,3 +29,5 @@ Allow: /
 Crawl-delay: 5
 
 Sitemap: https://cartofm.com/sitemap.xml
+Sitemap: https://cartofm.com/sitemap-pages.xml
+Sitemap: https://cartofm.com/sitemap-stations.xml
